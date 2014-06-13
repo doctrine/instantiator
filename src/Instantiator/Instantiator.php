@@ -19,6 +19,7 @@
 namespace Instantiator;
 
 use Closure;
+use LazyMap\CallbackLazyMap;
 use ReflectionClass;
 
 /**
@@ -29,14 +30,38 @@ use ReflectionClass;
 class Instantiator
 {
     /**
-     * @var Closure[]
+     * @var CallbackLazyMap of {@see \Closure} instances
      */
-    private $cachedInstantiators = array();
+    private $cachedInstantiators;
 
     /**
-     * @var object[]
+     * @var CallbackLazyMap of objects that can directly be cloned
      */
-    private $cachedCloneables = array();
+    private $cachedCloneables;
+
+    public function __construct()
+    {
+        $that = $this;
+
+        $this->cachedInstantiators = new CallbackLazyMap(function ($className) use ($that) {
+            return $that->buildFactory($className);
+        });
+
+        $cachedInstantiators = $this->cachedInstantiators;
+
+        $this->cachedCloneables = new CallbackLazyMap(function ($className) use ($that, $cachedInstantiators) {
+            $reflection = new ReflectionClass($className);
+
+            if ($reflection->hasMethod('__clone')) {
+                return null;
+            }
+
+            /* @var $factory \Closure */
+            $factory = $cachedInstantiators->$className;
+
+            return $factory();
+        });
+    }
 
     /**
      * @param string $className
@@ -45,17 +70,14 @@ class Instantiator
      */
     public function instantiate($className)
     {
-        if (isset($this->cachedCloneables[$className])) {
-            return clone $this->cachedCloneables[$className];
+        if ($cloneable = $this->cachedCloneables->$className) {
+            return clone $cloneable;
         }
 
-        if (isset($this->cachedInstantiators[$className])) {
-            $instantiator = $this->cachedInstantiators[$className];
+        $factory = $this->cachedInstantiators->$className;
 
-            return $instantiator();
-        }
-
-        return $this->buildInstance($className);
+        /* @var $factory \Closure */
+        return $factory();
     }
 
     /**
@@ -63,19 +85,14 @@ class Instantiator
      *
      * @return object
      */
-    private function buildInstance($className)
+    public function buildFactory($className)
     {
         $reflectionClass = new ReflectionClass($className);
-        $cloneable       = ! $reflectionClass->hasMethod('__clone');
 
         if (\PHP_VERSION_ID >= 50400 && ! $this->hasInternalAncestors($reflectionClass)) {
-            return $this->storeAndExecuteInstantiator(
-                $cloneable,
-                $className,
-                function () use ($reflectionClass) {
-                    return $reflectionClass->newInstanceWithoutConstructor();
-                }
-            );
+            return function () use ($reflectionClass) {
+                return $reflectionClass->newInstanceWithoutConstructor();
+            };
         }
 
         $serializationFormat = 'O';
@@ -94,37 +111,9 @@ class Instantiator
             $className
         );
 
-        return $this->storeAndExecuteInstantiator(
-            $cloneable,
-            $className,
-            function () use ($serializedString) {
-                return unserialize($serializedString);
-            }
-        );
-    }
-
-    /**
-     * Store the instantiator in the local cache, then run it
-     *
-     * @param bool    $cloneable
-     * @param string  $className
-     * @param Closure $instantiator
-     *
-     * @return object
-     */
-    private function storeAndExecuteInstantiator($cloneable, $className, Closure $instantiator)
-    {
-        $this->cachedInstantiators[$className] = $instantiator;
-
-        $instance = $instantiator();
-
-        if ($cloneable) {
-            $this->cachedCloneables[$className] = $instance;
-
-            return clone $this->cachedCloneables[$className];
-        }
-
-        return $instance;
+        return function () use ($serializedString) {
+            return unserialize($serializedString);
+        };
     }
 
     /**
