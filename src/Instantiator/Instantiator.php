@@ -17,6 +17,7 @@
  */
 
 namespace Instantiator;
+
 use Closure;
 use ReflectionClass;
 
