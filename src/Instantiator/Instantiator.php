@@ -55,6 +55,16 @@ class Instantiator
             return $instantiator();
         }
 
+        return $this->buildInstance($className);
+    }
+
+    /**
+     * @param string $className
+     *
+     * @return object
+     */
+    private function buildInstance($className)
+    {
         $reflectionClass = new ReflectionClass($className);
         $cloneable       = ! $reflectionClass->hasMethod('__clone');
 
