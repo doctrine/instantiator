@@ -56,7 +56,32 @@ class Instantiator
             );
         }
 
-        return unserialize(sprintf('O:%d:"%s":0:{}', strlen($className), $className));
+        $serializationFormat = 'O';
+
+        if (
+            (PHP_VERSION_ID === 50429 || PHP_VERSION_ID === 50513 || PHP_VERSION_ID === 50600)
+            && $reflectionClass->implementsInterface('Serializable')
+        ) {
+            $serializationFormat = 'C';
+        }
+
+        $defaultValues = $this->getSerializedDefaultValues($reflectionClass);
+
+        $serializedString = sprintf(
+            '%s:%d:"%s":%s:{%s}',
+            $serializationFormat,
+            strlen($className),
+            $className,
+            count($defaultValues),
+            implode('', $defaultValues)
+        );
+
+        return $this->storeAndExecuteInstantiator(
+            $className,
+            function () use ($serializedString) {
+                return unserialize($serializedString);
+            }
+        );
     }
 
     /**
@@ -90,5 +115,38 @@ class Instantiator
         } while ($reflectionClass = $reflectionClass->getParentClass());
 
         return false;
+    }
+
+    /**
+     * @param ReflectionClass $reflectionClass
+     *
+     * @return string[]
+     */
+    private function getSerializedDefaultValues(ReflectionClass $reflectionClass)
+    {
+        $properties = array();
+        $defaults   = $reflectionClass->getDefaultProperties();
+
+        do {
+            foreach ($reflectionClass->getProperties() as $property) {
+                if (! $property->getDeclaringClass()->getName() === $reflectionClass->getName()) {
+                    continue;
+                }
+
+                $visibility = 'public';
+
+                if ($property->isPrivate()) {
+                    $visibility = "\0" . $property->getDeclaringClass()->getName() . "\0private";
+                }
+
+                if ($property->isProtected()) {
+                    $visibility = "\0*\0protected";
+                }
+
+                $properties[] = serialize($visibility) . serialize($defaults[$property->getName()]);
+            }
+        } while ($reflectionClass = $reflectionClass->getParentClass());
+
+        return $properties;
     }
 }
