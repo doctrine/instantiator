@@ -21,7 +21,8 @@
     "require-dev": {
         "ext-phar":                  "*",
         "phpunit/phpunit":           "~4.0",
-        "squizlabs/php_codesniffer": "2.0.*@ALPHA"
+        "squizlabs/php_codesniffer": "2.0.*@ALPHA",
+        "athletic/athletic":         "~0.1.8"
     },
     "autoload": {
         "psr-0": {
@@ -30,6 +31,7 @@
     },
     "autoload-dev": {
         "psr-0": {
+            "InstantiatorPerformance\\": "tests",
             "InstantiatorTest\\": "tests",
             "InstantiatorTestAsset\\": "tests"
         }
