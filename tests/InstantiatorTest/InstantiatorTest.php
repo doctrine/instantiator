@@ -68,6 +68,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
             array('ArrayObject'),
             array('InstantiatorTestAsset\SimpleSerializableAsset'),
             array('InstantiatorTestAsset\PharAsset'),
+            array('InstantiatorTestAsset\SerializableArrayObjectAsset'),
         );
     }
 }
