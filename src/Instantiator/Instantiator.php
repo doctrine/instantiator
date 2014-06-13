@@ -26,7 +26,7 @@ use ReflectionClass;
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-final class Instantiator
+final class Instantiator implements InstantiatorInterface
 {
     /**
      * @var Closure[]
