@@ -81,7 +81,7 @@ class Instantiator
         $serializationFormat = 'O';
 
         if (
-            (PHP_VERSION_ID === 50429 || PHP_VERSION_ID === 50513 || PHP_VERSION_ID === 50600)
+            $this->isUnserializeIncompatiblePhpVersion()
             && $reflectionClass->implementsInterface('Serializable')
         ) {
             $serializationFormat = 'C';
@@ -143,5 +143,16 @@ class Instantiator
         } while ($reflectionClass = $reflectionClass->getParentClass());
 
         return false;
+    }
+
+    /**
+     * Verifies if the given PHP version implements the `Serializable` interface serialization
+     * with an incompatible serialization format
+     *
+     * @return bool
+     */
+    private function isUnserializeIncompatiblePhpVersion()
+    {
+        return PHP_VERSION_ID === 50429 || PHP_VERSION_ID === 50513 || PHP_VERSION_ID === 50600;
     }
 }
