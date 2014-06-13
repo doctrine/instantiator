@@ -15,9 +15,3 @@ before_script:
 script:
   - ./vendor/bin/phpunit --coverage-clover ./build/logs/clover.xml --exclude-group Performance
   - ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/
-
-matrix:
-  allow_failures:
-    - php: hhvm
-    - php: hhvm-nightly
-    
