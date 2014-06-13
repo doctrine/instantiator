@@ -18,6 +18,7 @@
 
 namespace InstantiatorTestAsset;
 
+use BadMethodCallException;
 use Serializable;
 
 /**
@@ -27,6 +28,16 @@ use Serializable;
  */
 class SimpleSerializableAsset implements Serializable
 {
+    /**
+     * Constructor - should not be called
+     *
+     * @throws BadMethodCallException
+     */
+    public function __construct()
+    {
+        throw new BadMethodCallException('Not supposed to be called!');
+    }
+
     /**
      * {@inheritDoc}
      */
