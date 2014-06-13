@@ -19,10 +19,9 @@
 namespace InstantiatorTestAsset;
 
 use BadMethodCallException;
-use Serializable;
 
 /**
- * Base cloneable asset
+ * Base un-cloneable asset
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
