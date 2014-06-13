@@ -15,3 +15,4 @@ before_script:
 script:
   - ./vendor/bin/phpunit --coverage-clover ./build/logs/clover.xml --exclude-group Performance
   - ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/
+  - php -n ./vendor/bin/athletic -p ./tests/InstantiatorPerformance/ -f GroupedFormatter
