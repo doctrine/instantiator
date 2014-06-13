@@ -1,10 +1,10 @@
 before_commands:
-    - "composer install --no-dev --prefer-source"
+    - "composer install --prefer-source"
 
 tools:
     php_code_coverage:
         enabled: true
-        test_command: phpunit -c .scrutinizer-ci.phpunit.xml.dist
+        test_command: ./vendor/bin/phpunit
     php_code_sniffer:
         enabled: true
         config:
