@@ -17,6 +17,8 @@
  */
 
 namespace Instantiator;
+use Closure;
+use ReflectionClass;
 
 /**
  * Instantiator provides utility methods to build objects without invoking their constructors
@@ -25,8 +27,68 @@ namespace Instantiator;
  */
 class Instantiator
 {
+    /**
+     * @var Closure[]
+     */
+    private $cachedInstantiators = array();
+
+    /**
+     * @param string $className
+     *
+     * @return object
+     */
     public function instantiate($className)
     {
+        if (isset($this->cachedInstantiators[$className])) {
+            $instantiator = $this->cachedInstantiators[$className];
+
+            return $instantiator();
+        }
+
+        $reflectionClass = new ReflectionClass($className);
+
+        if (\PHP_VERSION_ID >= 50400 && ! $this->hasInternalAncestors($reflectionClass)) {
+            return $this->storeAndExecuteInstantiator(
+                $className,
+                function () use ($reflectionClass) {
+                    return $reflectionClass->newInstanceWithoutConstructor();
+                }
+            );
+        }
+
         return unserialize(sprintf('O:%d:"%s":0:{}', strlen($className), $className));
+    }
+
+    /**
+     * Store the instantiator in the local cache, then run it
+     *
+     * @param string  $className
+     * @param Closure $instantiator
+     *
+     * @return object
+     */
+    private function storeAndExecuteInstantiator($className, Closure $instantiator)
+    {
+        $this->cachedInstantiators[$className] = $instantiator;
+
+        return $instantiator();
+    }
+
+    /**
+     * Verifies whether the given class is to be considered internal
+     *
+     * @param ReflectionClass $reflectionClass
+     *
+     * @return bool
+     */
+    private function hasInternalAncestors(ReflectionClass $reflectionClass)
+    {
+        do {
+            if ($reflectionClass->isInternal()) {
+                return true;
+            }
+        } while ($reflectionClass = $reflectionClass->getParentClass());
+
+        return false;
     }
 }
