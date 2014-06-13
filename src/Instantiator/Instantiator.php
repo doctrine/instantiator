@@ -34,12 +34,21 @@ class Instantiator
     private $cachedInstantiators = array();
 
     /**
+     * @var object[]
+     */
+    private $cachedCloneables = array();
+
+    /**
      * @param string $className
      *
      * @return object
      */
     public function instantiate($className)
     {
+        if (isset($this->cachedCloneables[$className])) {
+            return clone $this->cachedCloneables[$className];
+        }
+
         if (isset($this->cachedInstantiators[$className])) {
             $instantiator = $this->cachedInstantiators[$className];
 
@@ -47,9 +56,11 @@ class Instantiator
         }
 
         $reflectionClass = new ReflectionClass($className);
+        $cloneable       = ! $reflectionClass->hasMethod('__clone');
 
         if (\PHP_VERSION_ID >= 50400 && ! $this->hasInternalAncestors($reflectionClass)) {
             return $this->storeAndExecuteInstantiator(
+                $cloneable,
                 $className,
                 function () use ($reflectionClass) {
                     return $reflectionClass->newInstanceWithoutConstructor();
@@ -74,6 +85,7 @@ class Instantiator
         );
 
         return $this->storeAndExecuteInstantiator(
+            $cloneable,
             $className,
             function () use ($serializedString) {
                 return unserialize($serializedString);
@@ -84,16 +96,25 @@ class Instantiator
     /**
      * Store the instantiator in the local cache, then run it
      *
+     * @param bool    $cloneable
      * @param string  $className
      * @param Closure $instantiator
      *
      * @return object
      */
-    private function storeAndExecuteInstantiator($className, Closure $instantiator)
+    private function storeAndExecuteInstantiator($cloneable, $className, Closure $instantiator)
     {
         $this->cachedInstantiators[$className] = $instantiator;
 
-        return $instantiator();
+        $instance = $instantiator();
+
+        if ($cloneable) {
+            $this->cachedCloneables[$className] = $instance;
+
+            return clone $this->cachedCloneables[$className];
+        }
+
+        return $instance;
     }
 
     /**
