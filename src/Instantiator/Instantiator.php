@@ -65,15 +65,11 @@ class Instantiator
             $serializationFormat = 'C';
         }
 
-        $defaultValues = $this->getSerializedDefaultValues($reflectionClass);
-
         $serializedString = sprintf(
-            '%s:%d:"%s":%s:{%s}',
+            '%s:%d:"%s":0:{}',
             $serializationFormat,
             strlen($className),
-            $className,
-            count($defaultValues),
-            implode('', $defaultValues)
+            $className
         );
 
         return $this->storeAndExecuteInstantiator(
@@ -115,38 +111,5 @@ class Instantiator
         } while ($reflectionClass = $reflectionClass->getParentClass());
 
         return false;
-    }
-
-    /**
-     * @param ReflectionClass $reflectionClass
-     *
-     * @return string[]
-     */
-    private function getSerializedDefaultValues(ReflectionClass $reflectionClass)
-    {
-        $properties = array();
-        $defaults   = $reflectionClass->getDefaultProperties();
-
-        do {
-            foreach ($reflectionClass->getProperties() as $property) {
-                if (! $property->getDeclaringClass()->getName() === $reflectionClass->getName()) {
-                    continue;
-                }
-
-                $visibility = 'public';
-
-                if ($property->isPrivate()) {
-                    $visibility = "\0" . $property->getDeclaringClass()->getName() . "\0private";
-                }
-
-                if ($property->isProtected()) {
-                    $visibility = "\0*\0protected";
-                }
-
-                $properties[] = serialize($visibility) . serialize($defaults[$property->getName()]);
-            }
-        } while ($reflectionClass = $reflectionClass->getParentClass());
-
-        return $properties;
     }
 }
