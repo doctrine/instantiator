@@ -6,6 +6,7 @@ if [ "$TRAVIS_PHP_VERSION" = 'hhvm' ] || [ "$TRAVIS_PHP_VERSION" = 'hhvm-nightly
 elif [ "$TRAVIS_PHP_VERSION" = '5.3.3' ] ; then
     composer self-update
     composer update --prefer-source --no-dev
+    composer dump-autoload
 else
     composer self-update
     composer update --prefer-source
