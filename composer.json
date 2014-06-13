@@ -1,0 +1,42 @@
+{
+    "name":              "ocramius/instantiator",
+    "description":       "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
+    "type":              "library",
+    "license":           "MIT",
+    "homepage":          "https://github.com/Ocramius/Instantiator",
+    "keywords":          [
+        "instantiate",
+        "constructor"
+    ],
+    "authors": [
+        {
+            "name":     "Marco Pivetta",
+            "email":    "ocramius@gmail.com",
+            "homepage": "http://ocramius.github.com/"
+        }
+    ],
+    "require": {
+        "php": "~5.3"
+    },
+    "require-dev": {
+        "ext-phar":                  "*",
+        "phpunit/phpunit":           "~4.0",
+        "squizlabs/php_codesniffer": "2.0.0@ALPHA"
+    },
+    "autoload": {
+        "psr-0": {
+            "Instantiator\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "InstantiatorTest\\": "tests",
+            "InstantiatorTestAsset\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    }
+}
