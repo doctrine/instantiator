@@ -50,6 +50,7 @@ class InstantiatorPerformanceEvent extends AthleticEvent
         $this->warmedUpInstantiator->instantiate('ArrayObject');
         $this->warmedUpInstantiator->instantiate('InstantiatorTestAsset\\SimpleSerializableAsset');
         $this->warmedUpInstantiator->instantiate('InstantiatorTestAsset\\SerializableArrayObjectAsset');
+        $this->warmedUpInstantiator->instantiate('InstantiatorTestAsset\\UnCloneableAsset');
     }
 
     /**
@@ -126,5 +127,24 @@ class InstantiatorPerformanceEvent extends AthleticEvent
     public function testInstantiateSerializableArrayObjectAssetWithWarmup()
     {
         $this->warmedUpInstantiator->instantiate('InstantiatorTestAsset\\SerializableArrayObjectAsset');
+    }
+
+    /**
+     * @iterations 20000
+     * @baseline
+     * @group internal-serializable-class
+     */
+    public function testInstantiateUnCloneableAssetWithoutWarmup()
+    {
+        $this->cleanInstantiator->instantiate('InstantiatorTestAsset\\UnCloneableAsset');
+    }
+
+    /**
+     * @iterations 20000
+     * @group internal-serializable-class
+     */
+    public function testInstantiateUnCloneableAssetWithWarmup()
+    {
+        $this->warmedUpInstantiator->instantiate('InstantiatorTestAsset\\UnCloneableAsset');
     }
 }
