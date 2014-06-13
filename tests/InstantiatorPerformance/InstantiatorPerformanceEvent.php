@@ -132,7 +132,7 @@ class InstantiatorPerformanceEvent extends AthleticEvent
     /**
      * @iterations 20000
      * @baseline
-     * @group internal-serializable-class
+     * @group un-cloneable-class
      */
     public function testInstantiateUnCloneableAssetWithoutWarmup()
     {
@@ -141,7 +141,7 @@ class InstantiatorPerformanceEvent extends AthleticEvent
 
     /**
      * @iterations 20000
-     * @group internal-serializable-class
+     * @group un-cloneable-class
      */
     public function testInstantiateUnCloneableAssetWithWarmup()
     {
