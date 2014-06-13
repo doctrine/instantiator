@@ -54,6 +54,20 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param string $className
+     *
+     * @dataProvider getInstantiableClasses
+     */
+    public function testInstantiatesSeparateInstances($className)
+    {
+        $instance1 = $this->instantiator->instantiate($className);
+        $instance2 = $this->instantiator->instantiate($className);
+
+        $this->assertEquals($instance1, $instance2);
+        $this->assertNotSame($instance1, $instance2);
+    }
+
+    /**
      * Provides a list of instantiable classes (existing)
      *
      * @return string[][]
