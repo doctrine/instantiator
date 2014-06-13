@@ -14,6 +14,6 @@ before_script:
 
 script:
   - sh -c "if [ '$TRAVIS_PHP_VERSION' = '5.3.3' ]; then phpunit; fi"
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' -ne '5.3.3' ]; then ./vendor/bin/phpunit; fi"
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' -ne '5.3.3' ]; then ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/; fi"
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' -ne '5.3.3' ]; then php -n ./vendor/bin/athletic -p ./tests/InstantiatorPerformance/ -f GroupedFormatter; fi"
+  - sh -c "if [ '$TRAVIS_PHP_VERSION' != '5.3.3' ]; then ./vendor/bin/phpunit; fi"
+  - sh -c "if [ '$TRAVIS_PHP_VERSION' != '5.3.3' ]; then ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/; fi"
+  - sh -c "if [ '$TRAVIS_PHP_VERSION' != '5.3.3' ]; then php -n ./vendor/bin/athletic -p ./tests/InstantiatorPerformance/ -f GroupedFormatter; fi"
