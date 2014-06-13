@@ -22,11 +22,11 @@ use Closure;
 use ReflectionClass;
 
 /**
- * Instantiator provides utility methods to build objects without invoking their constructors
+ * {@inheritDoc}
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class Instantiator
+final class Instantiator
 {
     /**
      * @var Closure[]
@@ -39,9 +39,7 @@ class Instantiator
     private $cachedCloneables = array();
 
     /**
-     * @param string $className
-     *
-     * @return object
+     * {@inheritDoc}
      */
     public function instantiate($className)
     {
