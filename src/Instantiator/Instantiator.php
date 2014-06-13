@@ -56,7 +56,7 @@ class Instantiator
                 return null;
             }
 
-            /* @var $factory \Closure */
+            /* @var $factory Closure */
             $factory = $cachedInstantiators->$className;
 
             return $factory();
@@ -76,14 +76,14 @@ class Instantiator
 
         $factory = $this->cachedInstantiators->$className;
 
-        /* @var $factory \Closure */
+        /* @var $factory Closure */
         return $factory();
     }
 
     /**
      * @param string $className
      *
-     * @return object
+     * @return Closure
      */
     public function buildFactory($className)
     {
