@@ -26,7 +26,7 @@ use Phar;
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class PharExtended extends Phar
+class PharAsset extends Phar
 {
     /**
      * Constructor - should not be called
