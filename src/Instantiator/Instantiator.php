@@ -130,16 +130,28 @@ final class Instantiator implements InstantiatorInterface
      *
      * @link http://news.php.net/php.internals/74654
      *
+     * @param ReflectionClass $reflectionClass
+     *
      * @return string the serialization format marker, either "O" or "C"
      */
     private function getSerializationFormat(ReflectionClass $reflectionClass)
     {
-        if ((PHP_VERSION_ID === 50429 || PHP_VERSION_ID === 50513 || PHP_VERSION_ID === 50600)
+        if ($this->isPhpVersionWithBrokenSerializationFormat()
             && $reflectionClass->implementsInterface('Serializable')
         ) {
             return 'C';
         }
 
         return 'O';
+    }
+
+    /**
+     * Checks whether the current PHP runtime uses an incompatible serialization format
+     *
+     * @return bool
+     */
+    private function isPhpVersionWithBrokenSerializationFormat()
+    {
+        return PHP_VERSION_ID === 50429 || PHP_VERSION_ID === 50513 || PHP_VERSION_ID === 50600;
     }
 }
