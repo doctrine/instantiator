@@ -31,120 +31,65 @@ class InstantiatorPerformanceEvent extends AthleticEvent
     /**
      * @var \Instantiator\Instantiator
      */
-    private $cleanInstantiator;
-
-    /**
-     * @var \Instantiator\Instantiator
-     */
-    private $warmedUpInstantiator;
+    private $instantiator;
 
     /**
      * {@inheritDoc}
      */
     protected function setUp()
     {
-        $this->cleanInstantiator    = new Instantiator();
-        $this->warmedUpInstantiator = new Instantiator();
+        $this->instantiator = new Instantiator();
 
-        $this->warmedUpInstantiator->instantiate(__CLASS__);
-        $this->warmedUpInstantiator->instantiate('ArrayObject');
-        $this->warmedUpInstantiator->instantiate('InstantiatorTestAsset\\SimpleSerializableAsset');
-        $this->warmedUpInstantiator->instantiate('InstantiatorTestAsset\\SerializableArrayObjectAsset');
-        $this->warmedUpInstantiator->instantiate('InstantiatorTestAsset\\UnCloneableAsset');
+        $this->instantiator->instantiate(__CLASS__);
+        $this->instantiator->instantiate('ArrayObject');
+        $this->instantiator->instantiate('InstantiatorTestAsset\\SimpleSerializableAsset');
+        $this->instantiator->instantiate('InstantiatorTestAsset\\SerializableArrayObjectAsset');
+        $this->instantiator->instantiate('InstantiatorTestAsset\\UnCloneableAsset');
     }
 
     /**
      * @iterations 20000
      * @baseline
-     * @group simple-class
+     * @group instantiation
      */
-    public function testInstantiateSelfWithoutWarmup()
+    public function testInstantiateSelf()
     {
-        $this->cleanInstantiator->instantiate(__CLASS__);
+        $this->instantiator->instantiate(__CLASS__);
     }
 
     /**
      * @iterations 20000
-     * @group simple-class
-     */
-    public function testInstantiateSelfWithWarmup()
-    {
-        $this->warmedUpInstantiator->instantiate(__CLASS__);
-    }
-
-    /**
-     * @iterations 20000
-     * @baseline
-     * @group internal-class
-     */
-    public function testInstantiateInternalClassWithoutWarmup()
-    {
-        $this->cleanInstantiator->instantiate('ArrayObject');
-    }
-
-    /**
-     * @iterations 20000
-     * @group internal-class
+     * @group instantiation
      */
     public function testInstantiateInternalClassWitWarmup()
     {
-        $this->warmedUpInstantiator->instantiate('ArrayObject');
+        $this->instantiator->instantiate('ArrayObject');
     }
 
     /**
      * @iterations 20000
-     * @baseline
-     * @group serializable-class
+     * @group instantiation
      */
-    public function testInstantiateSimpleSerializableAssetClassWithoutWarmup()
+    public function testInstantiateSimpleSerializableAssetClass()
     {
-        $this->cleanInstantiator->instantiate('InstantiatorTestAsset\\SimpleSerializableAsset');
+        $this->instantiator->instantiate('InstantiatorTestAsset\\SimpleSerializableAsset');
     }
 
     /**
      * @iterations 20000
-     * @group serializable-class
+     * @group instantiation
      */
-    public function testInstantiateSimpleSerializableAssetClassWithWarmup()
+    public function testInstantiateSerializableArrayObjectAsset()
     {
-        $this->warmedUpInstantiator->instantiate('InstantiatorTestAsset\\SimpleSerializableAsset');
+        $this->instantiator->instantiate('InstantiatorTestAsset\\SerializableArrayObjectAsset');
     }
 
     /**
      * @iterations 20000
-     * @baseline
-     * @group internal-serializable-class
+     * @group instantiation
      */
-    public function testInstantiateSerializableArrayObjectAssetWithoutWarmup()
+    public function testInstantiateUnCloneableAsset()
     {
-        $this->cleanInstantiator->instantiate('InstantiatorTestAsset\\SerializableArrayObjectAsset');
-    }
-
-    /**
-     * @iterations 20000
-     * @group internal-serializable-class
-     */
-    public function testInstantiateSerializableArrayObjectAssetWithWarmup()
-    {
-        $this->warmedUpInstantiator->instantiate('InstantiatorTestAsset\\SerializableArrayObjectAsset');
-    }
-
-    /**
-     * @iterations 20000
-     * @baseline
-     * @group un-cloneable-class
-     */
-    public function testInstantiateUnCloneableAssetWithoutWarmup()
-    {
-        $this->cleanInstantiator->instantiate('InstantiatorTestAsset\\UnCloneableAsset');
-    }
-
-    /**
-     * @iterations 20000
-     * @group un-cloneable-class
-     */
-    public function testInstantiateUnCloneableAssetWithWarmup()
-    {
-        $this->warmedUpInstantiator->instantiate('InstantiatorTestAsset\\UnCloneableAsset');
+        $this->instantiator->instantiate('InstantiatorTestAsset\\UnCloneableAsset');
     }
 }

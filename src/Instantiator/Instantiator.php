@@ -32,35 +32,21 @@ final class Instantiator implements InstantiatorInterface
     /**
      * @var CallbackLazyMap of {@see \Closure} instances
      */
-    private $cachedInstantiators;
+    private static $cachedInstantiators;
 
     /**
      * @var CallbackLazyMap of objects that can directly be cloned
      */
-    private $cachedCloneables;
+    private static $cachedCloneables;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
-        $that = $this;
-
-        $this->cachedInstantiators = new CallbackLazyMap(function ($className) use ($that) {
-            return $that->buildFactory($className);
-        });
-
-        $cachedInstantiators = $this->cachedInstantiators;
-
-        $this->cachedCloneables = new CallbackLazyMap(function ($className) use ($that, $cachedInstantiators) {
-            $reflection = new ReflectionClass($className);
-
-            if ($reflection->hasMethod('__clone')) {
-                return null;
-            }
-
-            /* @var $factory Closure */
-            $factory = $cachedInstantiators->$className;
-
-            return $factory();
-        });
+        // initialize static state, if not done before
+        self::$cachedInstantiators = $this->getInstantiatorsMap();
+        self::$cachedCloneables    = $this->getCloneablesMap();
     }
 
     /**
@@ -68,11 +54,11 @@ final class Instantiator implements InstantiatorInterface
      */
     public function instantiate($className)
     {
-        if ($cloneable = $this->cachedCloneables->$className) {
+        if ($cloneable = self::$cachedCloneables->$className) {
             return clone $cloneable;
         }
 
-        $factory = $this->cachedInstantiators->$className;
+        $factory = self::$cachedInstantiators->$className;
 
         /* @var $factory Closure */
         return $factory();
@@ -153,5 +139,45 @@ final class Instantiator implements InstantiatorInterface
     private function isPhpVersionWithBrokenSerializationFormat()
     {
         return PHP_VERSION_ID === 50429 || PHP_VERSION_ID === 50513 || PHP_VERSION_ID === 50600;
+    }
+
+    /**
+     * Builds or fetches the instantiators map
+     *
+     * @return CallbackLazyMap
+     */
+    private function getInstantiatorsMap()
+    {
+        $that = $this; // PHP 5.3 compat
+
+        return self::$cachedInstantiators = self::$cachedInstantiators
+            ?: new CallbackLazyMap(function ($className) use ($that) {
+                return $that->buildFactory($className);
+            });
+    }
+
+    /**
+     * Builds or fetches the cloneables map
+     *
+     * @return CallbackLazyMap
+     */
+    private function getCloneablesMap()
+    {
+        $cachedInstantiators = $this->getInstantiatorsMap();
+
+        return self::$cachedCloneables = self::$cachedCloneables
+            ?: new CallbackLazyMap(function ($className) use ($cachedInstantiators) {
+                $reflection = new ReflectionClass($className);
+
+                // not cloneable if it implements `__clone`
+                if ($reflection->hasMethod('__clone')) {
+                    return null;
+                }
+
+                /* @var $factory Closure */
+                $factory = $cachedInstantiators->$className;
+
+                return $factory();
+            });
     }
 }
