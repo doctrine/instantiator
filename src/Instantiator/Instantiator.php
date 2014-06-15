@@ -32,35 +32,37 @@ final class Instantiator implements InstantiatorInterface
     /**
      * @var CallbackLazyMap of {@see \Closure} instances
      */
-    private $cachedInstantiators;
+    private static $cachedInstantiators;
 
     /**
      * @var CallbackLazyMap of objects that can directly be cloned
      */
-    private $cachedCloneables;
+    private static $cachedCloneables;
 
     public function __construct()
     {
         $that = $this;
 
-        $this->cachedInstantiators = new CallbackLazyMap(function ($className) use ($that) {
-            return $that->buildFactory($className);
-        });
+        self::$cachedInstantiators = self::$cachedInstantiators
+            ?: new CallbackLazyMap(function ($className) use ($that) {
+                return $that->buildFactory($className);
+            });
 
-        $cachedInstantiators = $this->cachedInstantiators;
+        $cachedInstantiators = self::$cachedInstantiators;
 
-        $this->cachedCloneables = new CallbackLazyMap(function ($className) use ($that, $cachedInstantiators) {
-            $reflection = new ReflectionClass($className);
+        self::$cachedCloneables = self::$cachedCloneables
+            ?: new CallbackLazyMap(function ($className) use ($that, $cachedInstantiators) {
+                $reflection = new ReflectionClass($className);
 
-            if ($reflection->hasMethod('__clone')) {
-                return null;
-            }
+                if ($reflection->hasMethod('__clone')) {
+                    return null;
+                }
 
-            /* @var $factory Closure */
-            $factory = $cachedInstantiators->$className;
+                /* @var $factory Closure */
+                $factory = $cachedInstantiators->$className;
 
-            return $factory();
-        });
+                return $factory();
+            });
     }
 
     /**
@@ -68,11 +70,11 @@ final class Instantiator implements InstantiatorInterface
      */
     public function instantiate($className)
     {
-        if ($cloneable = $this->cachedCloneables->$className) {
+        if ($cloneable = self::$cachedCloneables->$className) {
             return clone $cloneable;
         }
 
-        $factory = $this->cachedInstantiators->$className;
+        $factory = self::$cachedInstantiators->$className;
 
         /* @var $factory Closure */
         return $factory();
