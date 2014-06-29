@@ -108,7 +108,10 @@ final class Instantiator implements InstantiatorInterface
             };
         }
 
-        if ($this->isInternalClassWithRequiredSerializedString($reflectionClass)) {
+        if (
+            $this->isInternalClassWithRequiredSerializedString($reflectionClass)
+            || ($this->hasInternalAncestors($reflectionClass) && $this->isPhpVersionWithBrokenSerializationFormat())
+        ) {
             $fakeClassName = uniqid(
                 'InstantiatorGenerated' . uniqid() . str_replace('\\', '', $reflectionClass->getName())
             );
