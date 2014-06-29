@@ -82,6 +82,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
             array('ArrayObject'),
             array('InstantiatorTestAsset\SimpleSerializableAsset'),
             array('InstantiatorTestAsset\PharAsset'),
+            array('InstantiatorTestAsset\PharExceptionAsset'),
             array('InstantiatorTestAsset\SerializableArrayObjectAsset'),
             array('InstantiatorTestAsset\UnCloneableAsset'),
         );
