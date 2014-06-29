@@ -287,7 +287,8 @@ final class Instantiator implements InstantiatorInterface
                     $visibility = "\0*\0protected";
                 }
 
-                $properties[] = serialize($visibility) . serialize($defaults[$property->getName()]);
+                $defaultValue = isset($defaults[$property->getName()]) ? $defaults[$property->getName()] : null;
+                $properties[] = serialize($visibility) . serialize($defaultValue);
             }
         } while ($reflectionClass = $reflectionClass->getParentClass());
 
