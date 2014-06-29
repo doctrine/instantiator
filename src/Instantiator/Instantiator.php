@@ -214,7 +214,9 @@ final class Instantiator implements InstantiatorInterface
      */
     private function isPhpVersionWithBrokenSerializationFormat()
     {
-        return PHP_VERSION_ID === 50429 || PHP_VERSION_ID === 50513;
+        return PHP_VERSION_ID === 50429
+        || PHP_VERSION_ID === 50513
+        || (PHP_VERSION_ID >= 50600 && PHP_VERSION_ID < 50700);
     }
 
     /**
