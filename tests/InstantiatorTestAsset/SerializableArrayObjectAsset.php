@@ -49,8 +49,13 @@ class SerializableArrayObjectAsset extends ArrayObject implements Serializable
 
     /**
      * {@inheritDoc}
+     *
+     * Should not be called
+     *
+     * @throws BadMethodCallException
      */
     public function unserialize($serialized)
     {
+        throw new BadMethodCallException('Not supposed to be called!');
     }
 }
