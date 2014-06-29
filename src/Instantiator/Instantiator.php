@@ -40,6 +40,27 @@ final class Instantiator implements InstantiatorInterface
     private static $cachedCloneables;
 
     /**
+     * @var bool[] map of all internal php classes that require a custom serialization format
+     */
+    private static $internalSerializableClasses = array(
+        'Closure'                    => true,
+        'Generator'                  => true,
+        'SplFileInfo'                => true,
+        'DirectoryIterator'          => true,
+        'FilesystemIterator'         => true,
+        'RecursiveDirectoryIterator' => true,
+        'GlobIterator'               => true,
+        'SplFileObject'              => true,
+        'SplTempFileObject'          => true,
+        'PDORow'                     => true,
+        'SimpleXMLElement'           => true,
+        'SimpleXMLIterator'          => true,
+        'Phar'                       => true,
+        'PharData'                   => true,
+        'PharFileInfo'               => true,
+    );
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -87,6 +108,29 @@ final class Instantiator implements InstantiatorInterface
             };
         }
 
+        if ($this->isInternalClassWithRequiredSerializedString($reflectionClass)) {
+            $fakeClassName = uniqid(
+                'InstantiatorGenerated' . uniqid() . str_replace('\\', '', $reflectionClass->getName())
+            );
+            $fqcn          = 'InstantiatorFakes\\' . $fakeClassName;
+
+            if (! class_exists($fqcn, false)) {
+                eval(
+                    'namespace InstantiatorFakes { '
+                    . 'class ' . $fakeClassName . ' extends \\' . $reflectionClass->getName()
+                    . '{'
+                    . 'public function __construct() {}'
+                    . '}'
+                    . '}'
+                );
+            }
+
+
+            return function () use ($fqcn) {
+                return new $fqcn();
+            };
+        }
+
         $serializedString = sprintf(
             '%s:%d:"%s":0:{}',
             $this->getSerializationFormat($reflectionClass),
@@ -110,6 +154,27 @@ final class Instantiator implements InstantiatorInterface
     {
         do {
             if ($reflectionClass->isInternal()) {
+                return true;
+            }
+        } while ($reflectionClass = $reflectionClass->getParentClass());
+
+        return false;
+    }
+
+    /**
+     * Verifies whether the given class is or has an ancestor that is an internal
+     * class that requires serialization
+     *
+     * @param ReflectionClass $reflectionClass
+     *
+     * @return bool
+     */
+    private function isInternalClassWithRequiredSerializedString(ReflectionClass $reflectionClass)
+    {
+        do {
+            if ($reflectionClass->isInternal()
+                && isset(self::$internalSerializableClasses[$reflectionClass->getName()])
+            ) {
                 return true;
             }
         } while ($reflectionClass = $reflectionClass->getParentClass());
