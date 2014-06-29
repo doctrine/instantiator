@@ -134,11 +134,15 @@ final class Instantiator implements InstantiatorInterface
             };
         }
 
+        $defaultValues = $this->getSerializedDefaultValues($reflectionClass);
+
         $serializedString = sprintf(
             '%s:%d:"%s":0:{}',
             $this->getSerializationFormat($reflectionClass),
             strlen($className),
-            $className
+            $className,
+            count($defaultValues),
+            implode('', $defaultValues)
         );
 
         return function () use ($serializedString) {
@@ -255,5 +259,38 @@ final class Instantiator implements InstantiatorInterface
 
                 return $factory();
             });
+    }
+
+    /**
+     * @param ReflectionClass $reflectionClass
+     *
+     * @return string[]
+     */
+    private function getSerializedDefaultValues(ReflectionClass $reflectionClass)
+    {
+        $properties = array();
+        $defaults   = $reflectionClass->getDefaultProperties();
+
+        do {
+            foreach ($reflectionClass->getProperties() as $property) {
+                if (! $property->getDeclaringClass()->getName() === $reflectionClass->getName()) {
+                    continue;
+                }
+
+                $visibility = 'public';
+
+                if ($property->isPrivate()) {
+                    $visibility = "\0" . $property->getDeclaringClass()->getName() . "\0private";
+                }
+
+                if ($property->isProtected()) {
+                    $visibility = "\0*\0protected";
+                }
+
+                $properties[] = serialize($visibility) . serialize($defaults[$property->getName()]);
+            }
+        } while ($reflectionClass = $reflectionClass->getParentClass());
+
+        return $properties;
     }
 }
