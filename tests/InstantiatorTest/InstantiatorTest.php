@@ -71,13 +71,15 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
 
     public function testExceptionOnUnSerializationException()
     {
-        if (! (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513)) {
-            $this->markTestSkipped('This test requires PHP 5.4.29 or 5.5.13 to run');
+        $className = 'InstantiatorTestAsset\\UnserializeExceptionArrayObjectAsset';
+
+        if (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513) {
+            $className = 'InstantiatorTestAsset\\SerializableArrayObjectAsset';
         }
 
         $this->setExpectedException('Instantiator\\Exception\\UnexpectedValueException');
 
-        $this->instantiator->instantiate('InstantiatorTestAsset\\SerializableArrayObjectAsset');
+        $this->instantiator->instantiate($className);
     }
 
     public function testNoticeOnUnSerializationException()
@@ -92,19 +94,22 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
             $this->fail('No exception was raised');
         } catch (UnexpectedValueException $exception) {
             $wakeUpNoticesReflection = new ReflectionClass('InstantiatorTestAsset\WakeUpNoticesAsset');
-
-            $this->assertSame(
-                'Could not produce an instance of "InstantiatorTestAsset\WakeUpNoticesAsset" via un-serialization, '
-                . 'since an error was triggered in file "'
-                . $wakeUpNoticesReflection->getFileName() . '" at line "35"',
-                $exception->getMessage()
-            );
-
-            $previous = $exception->getPrevious();
+            $previous                = $exception->getPrevious();
 
             $this->assertInstanceOf('Exception', $previous);
-            $this->assertSame('Something went bananas while un-serializing this instance', $previous->getMessage());
-            $this->assertSame(\E_USER_NOTICE, $previous->getCode());
+
+            // in PHP 5.4.29 and PHP 5.5.13, this case is not a notice, but an exception being thrown
+            if (! (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513)) {
+                $this->assertSame(
+                    'Could not produce an instance of "InstantiatorTestAsset\WakeUpNoticesAsset" via un-serialization, '
+                    . 'since an error was triggered in file "'
+                    . $wakeUpNoticesReflection->getFileName() . '" at line "35"',
+                    $exception->getMessage()
+                );
+
+                $this->assertSame('Something went bananas while un-serializing this instance', $previous->getMessage());
+                $this->assertSame(\E_USER_NOTICE, $previous->getCode());
+            }
         }
 
         ob_end_clean();
