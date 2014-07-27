@@ -18,7 +18,6 @@
 
 namespace InstantiatorTest;
 
-use Instantiator\Exception\InvalidArgumentException;
 use Instantiator\Instantiator;
 use PHPUnit_Framework_TestCase;
 
@@ -51,33 +50,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
      */
     public function testCanInstantiate($className)
     {
-        if (PHP_VERSION_ID === 50429 || PHP_VERSION_ID === 50513) {
-            $this->markTestSkipped('Test will fail in 5.4.29 or 5.5.13 because of serialization issues');
-        }
-
         $this->assertInstanceOf($className, $this->instantiator->instantiate($className));
-    }
-
-    /**
-     * @param string $className
-     *
-     * @dataProvider getInstantiableClasses
-     */
-    public function testCanInstantiateWithPhp50429OrPhp50513($className)
-    {
-        if (! (PHP_VERSION_ID === 50429 || PHP_VERSION_ID === 50513)) {
-            $this->markTestSkipped('Test is designed for PHP 5.4.29 and PHP 5.5.13 only');
-        }
-
-        try {
-            $this->assertInstanceOf($className, $this->instantiator->instantiate($className));
-        } catch (InvalidArgumentException $exception) {
-            $this->assertSame(
-                'An exception was raised while trying to instantiate an instance of '
-                . $className  . ' via un-serialization',
-                $exception->getMessage()
-            );
-        }
     }
 
     /**
@@ -112,6 +85,18 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
      */
     public function getInstantiableClasses()
     {
+        if (PHP_VERSION_ID === 50429 || PHP_VERSION_ID === 50513) {
+            return array(
+                array('stdClass'),
+                array(__CLASS__),
+                array('Instantiator\\Instantiator'),
+                array('PharException'),
+                array('InstantiatorTestAsset\SimpleSerializableAsset'),
+                array('InstantiatorTestAsset\PharExceptionAsset'),
+                array('InstantiatorTestAsset\UnCloneableAsset'),
+            );
+        }
+
         return array(
             array('stdClass'),
             array(__CLASS__),
