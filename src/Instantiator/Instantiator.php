@@ -149,10 +149,40 @@ final class Instantiator implements InstantiatorInterface
      */
     private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, $serializedString)
     {
+        $errorString = null;
+
+        set_error_handler(function (
+            $errno,
+            $errstr,
+            $errfile,
+            $errline
+        ) use (& $errorString, & $errorCode, & $errorFile, & $errorLine) {
+            $errorString = $errstr;
+            $errorCode   = $errno;
+            $errorFile   = $errfile;
+            $errorLine   = $errline;
+
+            restore_error_handler();
+        });
+
         try {
             unserialize($serializedString);
         } catch (\Exception $exception) {
+            restore_error_handler();
+
             throw InvalidArgumentException::fromSerializationTriggeredException($reflectionClass, $exception);
+        }
+
+        restore_error_handler();
+
+        if (null !== $errorString) {
+            throw InvalidArgumentException::fromUncleanUnSerialization(
+                $reflectionClass,
+                $errorString,
+                $errorCode,
+                $errorFile,
+                $errorLine
+            );
         }
     }
 
