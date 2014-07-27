@@ -99,13 +99,11 @@ final class Instantiator implements InstantiatorInterface
             };
         }
 
-        $serializedString    = sprintf(
+        $serializedString = sprintf(
             '%s:%d:"%s":0:{}',
             $this->getSerializationFormat($reflectionClass),
             strlen($className),
-            $className,
-            0,
-            ''
+            $className
         );
 
         $this->attemptInstantiationViaUnSerialization($reflectionClass, $serializedString);
