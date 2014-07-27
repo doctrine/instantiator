@@ -92,7 +92,7 @@ final class Instantiator implements InstantiatorInterface
     {
         $reflectionClass = $this->getReflectionClass($className);
 
-        if (\PHP_VERSION_ID >= 50400 && ! $this->hasInternalAncestors($reflectionClass)) {
+        if (\PHP_VERSION_ID >= 50400 && (! $this->hasInternalAncestors($reflectionClass) || PHP_VERSION_ID > 50600)) {
             return function () use ($reflectionClass) {
                 return $reflectionClass->newInstanceWithoutConstructor();
             };
