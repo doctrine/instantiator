@@ -139,31 +139,30 @@ final class Instantiator implements InstantiatorInterface
      * @param ReflectionClass $reflectionClass
      * @param string          $serializedString
      *
-     * @throws InvalidArgumentException
+     * @throws UnexpectedValueException
      *
      * @return void
      */
     private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, $serializedString)
     {
-        $errorString = null;
-
         set_error_handler(function (
-            $errno,
-            $errstr,
-            $errfile,
-            $errline
+            $errorCode,
+            $errorString,
+            $errorFile,
+            $errorLine
         ) use (
-            & $errorString,
-            & $errorCode,
-            & $errorFile,
-            & $errorLine
+            $reflectionClass,
+            & $handlerException
         ) {
-            $errorString = $errstr;
-            $errorCode   = $errno;
-            $errorFile   = $errfile;
-            $errorLine   = $errline;
-
             restore_error_handler();
+
+            $handlerException = UnexpectedValueException::fromUncleanUnSerialization(
+                $reflectionClass,
+                $errorString,
+                $errorCode,
+                $errorFile,
+                $errorLine
+            );
         });
 
         try {
@@ -176,14 +175,8 @@ final class Instantiator implements InstantiatorInterface
 
         restore_error_handler();
 
-        if (null !== $errorString) {
-            throw UnexpectedValueException::fromUncleanUnSerialization(
-                $reflectionClass,
-                $errorString,
-                $errorCode,
-                $errorFile,
-                $errorLine
-            );
+        if ($handlerException) {
+            throw $handlerException;
         }
     }
 
