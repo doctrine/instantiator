@@ -18,12 +18,32 @@
 
 namespace Instantiator\Exception;
 
+use Exception;
+use InvalidArgumentException as BaseInvalidArgumentException;
+use ReflectionClass;
+
 /**
  * Exception for invalid arguments provided to the instantiator
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
+class InvalidArgumentException extends BaseInvalidArgumentException implements ExceptionInterface
 {
-
+    /**
+     * @param ReflectionClass $reflectionClass
+     * @param Exception $exception
+     *
+     * @return self
+     */
+    public static function fromSerializationTriggeredException(ReflectionClass $reflectionClass, Exception $exception)
+    {
+        throw new self(
+            sprintf(
+                'An exception was raised while trying to instantiate an instance of %s via un-serialization',
+                $reflectionClass->getName()
+            ),
+            0,
+            $exception
+        );
+    }
 }
