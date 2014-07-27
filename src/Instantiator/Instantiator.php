@@ -48,27 +48,6 @@ final class Instantiator implements InstantiatorInterface
     private static $cachedCloneables;
 
     /**
-     * @var bool[] map of all internal php classes that require a custom serialization format
-     */
-    private static $internalSerializableClasses = array(
-        'Closure'                    => true,
-        'Generator'                  => true,
-        'SplFileInfo'                => true,
-        'DirectoryIterator'          => true,
-        'FilesystemIterator'         => true,
-        'RecursiveDirectoryIterator' => true,
-        'GlobIterator'               => true,
-        'SplFileObject'              => true,
-        'SplTempFileObject'          => true,
-        'PDORow'                     => true,
-        'SimpleXMLElement'           => true,
-        'SimpleXMLIterator'          => true,
-        'Phar'                       => true,
-        'PharData'                   => true,
-        'PharFileInfo'               => true,
-    );
-
-    /**
      * Constructor.
      */
     public function __construct()
