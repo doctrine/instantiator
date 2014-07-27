@@ -48,6 +48,35 @@ class InvalidArgumentException extends BaseInvalidArgumentException implements E
     }
 
     /**
+     * @param ReflectionClass $reflectionClass
+     * @param string          $errorString
+     * @param int             $errorCode
+     * @param string          $errorFile
+     * @param int             $errorLine
+     *
+     * @return InvalidArgumentException
+     */
+    public static function fromUncleanUnSerialization(
+        ReflectionClass $reflectionClass,
+        $errorString,
+        $errorCode,
+        $errorFile,
+        $errorLine
+    ) {
+        return new self(
+            sprintf(
+                'Could not produce an instance of "%s" via un-serialization, since an error was triggered '
+                . 'in file "%s" at line "%d"',
+                $reflectionClass->getName(),
+                $errorFile,
+                $errorLine
+            ),
+            0,
+            new Exception($errorString, $errorCode)
+        );
+    }
+
+    /**
      * @param string $className
      *
      * @return self
