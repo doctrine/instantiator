@@ -18,44 +18,11 @@
 
 namespace InstantiatorTestAsset;
 
-use ArrayObject;
-use BadMethodCallException;
-use Serializable;
-
 /**
- * Serializable test asset that also extends an internal class
+ * A simple trait with no attached logic
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class SerializableArrayObjectAsset extends ArrayObject implements Serializable
+trait SimpleTraitAsset
 {
-    /**
-     * Constructor - should not be called
-     *
-     * @throws BadMethodCallException
-     */
-    public function __construct()
-    {
-        throw new BadMethodCallException('Not supposed to be called!');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function serialize()
-    {
-        return '';
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * Should not be called
-     *
-     * @throws BadMethodCallException
-     */
-    public function unserialize($serialized)
-    {
-        throw new BadMethodCallException('Not supposed to be called!');
-    }
 }

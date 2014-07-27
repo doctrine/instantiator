@@ -16,46 +16,13 @@
  * and is licensed under the MIT license.
  */
 
-namespace InstantiatorTestAsset;
-
-use ArrayObject;
-use BadMethodCallException;
-use Serializable;
+namespace Instantiator\Exception;
 
 /**
- * Serializable test asset that also extends an internal class
+ * Base exception marker interface for the instantiator component
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class SerializableArrayObjectAsset extends ArrayObject implements Serializable
+interface ExceptionInterface
 {
-    /**
-     * Constructor - should not be called
-     *
-     * @throws BadMethodCallException
-     */
-    public function __construct()
-    {
-        throw new BadMethodCallException('Not supposed to be called!');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function serialize()
-    {
-        return '';
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * Should not be called
-     *
-     * @throws BadMethodCallException
-     */
-    public function unserialize($serialized)
-    {
-        throw new BadMethodCallException('Not supposed to be called!');
-    }
 }

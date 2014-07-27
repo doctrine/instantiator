@@ -16,8 +16,9 @@ script:
   - sh -c "if [ '$TRAVIS_PHP_VERSION' = '5.3.3' ]; then phpunit; fi"
   - sh -c "if [ '$TRAVIS_PHP_VERSION' != '5.3.3' ]; then ./vendor/bin/phpunit; fi"
   - sh -c "if [ '$TRAVIS_PHP_VERSION' != '5.3.3' ]; then ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/; fi"
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' != '5.3.3' ]; then php -n ./vendor/bin/athletic -p ./tests/InstantiatorPerformance/ -f GroupedFormatter; fi"
+  - sh -c "if [[ '$TRAVIS_PHP_VERSION' != '5.3.3' && '$TRAVIS_PHP_VERSION' != '5.4.29'  && '$TRAVIS_PHP_VERSION' != '5.5.13' ]]; then php -n ./vendor/bin/athletic -p ./tests/InstantiatorPerformance/ -f GroupedFormatter; fi"
 
 matrix:
   allow_failures:
-    - php: 5.6 # 5.6 still contains a bc break, see http://news.php.net/php.internals/74654
+    - php: 5.6 # Depends on https://github.com/php/php-src/pull/733
+    - php: hhvm-nightly

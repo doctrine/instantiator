@@ -19,43 +19,19 @@
 namespace InstantiatorTestAsset;
 
 use ArrayObject;
-use BadMethodCallException;
-use Serializable;
 
 /**
- * Serializable test asset that also extends an internal class
+ * A simple asset for an abstract class
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class SerializableArrayObjectAsset extends ArrayObject implements Serializable
+class WakeUpNoticesAsset extends ArrayObject
 {
     /**
-     * Constructor - should not be called
-     *
-     * @throws BadMethodCallException
+     * Wakeup method called after un-serialization
      */
-    public function __construct()
+    public function __wakeup()
     {
-        throw new BadMethodCallException('Not supposed to be called!');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function serialize()
-    {
-        return '';
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * Should not be called
-     *
-     * @throws BadMethodCallException
-     */
-    public function unserialize($serialized)
-    {
-        throw new BadMethodCallException('Not supposed to be called!');
+        trigger_error('Something went bananas while un-serializing this instance');
     }
 }

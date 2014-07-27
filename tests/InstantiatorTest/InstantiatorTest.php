@@ -18,8 +18,10 @@
 
 namespace InstantiatorTest;
 
+use Instantiator\Exception\UnexpectedValueException;
 use Instantiator\Instantiator;
 use PHPUnit_Framework_TestCase;
+use ReflectionClass;
 
 /**
  * Tests for {@see \Instantiator\Instantiator}
@@ -67,6 +69,74 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
         $this->assertNotSame($instance1, $instance2);
     }
 
+    public function testExceptionOnUnSerializationException()
+    {
+        $className = 'InstantiatorTestAsset\\UnserializeExceptionArrayObjectAsset';
+
+        if (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513) {
+            $className = 'InstantiatorTestAsset\\SerializableArrayObjectAsset';
+        }
+
+        if (\PHP_VERSION_ID >= 50600) {
+            $className = 'PDORow';
+        }
+
+        $this->setExpectedException('Instantiator\\Exception\\UnexpectedValueException');
+
+        $this->instantiator->instantiate($className);
+    }
+
+    public function testNoticeOnUnSerializationException()
+    {
+        if (\PHP_VERSION_ID >= 50600) {
+            $this->markTestSkipped(
+                'PHP 5.6 supports `ReflectionClass#newInstanceWithoutConstructor()` for some internal classes'
+            );
+        }
+
+        ob_start();
+
+        try {
+            $this->instantiator->instantiate('InstantiatorTestAsset\\WakeUpNoticesAsset');
+
+            ob_end_clean();
+
+            $this->fail('No exception was raised');
+        } catch (UnexpectedValueException $exception) {
+            $wakeUpNoticesReflection = new ReflectionClass('InstantiatorTestAsset\WakeUpNoticesAsset');
+            $previous                = $exception->getPrevious();
+
+            $this->assertInstanceOf('Exception', $previous);
+
+            // in PHP 5.4.29 and PHP 5.5.13, this case is not a notice, but an exception being thrown
+            if (! (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513)) {
+                $this->assertSame(
+                    'Could not produce an instance of "InstantiatorTestAsset\WakeUpNoticesAsset" via un-serialization, '
+                    . 'since an error was triggered in file "'
+                    . $wakeUpNoticesReflection->getFileName() . '" at line "35"',
+                    $exception->getMessage()
+                );
+
+                $this->assertSame('Something went bananas while un-serializing this instance', $previous->getMessage());
+                $this->assertSame(\E_USER_NOTICE, $previous->getCode());
+            }
+        }
+
+        ob_end_clean();
+    }
+
+    /**
+     * @param string $invalidClassName
+     *
+     * @dataProvider getInvalidClassNames
+     */
+    public function testInstantiationFromNonExistingClass($invalidClassName)
+    {
+        $this->setExpectedException('Instantiator\\Exception\\InvalidArgumentException');
+
+        $this->instantiator->instantiate($invalidClassName);
+    }
+
     /**
      * Provides a list of instantiable classes (existing)
      *
@@ -74,16 +144,55 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
      */
     public function getInstantiableClasses()
     {
-        return array(
+        $classes = array(
             array('stdClass'),
             array(__CLASS__),
             array('Instantiator\\Instantiator'),
-            array('Phar'),
-            array('ArrayObject'),
-            array('InstantiatorTestAsset\SimpleSerializableAsset'),
-            array('InstantiatorTestAsset\PharAsset'),
-            array('InstantiatorTestAsset\SerializableArrayObjectAsset'),
-            array('InstantiatorTestAsset\UnCloneableAsset'),
+            array('PharException'),
+            array('InstantiatorTestAsset\\SimpleSerializableAsset'),
+            array('InstantiatorTestAsset\\PharExceptionAsset'),
+            array('InstantiatorTestAsset\\UnCloneableAsset'),
         );
+
+        if (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513) {
+            return $classes;
+        }
+
+        $classes = array_merge(
+            $classes,
+            array(
+                array('PharException'),
+                array('ArrayObject'),
+                array('InstantiatorTestAsset\\ArrayObjectAsset'),
+                array('InstantiatorTestAsset\\SerializableArrayObjectAsset'),
+            )
+        );
+
+        if (\PHP_VERSION_ID >= 50600) {
+            $classes[] = array('InstantiatorTestAsset\\WakeUpNoticesAsset');
+            $classes[] = array('InstantiatorTestAsset\\UnserializeExceptionArrayObjectAsset');
+        }
+
+        return $classes;
+    }
+
+    /**
+     * Provides a list of instantiable classes (existing)
+     *
+     * @return string[][]
+     */
+    public function getInvalidClassNames()
+    {
+        $classNames = array(
+            array(__CLASS__ . uniqid()),
+            array('Instantiator\\InstantiatorInterface'),
+            array('InstantiatorTestAsset\\AbstractClassAsset'),
+        );
+
+        if (\PHP_VERSION_ID >= 50400) {
+            $classNames[] = array('InstantiatorTestAsset\\SimpleTraitAsset');
+        }
+
+        return $classNames;
     }
 }
