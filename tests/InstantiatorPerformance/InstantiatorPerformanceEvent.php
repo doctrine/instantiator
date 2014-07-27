@@ -61,7 +61,7 @@ class InstantiatorPerformanceEvent extends AthleticEvent
      * @iterations 20000
      * @group instantiation
      */
-    public function testInstantiateInternalClassWitWarmup()
+    public function testInstantiateInternalClass()
     {
         $this->instantiator->instantiate('ArrayObject');
     }
