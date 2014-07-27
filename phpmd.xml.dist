@@ -18,8 +18,7 @@
     <rule
         name="NPathComplexity"
         message="The {0} {1}() has an NPath complexity of {2}. The configured NPath complexity threshold is {3}."
-        class="PHPMD\Rule\Design\NpathComplexity"
-        externalInfoUrl="http://phpmd.org/rules/codesize.html#npathcomplexity"
+        class="PHP_PMD_Rule_Design_NpathComplexity"
     >
         <properties>
             <property name="minimum" description="The npath reporting threshold" value="10"/>
