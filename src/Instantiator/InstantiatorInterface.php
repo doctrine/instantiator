@@ -29,6 +29,8 @@ interface InstantiatorInterface
      * @param string $className
      *
      * @return object
+     *
+     * @throws \Instantiator\Exception\ExceptionInterface
      */
     public function instantiate($className);
 }
