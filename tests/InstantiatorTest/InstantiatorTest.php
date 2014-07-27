@@ -18,8 +18,10 @@
 
 namespace InstantiatorTest;
 
+use Instantiator\Exception\InvalidArgumentException;
 use Instantiator\Instantiator;
 use PHPUnit_Framework_TestCase;
+use ReflectionClass;
 
 /**
  * Tests for {@see \Instantiator\Instantiator}
@@ -76,6 +78,36 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('Instantiator\\Exception\\InvalidArgumentException');
 
         $this->instantiator->instantiate('InstantiatorTestAsset\\SerializableArrayObjectAsset');
+    }
+
+    public function testNoticeOnUnSerializationException()
+    {
+        ob_start();
+
+        try {
+            $this->instantiator->instantiate('InstantiatorTestAsset\\WakeUpNoticesAsset');
+
+            ob_end_clean();
+
+            $this->fail('No exception was raised');
+        } catch (InvalidArgumentException $exception) {
+            $wakeUpNoticesReflection = new ReflectionClass('InstantiatorTestAsset\WakeUpNoticesAsset');
+
+            $this->assertSame(
+                'Could not produce an instance of "InstantiatorTestAsset\WakeUpNoticesAsset" via un-serialization, '
+                . 'since an error was triggered in file "'
+                . $wakeUpNoticesReflection->getFileName() . '" at line "35"',
+                $exception->getMessage()
+            );
+
+            $previous = $exception->getPrevious();
+
+            $this->assertInstanceOf('Exception', $previous);
+            $this->assertSame('Something went bananas while un-serializing this instance', $previous->getMessage());
+            $this->assertSame(\E_USER_NOTICE, $previous->getCode());
+        }
+
+        ob_end_clean();
     }
 
     /**
