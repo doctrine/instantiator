@@ -130,7 +130,13 @@ final class Instantiator implements InstantiatorInterface
             throw InvalidArgumentException::fromNonExistingClass($className);
         }
 
-        return new ReflectionClass($className);
+        $reflection = new ReflectionClass($className);
+
+        if ($reflection->isAbstract()) {
+            throw InvalidArgumentException::fromAbstractClass($reflection);
+        }
+
+        return $reflection;
     }
 
     /**
