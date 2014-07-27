@@ -46,4 +46,22 @@ class InvalidArgumentException extends BaseInvalidArgumentException implements E
             $exception
         );
     }
+
+    /**
+     * @param string $className
+     *
+     * @return self
+     */
+    public static function fromNonExistingType($className)
+    {
+        if (interface_exists($className)) {
+            return new self(sprintf('The provided type "%s" is an interface, and can not be instantiated', $className));
+        }
+
+        if (PHP_VERSION_ID >= 50400 && trait_exists($className)) {
+            return new self(sprintf('The provided type "%s" is a trait, and can not be instantiated', $className));
+        }
+
+        return new self(sprintf('The provided class "%s" does not exist', $className));
+    }
 }
