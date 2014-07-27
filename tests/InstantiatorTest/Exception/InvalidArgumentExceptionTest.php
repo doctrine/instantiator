@@ -50,7 +50,7 @@ class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
     public function testFromNonExistingTypeWithNonExistingClass()
     {
         $className = __CLASS__ . uniqid();
-        $exception = InvalidArgumentException::fromNonExistingType($className);
+        $exception = InvalidArgumentException::fromNonExistingClass($className);
 
         $this->assertInstanceOf('Instantiator\\Exception\\InvalidArgumentException', $exception);
         $this->assertSame('The provided class "' . $className . '" does not exist', $exception->getMessage());
@@ -62,7 +62,7 @@ class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('Need at least PHP 5.4.0, as this test requires traits support to run');
         }
 
-        $exception = InvalidArgumentException::fromNonExistingType('InstantiatorTestAsset\\SimpleTraitAsset');
+        $exception = InvalidArgumentException::fromNonExistingClass('InstantiatorTestAsset\\SimpleTraitAsset');
 
         $this->assertSame(
             'The provided type "InstantiatorTestAsset\\SimpleTraitAsset" is a trait, and can not be instantiated',
@@ -72,7 +72,7 @@ class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
 
     public function testFromNonExistingTypeWithInterface()
     {
-        $exception = InvalidArgumentException::fromNonExistingType('Instantiator\\InstantiatorInterface');
+        $exception = InvalidArgumentException::fromNonExistingClass('Instantiator\\InstantiatorInterface');
 
         $this->assertSame(
             'The provided type "Instantiator\\InstantiatorInterface" is an interface, and can not be instantiated',

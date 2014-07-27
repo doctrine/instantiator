@@ -52,7 +52,7 @@ class InvalidArgumentException extends BaseInvalidArgumentException implements E
      *
      * @return self
      */
-    public static function fromNonExistingType($className)
+    public static function fromNonExistingClass($className)
     {
         if (interface_exists($className)) {
             return new self(sprintf('The provided type "%s" is an interface, and can not be instantiated', $className));
