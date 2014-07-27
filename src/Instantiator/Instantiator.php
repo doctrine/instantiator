@@ -133,27 +133,6 @@ final class Instantiator implements InstantiatorInterface
     }
 
     /**
-     * Verifies whether the given class is or has an ancestor that is an internal
-     * class that requires serialization
-     *
-     * @param ReflectionClass $reflectionClass
-     *
-     * @return bool
-     */
-    /*private function isInternalClassWithRequiredSerializedString(ReflectionClass $reflectionClass)
-    {
-        do {
-            if ($reflectionClass->isInternal()
-                && isset(self::$internalSerializableClasses[$reflectionClass->getName()])
-            ) {
-                return true;
-            }
-        } while ($reflectionClass = $reflectionClass->getParentClass());
-
-        return false;
-    }*/
-
-    /**
      * Verifies if the given PHP version implements the `Serializable` interface serialization
      * with an incompatible serialization format. If that's the case, use serialization marker
      * "C" instead of "O".
