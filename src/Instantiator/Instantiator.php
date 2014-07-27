@@ -19,6 +19,7 @@
 namespace Instantiator;
 
 use Closure;
+use Exception;
 use Instantiator\Exception\InvalidArgumentException;
 use LazyMap\CallbackLazyMap;
 use ReflectionClass;
@@ -167,7 +168,7 @@ final class Instantiator implements InstantiatorInterface
 
         try {
             unserialize($serializedString);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             restore_error_handler();
 
             throw InvalidArgumentException::fromSerializationTriggeredException($reflectionClass, $exception);
