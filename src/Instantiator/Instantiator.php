@@ -154,8 +154,6 @@ final class Instantiator implements InstantiatorInterface
             $reflectionClass,
             & $handlerException
         ) {
-            restore_error_handler();
-
             $handlerException = UnexpectedValueException::fromUncleanUnSerialization(
                 $reflectionClass,
                 $errorString,
