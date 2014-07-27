@@ -71,6 +71,12 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
 
     public function testExceptionOnUnSerializationException()
     {
+        if (\PHP_VERSION_ID >= 50600) {
+            $this->markTestSkipped(
+                'PHP 5.6 supports `ReflectionClass#newInstanceWithoutConstructor()` for some internal classes'
+            );
+        }
+
         $className = 'InstantiatorTestAsset\\UnserializeExceptionArrayObjectAsset';
 
         if (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513) {
@@ -84,6 +90,12 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
 
     public function testNoticeOnUnSerializationException()
     {
+        if (\PHP_VERSION_ID >= 50600) {
+            $this->markTestSkipped(
+                'PHP 5.6 supports `ReflectionClass#newInstanceWithoutConstructor()` for some internal classes'
+            );
+        }
+
         ob_start();
 
         try {
@@ -134,30 +146,36 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
      */
     public function getInstantiableClasses()
     {
-        if (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513) {
-            return array(
-                array('stdClass'),
-                array(__CLASS__),
-                array('Instantiator\\Instantiator'),
-                array('PharException'),
-                array('InstantiatorTestAsset\\SimpleSerializableAsset'),
-                array('InstantiatorTestAsset\\PharExceptionAsset'),
-                array('InstantiatorTestAsset\\UnCloneableAsset'),
-            );
-        }
-
-        return array(
+        $classes = array(
             array('stdClass'),
             array(__CLASS__),
             array('Instantiator\\Instantiator'),
             array('PharException'),
-            array('ArrayObject'),
             array('InstantiatorTestAsset\\SimpleSerializableAsset'),
-            array('InstantiatorTestAsset\\ArrayObjectAsset'),
             array('InstantiatorTestAsset\\PharExceptionAsset'),
-            array('InstantiatorTestAsset\\SerializableArrayObjectAsset'),
             array('InstantiatorTestAsset\\UnCloneableAsset'),
         );
+
+        if (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513) {
+            return $classes;
+        }
+
+        $classes = array_merge(
+            $classes,
+            array(
+                array('PharException'),
+                array('ArrayObject'),
+                array('InstantiatorTestAsset\\ArrayObjectAsset'),
+                array('InstantiatorTestAsset\\SerializableArrayObjectAsset'),
+            )
+        );
+
+        if (\PHP_VERSION_ID >= 50600) {
+            $classes[] = array('InstantiatorTestAsset\\WakeUpNoticesAsset');
+            $classes[] = array('InstantiatorTestAsset\\UnserializeExceptionArrayObjectAsset');
+        }
+
+        return $classes;
     }
 
 
