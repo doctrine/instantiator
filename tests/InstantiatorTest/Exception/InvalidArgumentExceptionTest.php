@@ -69,4 +69,14 @@ class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
             $exception->getMessage()
         );
     }
+
+    public function testFromNonExistingTypeWithInterface()
+    {
+        $exception = InvalidArgumentException::fromNonExistingType('Instantiator\\InstantiatorInterface');
+
+        $this->assertSame(
+            'The provided type "Instantiator\\InstantiatorInterface" is an interface, and can not be instantiated',
+            $exception->getMessage()
+        );
+    }
 }
