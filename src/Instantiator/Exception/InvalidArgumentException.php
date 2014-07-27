@@ -64,4 +64,17 @@ class InvalidArgumentException extends BaseInvalidArgumentException implements E
 
         return new self(sprintf('The provided class "%s" does not exist', $className));
     }
+
+    /**
+     * @param ReflectionClass $reflectionClass
+     *
+     * @return self
+     */
+    public static function fromAbstractClass(ReflectionClass $reflectionClass)
+    {
+        return new self(sprintf(
+            'The provided class "%s" is abstract, and can not be instantiated',
+            $reflectionClass->getName()
+        ));
+    }
 }
