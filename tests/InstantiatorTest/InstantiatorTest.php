@@ -134,6 +134,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
         $classNames = array(
             array(__CLASS__ . uniqid()),
             array('Instantiator\\InstantiatorInterface'),
+            array('InstantiatorTestAsset\\AbstractClassAsset'),
         );
 
         if (\PHP_VERSION_ID >= 50400) {
