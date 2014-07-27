@@ -88,7 +88,7 @@ final class Instantiator implements InstantiatorInterface
      */
     public function buildFactory($className)
     {
-        $reflectionClass = new ReflectionClass($className);
+        $reflectionClass = $this->getReflectionClass($className);
 
         if (\PHP_VERSION_ID >= 50400 && ! $this->hasInternalAncestors($reflectionClass)) {
             return function () use ($reflectionClass) {
@@ -118,8 +118,26 @@ final class Instantiator implements InstantiatorInterface
     }
 
     /**
+     * @param string $className
+     *
+     * @return ReflectionClass
+     *
+     * @throws InvalidArgumentException
+     */
+    private function getReflectionClass($className)
+    {
+        if (! class_exists($className)) {
+            throw InvalidArgumentException::fromNonExistingClass($className);
+        }
+
+        return new ReflectionClass($className);
+    }
+
+    /**
      * @param ReflectionClass $reflectionClass
      * @param string          $serializedString
+     *
+     * @throws InvalidArgumentException
      *
      * @return void
      */
@@ -209,17 +227,17 @@ final class Instantiator implements InstantiatorInterface
 
         return self::$cachedCloneables = self::$cachedCloneables
             ?: new CallbackLazyMap(function ($className) use ($cachedInstantiators) {
-                $reflection = new ReflectionClass($className);
+                /* @var $factory Closure */
+                $factory    = $cachedInstantiators->$className;
+                $instance   = $factory();
+                $reflection = new ReflectionClass($instance);
 
-                // not cloneable if it implements `__clone`
+                // not cloneable if it implements `__clone`, as we want to avoid calling it
                 if ($reflection->hasMethod('__clone')) {
                     return null;
                 }
 
-                /* @var $factory Closure */
-                $factory = $cachedInstantiators->$className;
-
-                return $factory();
+                return $instance;
             });
     }
 
