@@ -69,13 +69,25 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
 
     public function testExceptionOnUnSerializationException()
     {
-        if (! (PHP_VERSION_ID === 50429 || PHP_VERSION_ID === 50513)) {
+        if (! (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513)) {
             $this->markTestSkipped('This test requires PHP 5.4.29 or 5.5.13 to run');
         }
 
-        $this->setExpectedException('Instantiator\Exception\InvalidArgumentException');
+        $this->setExpectedException('Instantiator\\Exception\\InvalidArgumentException');
 
-        $this->instantiator->instantiate('InstantiatorTestAsset\SerializableArrayObjectAsset');
+        $this->instantiator->instantiate('InstantiatorTestAsset\\SerializableArrayObjectAsset');
+    }
+
+    /**
+     * @param string $invalidClassName
+     *
+     * @dataProvider getInvalidClassNames
+     */
+    public function testInstantiationFromNonExistingClass($invalidClassName)
+    {
+        $this->setExpectedException('Instantiator\\Exception\\InvalidArgumentException');
+
+        $this->instantiator->instantiate($invalidClassName);
     }
 
     /**
@@ -85,15 +97,15 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
      */
     public function getInstantiableClasses()
     {
-        if (PHP_VERSION_ID === 50429 || PHP_VERSION_ID === 50513) {
+        if (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513) {
             return array(
                 array('stdClass'),
                 array(__CLASS__),
                 array('Instantiator\\Instantiator'),
                 array('PharException'),
-                array('InstantiatorTestAsset\SimpleSerializableAsset'),
-                array('InstantiatorTestAsset\PharExceptionAsset'),
-                array('InstantiatorTestAsset\UnCloneableAsset'),
+                array('InstantiatorTestAsset\\SimpleSerializableAsset'),
+                array('InstantiatorTestAsset\\PharExceptionAsset'),
+                array('InstantiatorTestAsset\\UnCloneableAsset'),
             );
         }
 
@@ -103,11 +115,31 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
             array('Instantiator\\Instantiator'),
             array('PharException'),
             array('ArrayObject'),
-            array('InstantiatorTestAsset\SimpleSerializableAsset'),
-            array('InstantiatorTestAsset\ArrayObjectAsset'),
-            array('InstantiatorTestAsset\PharExceptionAsset'),
-            array('InstantiatorTestAsset\SerializableArrayObjectAsset'),
-            array('InstantiatorTestAsset\UnCloneableAsset'),
+            array('InstantiatorTestAsset\\SimpleSerializableAsset'),
+            array('InstantiatorTestAsset\\ArrayObjectAsset'),
+            array('InstantiatorTestAsset\\PharExceptionAsset'),
+            array('InstantiatorTestAsset\\SerializableArrayObjectAsset'),
+            array('InstantiatorTestAsset\\UnCloneableAsset'),
         );
+    }
+
+
+    /**
+     * Provides a list of instantiable classes (existing)
+     *
+     * @return string[][]
+     */
+    public function getInvalidClassNames()
+    {
+        $classNames = array(
+            array(__CLASS__ . uniqid()),
+            array('Instantiator\\InstantiatorInterface'),
+        );
+
+        if (\PHP_VERSION_ID >= 50400) {
+            $classNames[] = array('InstantiatorTestAsset\\SimpleTraitAsset');
+        }
+
+        return $classNames;
     }
 }
