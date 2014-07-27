@@ -46,4 +46,13 @@ class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
             $exception->getMessage()
         );
     }
+
+    public function testFromNonExistingTypeWithNonExistingClass()
+    {
+        $className = __CLASS__ . uniqid();
+        $exception = InvalidArgumentException::fromNonExistingType($className);
+
+        $this->assertInstanceOf('Instantiator\\Exception\\InvalidArgumentException', $exception);
+        $this->assertSame('The provided class "' . $className . '" does not exist', $exception->getMessage());
+    }
 }
