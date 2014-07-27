@@ -32,21 +32,6 @@ use ReflectionClass;
  */
 class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
 {
-    public function testFromSerializationTriggeredException()
-    {
-        $reflectionClass = new ReflectionClass($this);
-        $previous        = new Exception();
-        $exception       = InvalidArgumentException::fromSerializationTriggeredException($reflectionClass, $previous);
-
-        $this->assertInstanceOf('Instantiator\\Exception\\InvalidArgumentException', $exception);
-        $this->assertSame($previous, $exception->getPrevious());
-        $this->assertSame(
-            'An exception was raised while trying to instantiate an instance of "'
-            . __CLASS__  . '" via un-serialization',
-            $exception->getMessage()
-        );
-    }
-
     public function testFromNonExistingTypeWithNonExistingClass()
     {
         $className = __CLASS__ . uniqid();
@@ -89,23 +74,5 @@ class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
             'The provided class "InstantiatorTestAsset\\AbstractClassAsset" is abstract, and can not be instantiated',
             $exception->getMessage()
         );
-    }
-
-    public function testFromUncleanUnSerialization()
-    {
-        $reflection = new ReflectionClass('InstantiatorTestAsset\\AbstractClassAsset');
-        $exception  = InvalidArgumentException::fromUncleanUnSerialization($reflection, 'foo', 123, 'bar', 456);
-
-        $this->assertSame(
-            'Could not produce an instance of "InstantiatorTestAsset\AbstractClassAsset" via un-serialization, '
-            . 'since an error was triggered in file "bar" at line "456"',
-            $exception->getMessage()
-        );
-
-        $previous = $exception->getPrevious();
-
-        $this->assertInstanceOf('Exception', $previous);
-        $this->assertSame('foo', $previous->getMessage());
-        $this->assertSame(123, $previous->getCode());
     }
 }

@@ -18,7 +18,7 @@
 
 namespace InstantiatorTest;
 
-use Instantiator\Exception\InvalidArgumentException;
+use Instantiator\Exception\UnexpectedValueException;
 use Instantiator\Instantiator;
 use PHPUnit_Framework_TestCase;
 use ReflectionClass;
@@ -75,7 +75,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('This test requires PHP 5.4.29 or 5.5.13 to run');
         }
 
-        $this->setExpectedException('Instantiator\\Exception\\InvalidArgumentException');
+        $this->setExpectedException('Instantiator\\Exception\\UnexpectedValueException');
 
         $this->instantiator->instantiate('InstantiatorTestAsset\\SerializableArrayObjectAsset');
     }
@@ -90,7 +90,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
             ob_end_clean();
 
             $this->fail('No exception was raised');
-        } catch (InvalidArgumentException $exception) {
+        } catch (UnexpectedValueException $exception) {
             $wakeUpNoticesReflection = new ReflectionClass('InstantiatorTestAsset\WakeUpNoticesAsset');
 
             $this->assertSame(

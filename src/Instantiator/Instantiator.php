@@ -21,6 +21,7 @@ namespace Instantiator;
 use Closure;
 use Exception;
 use Instantiator\Exception\InvalidArgumentException;
+use Instantiator\Exception\UnexpectedValueException;
 use LazyMap\CallbackLazyMap;
 use ReflectionClass;
 
@@ -171,13 +172,13 @@ final class Instantiator implements InstantiatorInterface
         } catch (Exception $exception) {
             restore_error_handler();
 
-            throw InvalidArgumentException::fromSerializationTriggeredException($reflectionClass, $exception);
+            throw UnexpectedValueException::fromSerializationTriggeredException($reflectionClass, $exception);
         }
 
         restore_error_handler();
 
         if (null !== $errorString) {
-            throw InvalidArgumentException::fromUncleanUnSerialization(
+            throw UnexpectedValueException::fromUncleanUnSerialization(
                 $reflectionClass,
                 $errorString,
                 $errorCode,
