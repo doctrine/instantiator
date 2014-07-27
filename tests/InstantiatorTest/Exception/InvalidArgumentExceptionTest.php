@@ -41,8 +41,8 @@ class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Instantiator\\Exception\\InvalidArgumentException', $exception);
         $this->assertSame($previous, $exception->getPrevious());
         $this->assertSame(
-            'An exception was raised while trying to instantiate an instance of '
-            . __CLASS__  . ' via un-serialization',
+            'An exception was raised while trying to instantiate an instance of "'
+            . __CLASS__  . '" via un-serialization',
             $exception->getMessage()
         );
     }

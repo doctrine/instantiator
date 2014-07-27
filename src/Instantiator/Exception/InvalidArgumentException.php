@@ -39,7 +39,7 @@ class InvalidArgumentException extends BaseInvalidArgumentException implements E
     {
         return new self(
             sprintf(
-                'An exception was raised while trying to instantiate an instance of %s via un-serialization',
+                'An exception was raised while trying to instantiate an instance of "%s" via un-serialization',
                 $reflectionClass->getName()
             ),
             0,
