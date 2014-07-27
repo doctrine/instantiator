@@ -158,7 +158,12 @@ final class Instantiator implements InstantiatorInterface
             $errstr,
             $errfile,
             $errline
-        ) use (& $errorString, & $errorCode, & $errorFile, & $errorLine) {
+        ) use (
+            & $errorString,
+            & $errorCode,
+            & $errorFile,
+            & $errorLine
+        ) {
             $errorString = $errstr;
             $errorCode   = $errno;
             $errorFile   = $errfile;
