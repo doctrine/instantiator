@@ -19,6 +19,7 @@
 namespace Instantiator;
 
 use Closure;
+use Instantiator\Exception\InvalidArgumentException;
 use LazyMap\CallbackLazyMap;
 use ReflectionClass;
 
@@ -109,9 +110,26 @@ final class Instantiator implements InstantiatorInterface
             implode('', $defaultValues)
         );
 
+        $this->attemptInstantiationViaUnSerialization($reflectionClass, $serializedString);
+
         return function () use ($serializedString) {
             return unserialize($serializedString);
         };
+    }
+
+    /**
+     * @param ReflectionClass $reflectionClass
+     * @param string          $serializedString
+     *
+     * @return void
+     */
+    private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, $serializedString)
+    {
+        try {
+            unserialize($serializedString);
+        } catch (\Exception $exception) {
+            throw InvalidArgumentException::fromSerializationTriggeredException($reflectionClass, $exception);
+        }
     }
 
     /**
