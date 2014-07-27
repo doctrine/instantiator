@@ -30,6 +30,14 @@ use ReflectionClass;
 final class Instantiator implements InstantiatorInterface
 {
     /**
+     * Markers used internally by PHP to define whether {@see \unserialize} should invoke
+     * the method {@see \Serializable::unserialize()} when dealing with classes implementing
+     * the {@see \Serializable} interface.
+     */
+    const SERIALIZATION_FORMAT_USE_UNSERIALIZER   = 'C';
+    const SERIALIZATION_FORMAT_AVOID_UNSERIALIZER = 'O';
+
+    /**
      * @var CallbackLazyMap of {@see \Closure} instances
      */
     private static $cachedInstantiators;
@@ -65,7 +73,7 @@ final class Instantiator implements InstantiatorInterface
      */
     public function __construct()
     {
-        // initialize static state, if not done before
+        // initialize static cached state, if not done before
         self::$cachedInstantiators = $this->getInstantiatorsMap();
         self::$cachedCloneables    = $this->getCloneablesMap();
     }
@@ -108,37 +116,14 @@ final class Instantiator implements InstantiatorInterface
             };
         }
 
-        if (
-            $this->isInternalClassWithRequiredSerializedString($reflectionClass)
-            || ($this->hasInternalAncestors($reflectionClass) && $this->isPhpVersionWithBrokenSerializationFormat())
-        ) {
-            $fakeClassName = uniqid(
-                'InstantiatorGenerated' . uniqid() . str_replace('\\', '', $reflectionClass->getName())
-            );
-            $fqcn          = 'InstantiatorFakes\\' . $fakeClassName;
-
-            if (! class_exists($fqcn, false)) {
-                eval(
-                    'namespace InstantiatorFakes { '
-                    . 'class ' . $fakeClassName . ' extends \\' . $reflectionClass->getName()
-                    . '{'
-                    . 'public function __construct() {}'
-                    . '}'
-                    . '}'
-                );
-            }
-
-
-            return function () use ($fqcn) {
-                return new $fqcn();
-            };
-        }
-
-        $defaultValues = $this->getSerializedDefaultValues($reflectionClass);
+        $serializationFormat = $this->getSerializationFormat($reflectionClass);
+        $defaultValues = static::SERIALIZATION_FORMAT_USE_UNSERIALIZER === $serializationFormat
+            ? $this->getSerializedDefaultValues($reflectionClass)
+            : array();
 
         $serializedString = sprintf(
             '%s:%d:"%s":0:{}',
-            $this->getSerializationFormat($reflectionClass),
+            $serializationFormat,
             strlen($className),
             $className,
             count($defaultValues),
@@ -176,7 +161,7 @@ final class Instantiator implements InstantiatorInterface
      *
      * @return bool
      */
-    private function isInternalClassWithRequiredSerializedString(ReflectionClass $reflectionClass)
+    /*private function isInternalClassWithRequiredSerializedString(ReflectionClass $reflectionClass)
     {
         do {
             if ($reflectionClass->isInternal()
@@ -187,7 +172,7 @@ final class Instantiator implements InstantiatorInterface
         } while ($reflectionClass = $reflectionClass->getParentClass());
 
         return false;
-    }
+    }*/
 
     /**
      * Verifies if the given PHP version implements the `Serializable` interface serialization
@@ -198,17 +183,18 @@ final class Instantiator implements InstantiatorInterface
      *
      * @param ReflectionClass $reflectionClass
      *
-     * @return string the serialization format marker, either "O" or "C"
+     * @return string the serialization format marker, either self::SERIALIZATION_FORMAT_USE_UNSERIALIZER
+     *         or self::SERIALIZATION_FORMAT_AVOID_UNSERIALIZER
      */
     private function getSerializationFormat(ReflectionClass $reflectionClass)
     {
         if ($this->isPhpVersionWithBrokenSerializationFormat()
             && $reflectionClass->implementsInterface('Serializable')
         ) {
-            return 'C';
+            return self::SERIALIZATION_FORMAT_USE_UNSERIALIZER;
         }
 
-        return 'O';
+        return self::SERIALIZATION_FORMAT_AVOID_UNSERIALIZER;
     }
 
     /**
