@@ -82,11 +82,11 @@ class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
 
     public function testFromAbstractClass()
     {
-        $reflection = new ReflectionClass($this);
+        $reflection = new ReflectionClass('InstantiatorTestAsset\\AbstractClassAsset');
         $exception  = InvalidArgumentException::fromAbstractClass($reflection);
 
         $this->assertSame(
-            'The provided class "' . $reflection->getName() . '" is abstract, and can not be instantiated',
+            'The provided class "InstantiatorTestAsset\\AbstractClassAsset" is abstract, and can not be instantiated',
             $exception->getMessage()
         );
     }
