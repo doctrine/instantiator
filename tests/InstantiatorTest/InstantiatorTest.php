@@ -71,16 +71,14 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
 
     public function testExceptionOnUnSerializationException()
     {
-        if (\PHP_VERSION_ID >= 50600) {
-            $this->markTestSkipped(
-                'PHP 5.6 supports `ReflectionClass#newInstanceWithoutConstructor()` for some internal classes'
-            );
-        }
-
         $className = 'InstantiatorTestAsset\\UnserializeExceptionArrayObjectAsset';
 
         if (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513) {
             $className = 'InstantiatorTestAsset\\SerializableArrayObjectAsset';
+        }
+
+        if (\PHP_VERSION_ID >= 50600) {
+            $className = 'PDORow';
         }
 
         $this->setExpectedException('Instantiator\\Exception\\UnexpectedValueException');
