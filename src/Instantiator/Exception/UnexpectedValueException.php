@@ -19,7 +19,7 @@
 namespace Instantiator\Exception;
 
 use Exception;
-use InvalidArgumentException as BaseInvalidArgumentException;
+use UnexpectedValueException as BaseUnexpectedValueException;
 use ReflectionClass;
 
 /**
@@ -27,7 +27,7 @@ use ReflectionClass;
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class UnexpectedValueException extends BaseInvalidArgumentException implements ExceptionInterface
+class UnexpectedValueException extends BaseUnexpectedValueException implements ExceptionInterface
 {
     /**
      * @param ReflectionClass $reflectionClass
