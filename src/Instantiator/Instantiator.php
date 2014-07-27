@@ -99,18 +99,13 @@ final class Instantiator implements InstantiatorInterface
             };
         }
 
-        $serializationFormat = $this->getSerializationFormat($reflectionClass);
-        $defaultValues = static::SERIALIZATION_FORMAT_USE_UNSERIALIZER === $serializationFormat
-            ? $this->getSerializedDefaultValues($reflectionClass)
-            : array();
-
-        $serializedString = sprintf(
+        $serializedString    = sprintf(
             '%s:%d:"%s":0:{}',
-            $serializationFormat,
+            $this->getSerializationFormat($reflectionClass),
             strlen($className),
             $className,
-            count($defaultValues),
-            implode('', $defaultValues)
+            0,
+            ''
         );
 
         $this->attemptInstantiationViaUnSerialization($reflectionClass, $serializedString);
@@ -297,39 +292,5 @@ final class Instantiator implements InstantiatorInterface
 
                 return $instance;
             });
-    }
-
-    /**
-     * @param ReflectionClass $reflectionClass
-     *
-     * @return string[]
-     */
-    private function getSerializedDefaultValues(ReflectionClass $reflectionClass)
-    {
-        $properties = array();
-        $defaults   = $reflectionClass->getDefaultProperties();
-
-        do {
-            foreach ($reflectionClass->getProperties() as $property) {
-                if (! $property->getDeclaringClass()->getName() === $reflectionClass->getName()) {
-                    continue;
-                }
-
-                $visibility = 'public';
-
-                if ($property->isPrivate()) {
-                    $visibility = "\0" . $property->getDeclaringClass()->getName() . "\0private";
-                }
-
-                if ($property->isProtected()) {
-                    $visibility = "\0*\0protected";
-                }
-
-                $defaultValue = isset($defaults[$property->getName()]) ? $defaults[$property->getName()] : null;
-                $properties[] = serialize($visibility) . serialize($defaultValue);
-            }
-        } while ($reflectionClass = $reflectionClass->getParentClass());
-
-        return $properties;
     }
 }
