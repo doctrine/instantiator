@@ -193,7 +193,7 @@ final class Instantiator implements InstantiatorInterface
      */
     private function getInstantiatorsMap()
     {
-        $that = $this; // PHP 5.3 compat
+        $that = $this; // PHP 5.3 compatibility
 
         return self::$cachedInstantiators = self::$cachedInstantiators
             ?: new CallbackLazyMap(function ($className) use ($that) {
