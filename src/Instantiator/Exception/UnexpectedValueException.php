@@ -31,7 +31,7 @@ class UnexpectedValueException extends BaseUnexpectedValueException implements E
 {
     /**
      * @param ReflectionClass $reflectionClass
-     * @param Exception $exception
+     * @param Exception       $exception
      *
      * @return self
      */
@@ -54,7 +54,7 @@ class UnexpectedValueException extends BaseUnexpectedValueException implements E
      * @param string          $errorFile
      * @param int             $errorLine
      *
-     * @return InvalidArgumentException
+     * @return UnexpectedValueException
      */
     public static function fromUncleanUnSerialization(
         ReflectionClass $reflectionClass,

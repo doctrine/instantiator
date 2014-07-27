@@ -72,6 +72,7 @@ final class Instantiator implements InstantiatorInterface
         $factory = self::$cachedInstantiators->$className;
 
         /* @var $factory Closure */
+
         return $factory();
     }
 
@@ -235,7 +236,7 @@ final class Instantiator implements InstantiatorInterface
      * @param ReflectionClass $reflectionClass
      *
      * @return string the serialization format marker, either self::SERIALIZATION_FORMAT_USE_UNSERIALIZER
-     *         or self::SERIALIZATION_FORMAT_AVOID_UNSERIALIZER
+     *                or self::SERIALIZATION_FORMAT_AVOID_UNSERIALIZER
      */
     private function getSerializationFormat(ReflectionClass $reflectionClass)
     {

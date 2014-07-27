@@ -176,7 +176,6 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
         return $classes;
     }
 
-
     /**
      * Provides a list of instantiable classes (existing)
      *
