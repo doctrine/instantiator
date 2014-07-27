@@ -90,4 +90,22 @@ class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
             $exception->getMessage()
         );
     }
+
+    public function testFromUncleanUnSerialization()
+    {
+        $reflection = new ReflectionClass('InstantiatorTestAsset\\AbstractClassAsset');
+        $exception  = InvalidArgumentException::fromUncleanUnSerialization($reflection, 'foo', 123, 'bar', 456);
+
+        $this->assertSame(
+            'Could not produce an instance of "InstantiatorTestAsset\AbstractClassAsset" via un-serialization, '
+            . 'since an error was triggered in file "bar" at line "456"',
+            $exception->getMessage()
+        );
+
+        $previous = $exception->getPrevious();
+
+        $this->assertInstanceOf('Exception', $previous);
+        $this->assertSame('foo', $previous->getMessage());
+        $this->assertSame(123, $previous->getCode());
+    }
 }
