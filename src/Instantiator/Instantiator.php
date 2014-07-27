@@ -92,7 +92,7 @@ final class Instantiator implements InstantiatorInterface
     {
         $reflectionClass = $this->getReflectionClass($className);
 
-        if (\PHP_VERSION_ID >= 50400 && (! $this->hasInternalAncestors($reflectionClass) || PHP_VERSION_ID > 50600)) {
+        if ($this->isInstantiableViaReflection($reflectionClass)) {
             return function () use ($reflectionClass) {
                 return $reflectionClass->newInstanceWithoutConstructor();
             };
@@ -191,6 +191,20 @@ final class Instantiator implements InstantiatorInterface
                 $errorLine
             );
         }
+    }
+
+    /**
+     * @param ReflectionClass $reflectionClass
+     *
+     * @return bool
+     */
+    private function isInstantiableViaReflection(ReflectionClass $reflectionClass)
+    {
+        if (\PHP_VERSION_ID > 50600) {
+            return ! ($reflectionClass->isInternal() && $reflectionClass->isFinal());
+        }
+
+        return \PHP_VERSION_ID >= 50400 && ! $this->hasInternalAncestors($reflectionClass);
     }
 
     /**
