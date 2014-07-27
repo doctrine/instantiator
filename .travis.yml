@@ -19,7 +19,7 @@ script:
   - sh -c "if [[ '$TRAVIS_PHP_VERSION' != '5.3.3' && '$TRAVIS_PHP_VERSION' != '5.4.29'  && '$TRAVIS_PHP_VERSION' != '5.5.13' ]]; then php -n ./vendor/bin/athletic -p ./tests/InstantiatorPerformance/ -f GroupedFormatter; fi"
 
 after_script:
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' != '5.3.3' ]; wget https://scrutinizer-ci.com/ocular.phar; php ocular.phar --format=php-clover coverage.clover fi"
+  - sh -c "if [ '$TRAVIS_PHP_VERSION' != '5.3.3' ]; wget https://scrutinizer-ci.com/ocular.phar; php ocular.phar --format=php-clover coverage.clover; fi"
 
 matrix:
   allow_failures:
