@@ -71,9 +71,16 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
 
     public function testExceptionOnUnSerializationException()
     {
+        if (defined('HHVM_VERSION')) {
+            $this->markTestSkipped(
+                'As of facebook/hhvm#3432, HHVM has no PDORow, and therefore '
+                . ' no internal final classes that cannot be instantiated'
+            );
+        }
+
         $className = 'InstantiatorTestAsset\\UnserializeExceptionArrayObjectAsset';
 
-        if (\PHP_VERSION_ID >= 50600 && ! defined('HHVM_VERSION')) {
+        if (\PHP_VERSION_ID >= 50600) {
             $className = 'PDORow';
         }
 
