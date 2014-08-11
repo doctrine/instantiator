@@ -73,12 +73,12 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
     {
         $className = 'InstantiatorTestAsset\\UnserializeExceptionArrayObjectAsset';
 
-        if (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513) {
-            $className = 'InstantiatorTestAsset\\SerializableArrayObjectAsset';
+        if (\PHP_VERSION_ID >= 50600 && ! defined('HHVM_VERSION')) {
+            $className = 'PDORow';
         }
 
-        if (\PHP_VERSION_ID >= 50600) {
-            $className = 'PDORow';
+        if (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513) {
+            $className = 'InstantiatorTestAsset\\SerializableArrayObjectAsset';
         }
 
         $this->setExpectedException('Instantiator\\Exception\\UnexpectedValueException');
