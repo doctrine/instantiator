@@ -26,7 +26,7 @@ The instantiator is able to create new instances of any class without using the 
 itself:
 
 ```php
-$instantiator = new \Instantiator\Instantiator();
+$instantiator = new \Doctrine\Instantiator\Instantiator();
 
 $instance = $instantiator->instantiate('My\\ClassName\\Here');
 ```
