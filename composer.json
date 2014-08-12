@@ -28,14 +28,14 @@
     },
     "autoload": {
         "psr-0": {
-            "Instantiator\\": "src"
+            "Doctrine\\Instantiator\\": "src"
         }
     },
     "autoload-dev": {
         "psr-0": {
-            "InstantiatorPerformance\\": "tests",
-            "InstantiatorTest\\": "tests",
-            "InstantiatorTestAsset\\": "tests"
+            "DoctrineTest\\InstantiatorPerformance\\": "tests",
+            "DoctrineTest\\InstantiatorTest\\": "tests",
+            "DoctrineTest\\InstantiatorTestAsset\\": "tests"
         }
     },
     "extra": {
