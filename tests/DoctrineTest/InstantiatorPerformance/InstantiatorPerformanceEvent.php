@@ -30,7 +30,7 @@ use Doctrine\Instantiator\Instantiator;
 class InstantiatorPerformanceEvent extends AthleticEvent
 {
     /**
-     * @var \Instantiator\Instantiator
+     * @var \Doctrine\Instantiator\Instantiator
      */
     private $instantiator;
 

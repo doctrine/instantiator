@@ -31,7 +31,7 @@ interface InstantiatorInterface
      *
      * @return object
      *
-     * @throws \Instantiator\Exception\ExceptionInterface
+     * @throws \Doctrine\Instantiator\Exception\ExceptionInterface
      */
     public function instantiate($className);
 }

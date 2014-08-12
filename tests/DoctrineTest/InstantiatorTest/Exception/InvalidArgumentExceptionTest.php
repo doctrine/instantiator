@@ -24,11 +24,11 @@ use PHPUnit_Framework_TestCase;
 use ReflectionClass;
 
 /**
- * Tests for {@see \Instantiator\Exception\InvalidArgumentException}
+ * Tests for {@see \Doctrine\Instantiator\Exception\InvalidArgumentException}
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  *
- * @covers \Instantiator\Exception\InvalidArgumentException
+ * @covers \Doctrine\Instantiator\Exception\InvalidArgumentException
  */
 class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
 {

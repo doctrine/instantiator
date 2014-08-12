@@ -25,11 +25,11 @@ use PHPUnit_Framework_TestCase;
 use ReflectionClass;
 
 /**
- * Tests for {@see \Instantiator\Instantiator}
+ * Tests for {@see \Doctrine\Instantiator\Instantiator}
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  *
- * @covers \Instantiator\Instantiator
+ * @covers \Doctrine\Instantiator\Instantiator
  */
 class InstantiatorTest extends PHPUnit_Framework_TestCase
 {

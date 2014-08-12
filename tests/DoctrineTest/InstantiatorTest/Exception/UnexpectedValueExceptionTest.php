@@ -25,11 +25,11 @@ use PHPUnit_Framework_TestCase;
 use ReflectionClass;
 
 /**
- * Tests for {@see \Instantiator\Exception\UnexpectedValueException}
+ * Tests for {@see \Doctrine\Instantiator\Exception\UnexpectedValueException}
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  *
- * @covers \Instantiator\Exception\UnexpectedValueException
+ * @covers \Doctrine\Instantiator\Exception\UnexpectedValueException
  */
 class UnexpectedValueExceptionTest extends PHPUnit_Framework_TestCase
 {
