@@ -17,10 +17,10 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace InstantiatorPerformance;
+namespace DoctrineTest\InstantiatorPerformance;
 
 use Athletic\AthleticEvent;
-use Instantiator\Instantiator;
+use Doctrine\Instantiator\Instantiator;
 
 /**
  * Performance tests for {@see \Instantiator\Instantiator}

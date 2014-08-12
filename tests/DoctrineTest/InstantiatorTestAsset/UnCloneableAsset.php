@@ -17,23 +17,34 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace InstantiatorTestAsset;
+namespace DoctrineTest\InstantiatorTestAsset;
 
-use ArrayObject;
 use BadMethodCallException;
 
 /**
- * A simple asset for an abstract class
+ * Base un-cloneable asset
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class UnserializeExceptionArrayObjectAsset extends ArrayObject
+class UnCloneableAsset
 {
     /**
-     * {@inheritDoc}
+     * Constructor - should not be called
+     *
+     * @throws BadMethodCallException
      */
-    public function __wakeup()
+    public function __construct()
     {
-        throw new BadMethodCallException();
+        throw new BadMethodCallException('Not supposed to be called!');
+    }
+
+    /**
+     * Magic `__clone` - should not be invoked
+     *
+     * @throws BadMethodCallException
+     */
+    public function __clone()
+    {
+        throw new BadMethodCallException('Not supposed to be called!');
     }
 }

@@ -17,22 +17,25 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace InstantiatorTestAsset;
+namespace DoctrineTest\InstantiatorTestAsset;
 
-use ArrayObject;
+use BadMethodCallException;
+use Phar;
 
 /**
- * A simple asset for an abstract class
+ * Test asset that extends an internal PHP class
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class WakeUpNoticesAsset extends ArrayObject
+class PharAsset extends Phar
 {
     /**
-     * Wakeup method called after un-serialization
+     * Constructor - should not be called
+     *
+     * @throws BadMethodCallException
      */
-    public function __wakeup()
+    public function __construct()
     {
-        trigger_error('Something went bananas while un-serializing this instance');
+        throw new BadMethodCallException('Not supposed to be called!');
     }
 }

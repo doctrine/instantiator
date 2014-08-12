@@ -17,34 +17,22 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace InstantiatorTestAsset;
+namespace DoctrineTest\InstantiatorTestAsset;
 
-use BadMethodCallException;
+use ArrayObject;
 
 /**
- * Base un-cloneable asset
+ * A simple asset for an abstract class
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class UnCloneableAsset
+class WakeUpNoticesAsset extends ArrayObject
 {
     /**
-     * Constructor - should not be called
-     *
-     * @throws BadMethodCallException
+     * Wakeup method called after un-serialization
      */
-    public function __construct()
+    public function __wakeup()
     {
-        throw new BadMethodCallException('Not supposed to be called!');
-    }
-
-    /**
-     * Magic `__clone` - should not be invoked
-     *
-     * @throws BadMethodCallException
-     */
-    public function __clone()
-    {
-        throw new BadMethodCallException('Not supposed to be called!');
+        trigger_error('Something went bananas while un-serializing this instance');
     }
 }

@@ -17,25 +17,23 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace InstantiatorTestAsset;
+namespace DoctrineTest\InstantiatorTestAsset;
 
 use ArrayObject;
 use BadMethodCallException;
 
 /**
- * Test asset that extends an internal PHP class
+ * A simple asset for an abstract class
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class ArrayObjectAsset extends ArrayObject
+class UnserializeExceptionArrayObjectAsset extends ArrayObject
 {
     /**
-     * Constructor - should not be called
-     *
-     * @throws BadMethodCallException
+     * {@inheritDoc}
      */
-    public function __construct()
+    public function __wakeup()
     {
-        throw new BadMethodCallException('Not supposed to be called!');
+        throw new BadMethodCallException();
     }
 }

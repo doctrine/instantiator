@@ -17,20 +17,18 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace InstantiatorTestAsset;
+namespace DoctrineTest\InstantiatorTestAsset;
 
+use ArrayObject;
 use BadMethodCallException;
-use PharException;
+use Serializable;
 
 /**
- * Test asset that extends an internal PHP class
- * This class should be serializable without problems
- * and without getting the "Erroneous data format for unserializing"
- * error
+ * Serializable test asset that also extends an internal class
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class PharExceptionAsset extends PharException
+class SerializableArrayObjectAsset extends ArrayObject implements Serializable
 {
     /**
      * Constructor - should not be called
@@ -38,6 +36,26 @@ class PharExceptionAsset extends PharException
      * @throws BadMethodCallException
      */
     public function __construct()
+    {
+        throw new BadMethodCallException('Not supposed to be called!');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function serialize()
+    {
+        return '';
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * Should not be called
+     *
+     * @throws BadMethodCallException
+     */
+    public function unserialize($serialized)
     {
         throw new BadMethodCallException('Not supposed to be called!');
     }

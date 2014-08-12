@@ -17,7 +17,7 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace InstantiatorTestAsset;
+namespace DoctrineTest\InstantiatorTestAsset;
 
 /**
  * A simple trait with no attached logic

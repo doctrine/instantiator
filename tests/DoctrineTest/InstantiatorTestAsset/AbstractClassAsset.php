@@ -17,25 +17,13 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace InstantiatorTestAsset;
-
-use BadMethodCallException;
-use Phar;
+namespace DoctrineTest\InstantiatorTestAsset;
 
 /**
- * Test asset that extends an internal PHP class
+ * A simple asset for an abstract class
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class PharAsset extends Phar
+abstract class AbstractClassAsset
 {
-    /**
-     * Constructor - should not be called
-     *
-     * @throws BadMethodCallException
-     */
-    public function __construct()
-    {
-        throw new BadMethodCallException('Not supposed to be called!');
-    }
 }
