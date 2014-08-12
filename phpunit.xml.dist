@@ -11,7 +11,7 @@
     backupGlobals="false"
     syntaxCheck="true"
 >
-    <testsuite name="Instantiator tests">
+    <testsuite name="Doctrine\Instantiator tests">
         <directory>./tests/DoctrineTest/InstantiatorTest</directory>
     </testsuite>
     <filter>
