@@ -16,8 +16,7 @@
         }
     ],
     "require": {
-        "php":               "~5.3",
-        "ocramius/lazy-map": "1.0.*"
+        "php": "~5.3"
     },
     "require-dev": {
         "ext-phar":                  "*",
