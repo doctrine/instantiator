@@ -17,7 +17,7 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace Instantiator;
+namespace Doctrine\Instantiator;
 
 /**
  * Instantiator provides utility methods to build objects without invoking their constructors

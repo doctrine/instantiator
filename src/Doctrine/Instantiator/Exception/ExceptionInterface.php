@@ -17,7 +17,7 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace Instantiator\Exception;
+namespace Doctrine\Instantiator\Exception;
 
 /**
  * Base exception marker interface for the instantiator component

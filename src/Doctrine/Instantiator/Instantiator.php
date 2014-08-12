@@ -17,12 +17,12 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace Instantiator;
+namespace Doctrine\Instantiator;
 
 use Closure;
 use Exception;
-use Instantiator\Exception\InvalidArgumentException;
-use Instantiator\Exception\UnexpectedValueException;
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
+use Doctrine\Instantiator\Exception\UnexpectedValueException;
 use LazyMap\CallbackLazyMap;
 use ReflectionClass;
 
