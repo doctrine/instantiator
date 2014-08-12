@@ -42,39 +42,40 @@ final class Instantiator implements InstantiatorInterface
     const SERIALIZATION_FORMAT_AVOID_UNSERIALIZER = 'O';
 
     /**
-     * @var CallbackLazyMap of {@see \Closure} instances
+     * @var \Closure[] of {@see \Closure} instances used to instantiate specific classes
      */
-    private static $cachedInstantiators;
+    private static $cachedInstantiators = array();
 
     /**
-     * @var CallbackLazyMap of objects that can directly be cloned
+     * @var object[] of objects that can directly be cloned
      */
-    private static $cachedCloneables;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        // initialize static cached state, if not done before
-        self::$cachedInstantiators = $this->getInstantiatorsMap();
-        self::$cachedCloneables    = $this->getCloneablesMap();
-    }
+    private static $cachedCloneables = array();
 
     /**
      * {@inheritDoc}
      */
     public function instantiate($className)
     {
-        if ($cloneable = self::$cachedCloneables->$className) {
-            return clone $cloneable;
+        if (isset(self::$cachedCloneables[$className])) {
+            return clone self::$cachedCloneables[$className];
         }
 
-        $factory = self::$cachedInstantiators->$className;
+        if (isset(self::$cachedInstantiators[$className])) {
+            $factory = self::$cachedInstantiators[$className];
 
-        /* @var $factory Closure */
+            return $factory();
+        }
 
-        return $factory();
+        $factory    = self::$cachedInstantiators[$className] = $this->buildFactory($className);
+        $instance   = $factory();
+        $reflection = new ReflectionClass($instance);
+
+        // not cloneable if it implements `__clone`, as we want to avoid calling it
+        if (! $reflection->hasMethod('__clone')) {
+            self::$cachedCloneables[$className] = $instance;
+        }
+
+        return $instance;
     }
 
     /**
