@@ -20,8 +20,8 @@
 namespace Doctrine\Instantiator\Exception;
 
 use Exception;
-use UnexpectedValueException as BaseUnexpectedValueException;
 use ReflectionClass;
+use UnexpectedValueException as BaseUnexpectedValueException;
 
 /**
  * Exception for given parameters causing invalid/unexpected state on instantiation

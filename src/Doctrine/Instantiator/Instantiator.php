@@ -20,9 +20,9 @@
 namespace Doctrine\Instantiator;
 
 use Closure;
-use Exception;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
+use Exception;
 use ReflectionClass;
 
 /**
