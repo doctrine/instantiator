@@ -115,9 +115,9 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
             // in PHP 5.4.29 and PHP 5.5.13, this case is not a notice, but an exception being thrown
             if (! (\PHP_VERSION_ID === 50429 || \PHP_VERSION_ID === 50513)) {
                 $this->assertSame(
-                    'Could not produce an instance of "InstantiatorTestAsset\WakeUpNoticesAsset" via un-serialization, '
-                    . 'since an error was triggered in file "'
-                    . $wakeUpNoticesReflection->getFileName() . '" at line "35"',
+                    'Could not produce an instance of "DoctrineTest\\InstantiatorTestAsset\WakeUpNoticesAsset" '
+                    . 'via un-serialization, since an error was triggered in file "'
+                    . $wakeUpNoticesReflection->getFileName() . '" at line "36"',
                     $exception->getMessage()
                 );
 
