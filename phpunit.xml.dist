@@ -12,7 +12,7 @@
     syntaxCheck="true"
 >
     <testsuite name="Instantiator tests">
-        <directory>./tests/InstantiatorTest</directory>
+        <directory>./tests/DoctrineTest/InstantiatorTest</directory>
     </testsuite>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
