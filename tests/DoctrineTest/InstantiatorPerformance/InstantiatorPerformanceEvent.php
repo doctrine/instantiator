@@ -23,7 +23,7 @@ use Athletic\AthleticEvent;
 use Doctrine\Instantiator\Instantiator;
 
 /**
- * Performance tests for {@see \Instantiator\Instantiator}
+ * Performance tests for {@see \Doctrine\Instantiator\Instantiator}
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
@@ -43,9 +43,9 @@ class InstantiatorPerformanceEvent extends AthleticEvent
 
         $this->instantiator->instantiate(__CLASS__);
         $this->instantiator->instantiate('ArrayObject');
-        $this->instantiator->instantiate('InstantiatorTestAsset\\SimpleSerializableAsset');
-        $this->instantiator->instantiate('InstantiatorTestAsset\\SerializableArrayObjectAsset');
-        $this->instantiator->instantiate('InstantiatorTestAsset\\UnCloneableAsset');
+        $this->instantiator->instantiate('DoctrineTest\\InstantiatorTestAsset\\SimpleSerializableAsset');
+        $this->instantiator->instantiate('DoctrineTest\\InstantiatorTestAsset\\SerializableArrayObjectAsset');
+        $this->instantiator->instantiate('DoctrineTest\\InstantiatorTestAsset\\UnCloneableAsset');
     }
 
     /**
@@ -73,7 +73,7 @@ class InstantiatorPerformanceEvent extends AthleticEvent
      */
     public function testInstantiateSimpleSerializableAssetClass()
     {
-        $this->instantiator->instantiate('InstantiatorTestAsset\\SimpleSerializableAsset');
+        $this->instantiator->instantiate('DoctrineTest\\InstantiatorTestAsset\\SimpleSerializableAsset');
     }
 
     /**
@@ -82,7 +82,7 @@ class InstantiatorPerformanceEvent extends AthleticEvent
      */
     public function testInstantiateSerializableArrayObjectAsset()
     {
-        $this->instantiator->instantiate('InstantiatorTestAsset\\SerializableArrayObjectAsset');
+        $this->instantiator->instantiate('DoctrineTest\\InstantiatorTestAsset\\SerializableArrayObjectAsset');
     }
 
     /**
@@ -91,6 +91,6 @@ class InstantiatorPerformanceEvent extends AthleticEvent
      */
     public function testInstantiateUnCloneableAsset()
     {
-        $this->instantiator->instantiate('InstantiatorTestAsset\\UnCloneableAsset');
+        $this->instantiator->instantiate('DoctrineTest\\InstantiatorTestAsset\\UnCloneableAsset');
     }
 }
