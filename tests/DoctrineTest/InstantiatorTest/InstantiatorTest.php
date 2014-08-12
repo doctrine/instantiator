@@ -102,12 +102,8 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
             );
         }
 
-        ob_start();
-
         try {
             $this->instantiator->instantiate('DoctrineTest\\InstantiatorTestAsset\\WakeUpNoticesAsset');
-
-            ob_end_clean();
 
             $this->fail('No exception was raised');
         } catch (UnexpectedValueException $exception) {
@@ -129,8 +125,6 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
                 $this->assertSame(\E_USER_NOTICE, $previous->getCode());
             }
         }
-
-        ob_end_clean();
     }
 
     /**
