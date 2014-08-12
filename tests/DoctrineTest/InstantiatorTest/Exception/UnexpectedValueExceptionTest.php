@@ -19,8 +19,8 @@
 
 namespace DoctrineTest\InstantiatorTest\Exception;
 
-use Exception;
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
+use Exception;
 use PHPUnit_Framework_TestCase;
 use ReflectionClass;
 
