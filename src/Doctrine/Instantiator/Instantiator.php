@@ -23,7 +23,6 @@ use Closure;
 use Exception;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
-use LazyMap\CallbackLazyMap;
 use ReflectionClass;
 
 /**
@@ -235,45 +234,5 @@ final class Instantiator implements InstantiatorInterface
     private function isPhpVersionWithBrokenSerializationFormat()
     {
         return PHP_VERSION_ID === 50429 || PHP_VERSION_ID === 50513;
-    }
-
-    /**
-     * Builds or fetches the instantiators map
-     *
-     * @return CallbackLazyMap
-     */
-    private function getInstantiatorsMap()
-    {
-        $that = $this; // PHP 5.3 compatibility
-
-        return self::$cachedInstantiators = self::$cachedInstantiators
-            ?: new CallbackLazyMap(function ($className) use ($that) {
-                return $that->buildFactory($className);
-            });
-    }
-
-    /**
-     * Builds or fetches the cloneables map
-     *
-     * @return CallbackLazyMap
-     */
-    private function getCloneablesMap()
-    {
-        $cachedInstantiators = $this->getInstantiatorsMap();
-
-        return self::$cachedCloneables = self::$cachedCloneables
-            ?: new CallbackLazyMap(function ($className) use ($cachedInstantiators) {
-                /* @var $factory Closure */
-                $factory    = $cachedInstantiators->$className;
-                $instance   = $factory();
-                $reflection = new ReflectionClass($instance);
-
-                // not cloneable if it implements `__clone`, as we want to avoid calling it
-                if ($reflection->hasMethod('__clone')) {
-                    return null;
-                }
-
-                return $instance;
-            });
     }
 }
