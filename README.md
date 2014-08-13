@@ -3,9 +3,8 @@
 This library provides a way of avoiding usage of constructors when instantiating PHP classes.
 
 [![Build Status](https://travis-ci.org/doctrine/instantiator.svg?branch=master)](https://travis-ci.org/doctrine/instantiator)
-<!-- [![Code Coverage](https://scrutinizer-ci.com/g/Ocramius/Instantiator/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Ocramius/Instantiator/?branch=master) -->
-<!-- [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Ocramius/Instantiator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Ocramius/Instantiator/?branch=master) -->
-<!-- [![SensioLabsInsight](https://insight.sensiolabs.com/projects/7a2c1cd1-5197-4822-8a4c-5ddaca48c769/mini.png)](https://insight.sensiolabs.com/projects/7a2c1cd1-5197-4822-8a4c-5ddaca48c769) -->
+[![Code Coverage](https://scrutinizer-ci.com/g/doctrine/instantiator/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/doctrine/instantiator/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/doctrine/instantiator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/doctrine/instantiator/?branch=master)
 [![Dependency Status](https://www.versioneye.com/package/php--doctrine--instantiator/badge.svg)](https://www.versioneye.com/package/php--doctrine--instantiator)
 [![HHVM Status](http://hhvm.h4cc.de/badge/doctrine/instantiator.png)](http://hhvm.h4cc.de/package/doctrine/instantiator)
 
