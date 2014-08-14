@@ -139,6 +139,21 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
         $this->instantiator->instantiate($invalidClassName);
     }
 
+    public function testInstancesAreNotCloned()
+    {
+        $className = 'TemporaryClass' . uniqid();
+
+        eval('namespace ' . __NAMESPACE__ . '; class ' . $className . '{}');
+
+        $instance = $this->instantiator->instantiate(__NAMESPACE__ . '\\' . $className);
+
+        $instance->foo = 'bar';
+
+        $instance2 = $this->instantiator->instantiate(__NAMESPACE__ . '\\' . $className);
+
+        $this->assertObjectNotHasAttribute('foo', $instance2);
+    }
+
     /**
      * Provides a list of instantiable classes (existing)
      *

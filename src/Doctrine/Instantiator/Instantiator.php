@@ -71,7 +71,7 @@ final class Instantiator implements InstantiatorInterface
 
         // not cloneable if it implements `__clone`, as we want to avoid calling it
         if (! $reflection->hasMethod('__clone')) {
-            self::$cachedCloneables[$className] = $instance;
+            self::$cachedCloneables[$className] = clone $instance;
         }
 
         return $instance;
