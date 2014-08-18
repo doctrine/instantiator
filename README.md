@@ -33,3 +33,8 @@ $instance = $instantiator->instantiate('My\\ClassName\\Here');
 ## Contributing
 
 Please read the [CONTRIBUTING.md](CONTRIBUTING.md) contents if you wish to help out!
+
+## Credits
+
+This library was migrated from [ocramius/instantiator](https://github.com/Ocramius/Instantiator), which
+has been donated to the doctrine organization, and which is now deprecated in favour of this package.
