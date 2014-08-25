@@ -178,7 +178,7 @@ final class Instantiator implements InstantiatorInterface
      */
     private function isInstantiableViaReflection(ReflectionClass $reflectionClass)
     {
-        if (\PHP_VERSION_ID > 50600) {
+        if (\PHP_VERSION_ID >= 50600) {
             return ! ($reflectionClass->isInternal() && $reflectionClass->isFinal());
         }
 
