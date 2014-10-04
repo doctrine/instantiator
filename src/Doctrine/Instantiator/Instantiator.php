@@ -244,7 +244,7 @@ final class Instantiator implements InstantiatorInterface
      */
     private function isSafeToClone(ReflectionClass $reflection)
     {
-        if (\PHP_VERSION_ID >= 50400 && ! $reflection->isCloneable()) {
+        if (method_exists($reflection, 'isCloneable') && ! $reflection->isCloneable()) {
             return false;
         }
 
