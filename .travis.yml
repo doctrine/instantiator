@@ -23,5 +23,4 @@ after_script:
 
 matrix:
   allow_failures:
-    - php: 5.6 # Depends on https://github.com/php/php-src/pull/733
     - php: hhvm-nightly
