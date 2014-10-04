@@ -69,8 +69,7 @@ final class Instantiator implements InstantiatorInterface
         $instance   = $factory();
         $reflection = new ReflectionClass($instance);
 
-        // not cloneable if it implements `__clone`, as we want to avoid calling it
-        if (! $reflection->hasMethod('__clone') && $reflection->isCloneable()) {
+        if ($this->isSafeToClone($reflection)) {
             self::$cachedCloneables[$className] = clone $instance;
         }
 
@@ -234,5 +233,22 @@ final class Instantiator implements InstantiatorInterface
     private function isPhpVersionWithBrokenSerializationFormat()
     {
         return PHP_VERSION_ID === 50429 || PHP_VERSION_ID === 50513;
+    }
+
+    /**
+     * Checks if a class is cloneable
+     *
+     * @param ReflectionClass $reflectionClass
+     *
+     * @return bool
+     */
+    private function isSafeToClone(ReflectionClass $reflection)
+    {
+        if (\PHP_VERSION_ID >= 50400 && ! $reflection->isCloneable()) {
+            return false;
+        }
+
+        // not cloneable if it implements `__clone`, as we want to avoid calling it
+        return ! $reflection->hasMethod('__clone');
     }
 }
