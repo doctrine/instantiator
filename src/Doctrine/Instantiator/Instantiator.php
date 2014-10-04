@@ -238,7 +238,7 @@ final class Instantiator implements InstantiatorInterface
     /**
      * Checks if a class is cloneable
      *
-     * @param ReflectionClass $reflectionClass
+     * @param ReflectionClass $reflection
      *
      * @return bool
      */
