@@ -21,7 +21,7 @@ php composer.phar require "doctrine/instantiator:~1.0.3"
 
 ## Usage
 
-The instantiator is able to create new instances of any class without using the constructor of the class
+The instantiator is able to create new instances of any class without using the constructor or any API of the class
 itself:
 
 ```php
