@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3"
+        "php": ">=5.3,<8.0-DEV"
     },
     "require-dev": {
         "ext-phar":                  "*",
