@@ -22,7 +22,7 @@
         "ext-phar":                  "*",
         "ext-pdo":                   "*",
         "phpunit/phpunit":           "~4.0",
-        "squizlabs/php_codesniffer": "2.0.*@ALPHA",
+        "squizlabs/php_codesniffer": "~2.0",
         "athletic/athletic":         "~0.1.8"
     },
     "autoload": {
