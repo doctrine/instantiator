@@ -26,8 +26,8 @@
         "athletic/athletic":         "~0.1.8"
     },
     "autoload": {
-        "psr-0": {
-            "Doctrine\\Instantiator\\": "src"
+        "psr-4": {
+            "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
         }
     },
     "autoload-dev": {
