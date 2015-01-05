@@ -112,7 +112,7 @@ final class Instantiator implements InstantiatorInterface
             $className
         );
 
-        $this->attemptInstantiationViaUnSerialization($reflectionClass, $serializedString);
+        $this->checkIfUnSerializationIsSupported($reflectionClass, $serializedString);
 
         return function () use ($serializedString) {
             return unserialize($serializedString);
@@ -149,7 +149,7 @@ final class Instantiator implements InstantiatorInterface
      *
      * @return void
      */
-    private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, $serializedString)
+    private function checkIfUnSerializationIsSupported(ReflectionClass $reflectionClass, $serializedString)
     {
         set_error_handler(function ($code, $message, $file, $line) use ($reflectionClass, & $error) {
             $error = UnexpectedValueException::fromUncleanUnSerialization(
@@ -161,18 +161,29 @@ final class Instantiator implements InstantiatorInterface
             );
         });
 
+        $this->attemptInstantiationViaUnSerialization($reflectionClass, $serializedString);
+
+        restore_error_handler();
+
+        if ($error) {
+            throw $error;
+        }
+    }
+
+    /**
+     * @param ReflectionClass $reflectionClass
+     * @param string          $serializedString
+     *
+     * @throws UnexpectedValueException
+     */
+    private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, $serializedString)
+    {
         try {
             unserialize($serializedString);
         } catch (Exception $exception) {
             restore_error_handler();
 
             throw UnexpectedValueException::fromSerializationTriggeredException($reflectionClass, $exception);
-        }
-
-        restore_error_handler();
-
-        if ($error) {
-            throw $error;
         }
     }
 
