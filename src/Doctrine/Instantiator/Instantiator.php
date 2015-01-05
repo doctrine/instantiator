@@ -175,6 +175,8 @@ final class Instantiator implements InstantiatorInterface
      * @param string          $serializedString
      *
      * @throws UnexpectedValueException
+     *
+     * @return void
      */
     private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, $serializedString)
     {
