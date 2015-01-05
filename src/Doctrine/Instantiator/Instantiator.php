@@ -65,11 +65,10 @@ final class Instantiator implements InstantiatorInterface
             return $factory();
         }
 
-        $factory    = self::$cachedInstantiators[$className] = $this->buildFactory($className);
-        $instance   = $factory();
-        $reflection = new ReflectionClass($instance);
+        $factory  = self::$cachedInstantiators[$className] = $this->buildFactory($className);
+        $instance = $factory();
 
-        if ($this->isSafeToClone($reflection)) {
+        if ($this->isSafeToClone(new ReflectionClass($instance))) {
             self::$cachedCloneables[$className] = clone $instance;
         }
 
