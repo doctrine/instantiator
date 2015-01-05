@@ -65,6 +65,18 @@ final class Instantiator implements InstantiatorInterface
             return $factory();
         }
 
+        return $this->buildAndCacheFromFactory($className);
+    }
+
+    /**
+     * Builds the requested object and caches it in static properties for performance
+     *
+     * @param string $className
+     *
+     * @return object
+     */
+    private function buildAndCacheFromFactory($className)
+    {
         $factory  = self::$cachedInstantiators[$className] = $this->buildFactory($className);
         $instance = $factory();
 
