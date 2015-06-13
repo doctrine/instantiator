@@ -169,6 +169,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
             array('PharException'),
             array('DoctrineTest\\InstantiatorTestAsset\\SimpleSerializableAsset'),
             array('DoctrineTest\\InstantiatorTestAsset\\ExceptionAsset'),
+            array('DoctrineTest\\InstantiatorTestAsset\\FinalExceptionAsset'),
             array('DoctrineTest\\InstantiatorTestAsset\\PharExceptionAsset'),
             array('DoctrineTest\\InstantiatorTestAsset\\UnCloneableAsset'),
             array('DoctrineTest\\InstantiatorTestAsset\\XMLReaderAsset'),
