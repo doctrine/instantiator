@@ -41,12 +41,12 @@ final class Instantiator implements InstantiatorInterface
     const SERIALIZATION_FORMAT_AVOID_UNSERIALIZER = 'O';
 
     /**
-     * @var \Closure[] of {@see \Closure} instances used to instantiate specific classes
+     * @var \callable[] used to instantiate specific classes, indexed by class name
      */
     private static $cachedInstantiators = array();
 
     /**
-     * @var object[] of objects that can directly be cloned
+     * @var object[] of objects that can directly be cloned, indexed by class name
      */
     private static $cachedCloneables = array();
 
@@ -88,21 +88,19 @@ final class Instantiator implements InstantiatorInterface
     }
 
     /**
-     * Builds a {@see \Closure} capable of instantiating the given $className without
+     * Builds a callable capable of instantiating the given $className without
      * invoking its constructor.
      *
      * @param string $className
      *
-     * @return Closure
+     * @return callable
      */
     private function buildFactory($className)
     {
         $reflectionClass = $this->getReflectionClass($className);
 
         if ($this->isInstantiableViaReflection($reflectionClass)) {
-            return function () use ($reflectionClass) {
-                return $reflectionClass->newInstanceWithoutConstructor();
-            };
+            return [$reflectionClass, 'newInstanceWithoutConstructor'];
         }
 
         $serializedString = sprintf(
