@@ -8,9 +8,9 @@ before_script:
   - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then PHPUNIT_FLAGS="--coverage-clover coverage.clover"; else PHPUNIT_FLAGS=""; fi
 
 script:
-  - ./vendor/bin/phpunit $PHPUNIT_FLAGS;
-  - ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/;
-  - php -n ./vendor/bin/athletic -p ./tests/DoctrineTest/InstantiatorPerformance/ -f GroupedFormatter;
+  - ./vendor/bin/phpunit $PHPUNIT_FLAGS
+  - then ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/
+  - php -n ./vendor/bin/athletic -p ./tests/DoctrineTest/InstantiatorPerformance/ -f GroupedFormatter
 
 after_script:
   - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then wget https://scrutinizer-ci.com/ocular.phar; php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
