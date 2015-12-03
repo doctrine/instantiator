@@ -220,17 +220,14 @@ final class Instantiator implements InstantiatorInterface
     /**
      * Checks if a class is cloneable
      *
+     * Classes implementing `__clone` cannot be safely cloned, as that may cause side-effects.
+     *
      * @param ReflectionClass $reflection
      *
      * @return bool
      */
     private function isSafeToClone(ReflectionClass $reflection)
     {
-        if (! $reflection->isCloneable()) {
-            return false;
-        }
-
-        // not cloneable if it implements `__clone`, as we want to avoid calling it
-        return ! $reflection->hasMethod('__clone');
+        return $reflection->isCloneable() && ! $reflection->hasMethod('__clone');
     }
 }
