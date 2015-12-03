@@ -9,7 +9,7 @@ before_script:
 
 script:
   - ./vendor/bin/phpunit $PHPUNIT_FLAGS
-  - then ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/
+  - ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/
   - php -n ./vendor/bin/athletic -p ./tests/DoctrineTest/InstantiatorPerformance/ -f GroupedFormatter
 
 after_script:
