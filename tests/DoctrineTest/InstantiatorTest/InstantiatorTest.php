@@ -136,25 +136,25 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
      */
     public function getInstantiableClasses()
     {
-        return array(
-            array(stdClass::class),
-            array(__CLASS__),
-            array(Instantiator::class),
-            array(Exception::class),
-            array(PharException::class),
-            array(SimpleSerializableAsset::class),
-            array(ExceptionAsset::class),
-            array(FinalExceptionAsset::class),
-            array(PharExceptionAsset::class),
-            array(UnCloneableAsset::class),
-            array(XMLReaderAsset::class),
-            array(PharException::class),
-            array(ArrayObject::class),
-            array(ArrayObjectAsset::class),
-            array(SerializableArrayObjectAsset::class),
-            array(WakeUpNoticesAsset::class),
-            array(UnserializeExceptionArrayObjectAsset::class),
-        );
+        return [
+            [stdClass::class],
+            [__CLASS__],
+            [Instantiator::class],
+            [Exception::class],
+            [PharException::class],
+            [SimpleSerializableAsset::class],
+            [ExceptionAsset::class],
+            [FinalExceptionAsset::class],
+            [PharExceptionAsset::class],
+            [UnCloneableAsset::class],
+            [XMLReaderAsset::class],
+            [PharException::class],
+            [ArrayObject::class],
+            [ArrayObjectAsset::class],
+            [SerializableArrayObjectAsset::class],
+            [WakeUpNoticesAsset::class],
+            [UnserializeExceptionArrayObjectAsset::class],
+        ];
     }
 
     /**
@@ -164,11 +164,11 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
      */
     public function getInvalidClassNames()
     {
-        return array(
-            array(__CLASS__ . str_replace('.', '', uniqid('', true))),
-            array(InstantiatorInterface::class),
-            array(AbstractClassAsset::class),
-            array(SimpleTraitAsset::class)
-        );
+        return [
+            [__CLASS__ . str_replace('.', '', uniqid('', true))],
+            [InstantiatorInterface::class],
+            [AbstractClassAsset::class],
+            [SimpleTraitAsset::class]
+        ];
     }
 }

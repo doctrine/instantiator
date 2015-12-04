@@ -43,12 +43,12 @@ final class Instantiator implements InstantiatorInterface
     /**
      * @var \callable[] used to instantiate specific classes, indexed by class name
      */
-    private static $cachedInstantiators = array();
+    private static $cachedInstantiators = [];
 
     /**
      * @var object[] of objects that can directly be cloned, indexed by class name
      */
-    private static $cachedCloneables = array();
+    private static $cachedCloneables = [];
 
     /**
      * {@inheritDoc}
