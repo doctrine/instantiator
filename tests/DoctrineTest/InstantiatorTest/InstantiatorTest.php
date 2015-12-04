@@ -19,10 +19,28 @@
 
 namespace DoctrineTest\InstantiatorTest;
 
+use ArrayObject;
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
 use Doctrine\Instantiator\Instantiator;
+use Doctrine\Instantiator\InstantiatorInterface;
+use DoctrineTest\InstantiatorTestAsset\AbstractClassAsset;
+use DoctrineTest\InstantiatorTestAsset\ArrayObjectAsset;
+use DoctrineTest\InstantiatorTestAsset\ExceptionAsset;
+use DoctrineTest\InstantiatorTestAsset\FinalExceptionAsset;
+use DoctrineTest\InstantiatorTestAsset\PharExceptionAsset;
+use DoctrineTest\InstantiatorTestAsset\SerializableArrayObjectAsset;
+use DoctrineTest\InstantiatorTestAsset\SimpleSerializableAsset;
+use DoctrineTest\InstantiatorTestAsset\SimpleTraitAsset;
+use DoctrineTest\InstantiatorTestAsset\UnCloneableAsset;
+use DoctrineTest\InstantiatorTestAsset\UnserializeExceptionArrayObjectAsset;
+use DoctrineTest\InstantiatorTestAsset\WakeUpNoticesAsset;
+use DoctrineTest\InstantiatorTestAsset\XMLReaderAsset;
+use Exception;
+use PDORow;
+use PharException;
 use PHPUnit_Framework_TestCase;
-use ReflectionClass;
+use stdClass;
 
 /**
  * Tests for {@see \Doctrine\Instantiator\Instantiator}
@@ -79,9 +97,9 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
             );
         }
 
-        $this->setExpectedException('Doctrine\\Instantiator\\Exception\\UnexpectedValueException');
+        $this->setExpectedException(UnexpectedValueException::class);
 
-        $this->instantiator->instantiate(\PDORow::class);
+        $this->instantiator->instantiate(PDORow::class);
     }
 
     /**
@@ -91,7 +109,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
      */
     public function testInstantiationFromNonExistingClass($invalidClassName)
     {
-        $this->setExpectedException('Doctrine\\Instantiator\\Exception\\InvalidArgumentException');
+        $this->setExpectedException(InvalidArgumentException::class);
 
         $this->instantiator->instantiate($invalidClassName);
     }
@@ -119,23 +137,23 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
     public function getInstantiableClasses()
     {
         return array(
-            array('stdClass'),
+            array(stdClass::class),
             array(__CLASS__),
-            array('Doctrine\\Instantiator\\Instantiator'),
-            array('Exception'),
-            array('PharException'),
-            array('DoctrineTest\\InstantiatorTestAsset\\SimpleSerializableAsset'),
-            array('DoctrineTest\\InstantiatorTestAsset\\ExceptionAsset'),
-            array('DoctrineTest\\InstantiatorTestAsset\\FinalExceptionAsset'),
-            array('DoctrineTest\\InstantiatorTestAsset\\PharExceptionAsset'),
-            array('DoctrineTest\\InstantiatorTestAsset\\UnCloneableAsset'),
-            array('DoctrineTest\\InstantiatorTestAsset\\XMLReaderAsset'),
-            array('PharException'),
-            array('ArrayObject'),
-            array('DoctrineTest\\InstantiatorTestAsset\\ArrayObjectAsset'),
-            array('DoctrineTest\\InstantiatorTestAsset\\SerializableArrayObjectAsset'),
-            array('DoctrineTest\\InstantiatorTestAsset\\WakeUpNoticesAsset'),
-            array('DoctrineTest\\InstantiatorTestAsset\\UnserializeExceptionArrayObjectAsset'),
+            array(Instantiator::class),
+            array(Exception::class),
+            array(PharException::class),
+            array(SimpleSerializableAsset::class),
+            array(ExceptionAsset::class),
+            array(FinalExceptionAsset::class),
+            array(PharExceptionAsset::class),
+            array(UnCloneableAsset::class),
+            array(XMLReaderAsset::class),
+            array(PharException::class),
+            array(ArrayObject::class),
+            array(ArrayObjectAsset::class),
+            array(SerializableArrayObjectAsset::class),
+            array(WakeUpNoticesAsset::class),
+            array(UnserializeExceptionArrayObjectAsset::class),
         );
     }
 
@@ -148,9 +166,9 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
     {
         return array(
             array(__CLASS__ . str_replace('.', '', uniqid('', true))),
-            array('Doctrine\\Instantiator\\InstantiatorInterface'),
-            array('DoctrineTest\\InstantiatorTestAsset\\AbstractClassAsset'),
-            array('DoctrineTest\\InstantiatorTestAsset\\SimpleTraitAsset')
+            array(InstantiatorInterface::class),
+            array(AbstractClassAsset::class),
+            array(SimpleTraitAsset::class)
         );
     }
 }
