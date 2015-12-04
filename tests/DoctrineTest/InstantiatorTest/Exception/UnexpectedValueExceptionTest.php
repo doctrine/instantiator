@@ -20,6 +20,7 @@
 namespace DoctrineTest\InstantiatorTest\Exception;
 
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
+use DoctrineTest\InstantiatorTestAsset\AbstractClassAsset;
 use Exception;
 use PHPUnit_Framework_TestCase;
 use ReflectionClass;
@@ -39,7 +40,7 @@ class UnexpectedValueExceptionTest extends PHPUnit_Framework_TestCase
         $previous        = new Exception();
         $exception       = UnexpectedValueException::fromSerializationTriggeredException($reflectionClass, $previous);
 
-        $this->assertInstanceOf('Doctrine\\Instantiator\\Exception\\UnexpectedValueException', $exception);
+        $this->assertInstanceOf(UnexpectedValueException::class, $exception);
         $this->assertSame($previous, $exception->getPrevious());
         $this->assertSame(
             'An exception was raised while trying to instantiate an instance of "'
@@ -50,13 +51,16 @@ class UnexpectedValueExceptionTest extends PHPUnit_Framework_TestCase
 
     public function testFromUncleanUnSerialization()
     {
-        $reflection = new ReflectionClass('DoctrineTest\\InstantiatorTestAsset\\AbstractClassAsset');
+        $reflection = new ReflectionClass(AbstractClassAsset::class);
         $exception  = UnexpectedValueException::fromUncleanUnSerialization($reflection, 'foo', 123, 'bar', 456);
 
-        $this->assertInstanceOf('Doctrine\\Instantiator\\Exception\\UnexpectedValueException', $exception);
+        $this->assertInstanceOf(UnexpectedValueException::class, $exception);
         $this->assertSame(
-            'Could not produce an instance of "DoctrineTest\\InstantiatorTestAsset\\AbstractClassAsset" '
-            . 'via un-serialization, since an error was triggered in file "bar" at line "456"',
+            sprintf(
+                'Could not produce an instance of "%s" '
+                . 'via un-serialization, since an error was triggered in file "bar" at line "456"',
+                AbstractClassAsset::class
+            ),
             $exception->getMessage()
         );
 
