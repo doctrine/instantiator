@@ -5,7 +5,7 @@ if [ "$TRAVIS_PHP_VERSION" = 'hhvm' ] || [ "$TRAVIS_PHP_VERSION" = 'hhvm-nightly
     hhvm composer-installer.php
     hhvm -v ResourceLimit.SocketDefaultTimeout=30 -v Http.SlowQueryThreshold=30000 composer.phar update --prefer-source
 elif [ "$TRAVIS_PHP_VERSION" = '5.3.3' ] ; then
-    composer self-update
+    ## Can't update on php 5.3.3 as openssl is now required in the latest build and not available on php5.3.3 at travis
     composer update --prefer-source --no-dev
     composer dump-autoload
 else
