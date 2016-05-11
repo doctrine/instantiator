@@ -24,6 +24,7 @@ use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
 use Exception;
 use ReflectionClass;
+use Throwable;
 
 /**
  * {@inheritDoc}
@@ -183,6 +184,10 @@ final class Instantiator implements InstantiatorInterface
         try {
             unserialize($serializedString);
         } catch (Exception $exception) {
+            restore_error_handler();
+
+            throw UnexpectedValueException::fromSerializationTriggeredException($reflectionClass, $exception);
+        } catch (Throwable $exception) {
             restore_error_handler();
 
             throw UnexpectedValueException::fromSerializationTriggeredException($reflectionClass, $exception);
