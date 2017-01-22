@@ -141,7 +141,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
 
     public function testInstancesAreNotCloned()
     {
-        $className = 'TemporaryClass' . uniqid();
+        $className = 'TemporaryClass' . str_replace('.', '', uniqid('', true));
 
         eval('namespace ' . __NAMESPACE__ . '; class ' . $className . '{}');
 
@@ -205,7 +205,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
     public function getInvalidClassNames()
     {
         $classNames = array(
-            array(__CLASS__ . uniqid()),
+            array(__CLASS__ . str_replace('.', '', uniqid('', true))),
             array('Doctrine\\Instantiator\\InstantiatorInterface'),
             array('DoctrineTest\\InstantiatorTestAsset\\AbstractClassAsset'),
         );

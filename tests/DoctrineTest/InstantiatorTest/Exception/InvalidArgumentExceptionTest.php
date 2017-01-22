@@ -34,7 +34,7 @@ class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testFromNonExistingTypeWithNonExistingClass()
     {
-        $className = __CLASS__ . uniqid();
+        $className = __CLASS__ . str_replace('.', '', uniqid('', true));
         $exception = InvalidArgumentException::fromNonExistingClass($className);
 
         $this->assertInstanceOf('Doctrine\\Instantiator\\Exception\\InvalidArgumentException', $exception);
