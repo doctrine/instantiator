@@ -27,7 +27,7 @@ itself:
 ```php
 $instantiator = new \Doctrine\Instantiator\Instantiator();
 
-$instance = $instantiator->instantiate('My\\ClassName\\Here');
+$instance = $instantiator->instantiate(My\ClassName\Here::class);
 ```
 
 ## Contributing
