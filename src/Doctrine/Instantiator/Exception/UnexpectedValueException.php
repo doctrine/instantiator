@@ -21,6 +21,7 @@ namespace Doctrine\Instantiator\Exception;
 
 use Exception;
 use ReflectionClass;
+use Throwable;
 use UnexpectedValueException as BaseUnexpectedValueException;
 
 /**
@@ -31,12 +32,12 @@ use UnexpectedValueException as BaseUnexpectedValueException;
 class UnexpectedValueException extends BaseUnexpectedValueException implements ExceptionInterface
 {
     /**
-     * @param ReflectionClass $reflectionClass
-     * @param Exception       $exception
+     * @param ReflectionClass     $reflectionClass
+     * @param Exception|Throwable $exception
      *
      * @return self
      */
-    public static function fromSerializationTriggeredException(ReflectionClass $reflectionClass, Exception $exception)
+    public static function fromSerializationTriggeredException(ReflectionClass $reflectionClass, $exception)
     {
         return new self(
             sprintf(
