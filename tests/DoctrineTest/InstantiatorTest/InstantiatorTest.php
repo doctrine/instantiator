@@ -39,7 +39,7 @@ use DoctrineTest\InstantiatorTestAsset\XMLReaderAsset;
 use Exception;
 use PDORow;
 use PharException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
 /**
@@ -49,7 +49,7 @@ use stdClass;
  *
  * @covers \Doctrine\Instantiator\Instantiator
  */
-class InstantiatorTest extends PHPUnit_Framework_TestCase
+class InstantiatorTest extends TestCase
 {
     /**
      * @var Instantiator
@@ -95,7 +95,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
             );
         }
 
-        $this->setExpectedException(UnexpectedValueException::class);
+        $this->expectException(UnexpectedValueException::class);
 
         $this->instantiator->instantiate(PDORow::class);
     }
@@ -105,7 +105,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
      */
     public function testInstantiationFromNonExistingClass(string $invalidClassName) : void
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $this->instantiator->instantiate($invalidClassName);
     }

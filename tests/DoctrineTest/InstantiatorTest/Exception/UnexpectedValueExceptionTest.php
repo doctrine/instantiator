@@ -22,7 +22,7 @@ namespace DoctrineTest\InstantiatorTest\Exception;
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
 use DoctrineTest\InstantiatorTestAsset\AbstractClassAsset;
 use Exception;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
 /**
@@ -32,7 +32,7 @@ use ReflectionClass;
  *
  * @covers \Doctrine\Instantiator\Exception\UnexpectedValueException
  */
-class UnexpectedValueExceptionTest extends PHPUnit_Framework_TestCase
+class UnexpectedValueExceptionTest extends TestCase
 {
     public function testFromSerializationTriggeredException() : void
     {

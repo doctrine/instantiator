@@ -23,7 +23,7 @@ use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Doctrine\Instantiator\InstantiatorInterface;
 use DoctrineTest\InstantiatorTestAsset\AbstractClassAsset;
 use DoctrineTest\InstantiatorTestAsset\SimpleTraitAsset;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
 /**
@@ -33,7 +33,7 @@ use ReflectionClass;
  *
  * @covers \Doctrine\Instantiator\Exception\InvalidArgumentException
  */
-class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
+class InvalidArgumentExceptionTest extends TestCase
 {
     public function testFromNonExistingTypeWithNonExistingClass() : void
     {
