@@ -2,7 +2,7 @@ language: php
 
 php:
   - 7.1
-  -nightly
+  - nightly
 
 before_script:
   - composer self-update
