@@ -16,13 +16,13 @@
         }
     ],
     "require": {
-        "php": ">=5.3,<8.0-DEV"
+        "php": "^7.1"
     },
     "require-dev": {
         "ext-phar":                  "*",
         "ext-pdo":                   "*",
-        "phpunit/phpunit":           "~4.0",
-        "squizlabs/php_codesniffer": "~2.0",
+        "phpunit/phpunit":           "^6.2.3",
+        "squizlabs/php_codesniffer": "^3.0.2",
         "athletic/athletic":         "~0.1.8"
     },
     "autoload": {
@@ -39,7 +39,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "1.1.x-dev"
         }
     }
 }

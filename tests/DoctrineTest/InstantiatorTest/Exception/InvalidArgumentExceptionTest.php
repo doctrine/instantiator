@@ -20,7 +20,10 @@
 namespace DoctrineTest\InstantiatorTest\Exception;
 
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
+use Doctrine\Instantiator\InstantiatorInterface;
+use DoctrineTest\InstantiatorTestAsset\AbstractClassAsset;
+use DoctrineTest\InstantiatorTestAsset\SimpleTraitAsset;
+use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
 /**
@@ -30,53 +33,50 @@ use ReflectionClass;
  *
  * @covers \Doctrine\Instantiator\Exception\InvalidArgumentException
  */
-class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
+class InvalidArgumentExceptionTest extends TestCase
 {
-    public function testFromNonExistingTypeWithNonExistingClass()
+    public function testFromNonExistingTypeWithNonExistingClass() : void
     {
         $className = __CLASS__ . str_replace('.', '', uniqid('', true));
         $exception = InvalidArgumentException::fromNonExistingClass($className);
 
-        $this->assertInstanceOf('Doctrine\\Instantiator\\Exception\\InvalidArgumentException', $exception);
+        $this->assertInstanceOf(InvalidArgumentException::class, $exception);
         $this->assertSame('The provided class "' . $className . '" does not exist', $exception->getMessage());
     }
 
-    public function testFromNonExistingTypeWithTrait()
+    public function testFromNonExistingTypeWithTrait() : void
     {
-        if (PHP_VERSION_ID < 50400) {
-            $this->markTestSkipped('Need at least PHP 5.4.0, as this test requires traits support to run');
-        }
-
-        $exception = InvalidArgumentException::fromNonExistingClass(
-            'DoctrineTest\\InstantiatorTestAsset\\SimpleTraitAsset'
-        );
+        $exception = InvalidArgumentException::fromNonExistingClass(SimpleTraitAsset::class);
 
         $this->assertSame(
-            'The provided type "DoctrineTest\\InstantiatorTestAsset\\SimpleTraitAsset" is a trait, '
-            . 'and can not be instantiated',
+            sprintf('The provided type "%s" is a trait, and can not be instantiated', SimpleTraitAsset::class),
             $exception->getMessage()
         );
     }
 
-    public function testFromNonExistingTypeWithInterface()
+    public function testFromNonExistingTypeWithInterface() : void
     {
-        $exception = InvalidArgumentException::fromNonExistingClass('Doctrine\\Instantiator\\InstantiatorInterface');
+        $exception = InvalidArgumentException::fromNonExistingClass(InstantiatorInterface::class);
 
         $this->assertSame(
-            'The provided type "Doctrine\\Instantiator\\InstantiatorInterface" is an interface, '
-            . 'and can not be instantiated',
+            sprintf(
+                'The provided type "%s" is an interface, and can not be instantiated',
+                InstantiatorInterface::class
+            ),
             $exception->getMessage()
         );
     }
 
-    public function testFromAbstractClass()
+    public function testFromAbstractClass() : void
     {
-        $reflection = new ReflectionClass('DoctrineTest\\InstantiatorTestAsset\\AbstractClassAsset');
+        $reflection = new ReflectionClass(AbstractClassAsset::class);
         $exception  = InvalidArgumentException::fromAbstractClass($reflection);
 
         $this->assertSame(
-            'The provided class "DoctrineTest\\InstantiatorTestAsset\\AbstractClassAsset" is abstract, '
-            . 'and can not be instantiated',
+            sprintf(
+                'The provided class "%s" is abstract, and can not be instantiated',
+                AbstractClassAsset::class
+            ),
             $exception->getMessage()
         );
     }

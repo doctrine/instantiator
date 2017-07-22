@@ -1,19 +1,18 @@
 language: php
 
 php:
-  - 5.6
-  - 7.0
   - 7.1
-  - hhvm
+  - nightly
 
 before_script:
-  - ./.travis.install.sh
-  - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then PHPUNIT_FLAGS="--coverage-clover coverage.clover"; else PHPUNIT_FLAGS=""; fi
+  - composer self-update
+  - composer update
 
 script:
-  - ./vendor/bin/phpunit $PHPUNIT_FLAGS;
-  - ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/;
-  - php -n ./vendor/bin/athletic -p ./tests/DoctrineTest/InstantiatorPerformance/ -f GroupedFormatter;
+  - ./vendor/bin/phpunit --coverage-clover coverage.clover
+  - ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/
+  - php -n ./vendor/bin/athletic -p ./tests/DoctrineTest/InstantiatorPerformance/ -f GroupedFormatter
 
 after_script:
-  - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then wget https://scrutinizer-ci.com/ocular.phar; php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
