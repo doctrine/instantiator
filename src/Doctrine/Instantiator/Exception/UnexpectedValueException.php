@@ -30,8 +30,10 @@ use UnexpectedValueException as BaseUnexpectedValueException;
  */
 class UnexpectedValueException extends BaseUnexpectedValueException implements ExceptionInterface
 {
-    public static function fromSerializationTriggeredException(ReflectionClass $reflectionClass, Exception $exception) : self
-    {
+    public static function fromSerializationTriggeredException(
+        ReflectionClass $reflectionClass,
+        Exception $exception
+    ) : self {
         return new self(
             sprintf(
                 'An exception was raised while trying to instantiate an instance of "%s" via un-serialization',
