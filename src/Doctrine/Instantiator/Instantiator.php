@@ -19,7 +19,6 @@
 
 namespace Doctrine\Instantiator;
 
-use Closure;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
 use Exception;
@@ -71,11 +70,9 @@ final class Instantiator implements InstantiatorInterface
     /**
      * Builds the requested object and caches it in static properties for performance
      *
-     * @param string $className
-     *
      * @return object
      */
-    private function buildAndCacheFromFactory($className)
+    private function buildAndCacheFromFactory(string $className)
     {
         $factory  = self::$cachedInstantiators[$className] = $this->buildFactory($className);
         $instance = $factory();
@@ -91,11 +88,11 @@ final class Instantiator implements InstantiatorInterface
      * Builds a callable capable of instantiating the given $className without
      * invoking its constructor.
      *
-     * @param string $className
-     *
-     * @return callable
+     * @throws InvalidArgumentException
+     * @throws UnexpectedValueException
+     * @throws \ReflectionException
      */
-    private function buildFactory($className)
+    private function buildFactory(string $className) : callable
     {
         $reflectionClass = $this->getReflectionClass($className);
 
@@ -123,8 +120,9 @@ final class Instantiator implements InstantiatorInterface
      * @return ReflectionClass
      *
      * @throws InvalidArgumentException
+     * @throws \ReflectionException
      */
-    private function getReflectionClass($className)
+    private function getReflectionClass($className) : ReflectionClass
     {
         if (! class_exists($className)) {
             throw InvalidArgumentException::fromNonExistingClass($className);
@@ -147,9 +145,9 @@ final class Instantiator implements InstantiatorInterface
      *
      * @return void
      */
-    private function checkIfUnSerializationIsSupported(ReflectionClass $reflectionClass, $serializedString)
+    private function checkIfUnSerializationIsSupported(ReflectionClass $reflectionClass, $serializedString) : void
     {
-        set_error_handler(function ($code, $message, $file, $line) use ($reflectionClass, & $error) {
+        set_error_handler(function ($code, $message, $file, $line) use ($reflectionClass, & $error) : void {
             $error = UnexpectedValueException::fromUncleanUnSerialization(
                 $reflectionClass,
                 $message,
@@ -176,7 +174,7 @@ final class Instantiator implements InstantiatorInterface
      *
      * @return void
      */
-    private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, $serializedString)
+    private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, $serializedString) : void
     {
         try {
             unserialize($serializedString);
@@ -187,24 +185,15 @@ final class Instantiator implements InstantiatorInterface
         }
     }
 
-    /**
-     * @param ReflectionClass $reflectionClass
-     *
-     * @return bool
-     */
-    private function isInstantiableViaReflection(ReflectionClass $reflectionClass)
+    private function isInstantiableViaReflection(ReflectionClass $reflectionClass) : bool
     {
         return ! ($this->hasInternalAncestors($reflectionClass) && $reflectionClass->isFinal());
     }
 
     /**
      * Verifies whether the given class is to be considered internal
-     *
-     * @param ReflectionClass $reflectionClass
-     *
-     * @return bool
      */
-    private function hasInternalAncestors(ReflectionClass $reflectionClass)
+    private function hasInternalAncestors(ReflectionClass $reflectionClass) : bool
     {
         do {
             if ($reflectionClass->isInternal()) {
@@ -219,12 +208,8 @@ final class Instantiator implements InstantiatorInterface
      * Checks if a class is cloneable
      *
      * Classes implementing `__clone` cannot be safely cloned, as that may cause side-effects.
-     *
-     * @param ReflectionClass $reflection
-     *
-     * @return bool
      */
-    private function isSafeToClone(ReflectionClass $reflection)
+    private function isSafeToClone(ReflectionClass $reflection) : bool
     {
         return $reflection->isCloneable() && ! $reflection->hasMethod('__clone');
     }
