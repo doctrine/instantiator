@@ -35,7 +35,7 @@ use ReflectionClass;
  */
 class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
 {
-    public function testFromNonExistingTypeWithNonExistingClass()
+    public function testFromNonExistingTypeWithNonExistingClass() : void
     {
         $className = __CLASS__ . str_replace('.', '', uniqid('', true));
         $exception = InvalidArgumentException::fromNonExistingClass($className);
@@ -44,7 +44,7 @@ class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
         $this->assertSame('The provided class "' . $className . '" does not exist', $exception->getMessage());
     }
 
-    public function testFromNonExistingTypeWithTrait()
+    public function testFromNonExistingTypeWithTrait() : void
     {
         $exception = InvalidArgumentException::fromNonExistingClass(SimpleTraitAsset::class);
 
@@ -54,7 +54,7 @@ class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testFromNonExistingTypeWithInterface()
+    public function testFromNonExistingTypeWithInterface() : void
     {
         $exception = InvalidArgumentException::fromNonExistingClass(InstantiatorInterface::class);
 
@@ -67,7 +67,7 @@ class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testFromAbstractClass()
+    public function testFromAbstractClass() : void
     {
         $reflection = new ReflectionClass(AbstractClassAsset::class);
         $exception  = InvalidArgumentException::fromAbstractClass($reflection);

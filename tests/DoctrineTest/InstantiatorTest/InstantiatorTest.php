@@ -59,27 +59,25 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp() : void
     {
+        parent::setUp();
+
         $this->instantiator = new Instantiator();
     }
 
     /**
-     * @param string $className
-     *
      * @dataProvider getInstantiableClasses
      */
-    public function testCanInstantiate($className)
+    public function testCanInstantiate(string $className) : void
     {
         $this->assertInstanceOf($className, $this->instantiator->instantiate($className));
     }
 
     /**
-     * @param string $className
-     *
      * @dataProvider getInstantiableClasses
      */
-    public function testInstantiatesSeparateInstances($className)
+    public function testInstantiatesSeparateInstances(string $className) : void
     {
         $instance1 = $this->instantiator->instantiate($className);
         $instance2 = $this->instantiator->instantiate($className);
@@ -88,7 +86,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
         $this->assertNotSame($instance1, $instance2);
     }
 
-    public function testExceptionOnUnSerializationException()
+    public function testExceptionOnUnSerializationException() : void
     {
         if (defined('HHVM_VERSION')) {
             $this->markTestSkipped(
@@ -103,18 +101,16 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param string $invalidClassName
-     *
      * @dataProvider getInvalidClassNames
      */
-    public function testInstantiationFromNonExistingClass($invalidClassName)
+    public function testInstantiationFromNonExistingClass(string $invalidClassName) : void
     {
         $this->setExpectedException(InvalidArgumentException::class);
 
         $this->instantiator->instantiate($invalidClassName);
     }
 
-    public function testInstancesAreNotCloned()
+    public function testInstancesAreNotCloned() : void
     {
         $className = 'TemporaryClass' . str_replace('.', '', uniqid('', true));
 
@@ -134,7 +130,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
      *
      * @return string[][]
      */
-    public function getInstantiableClasses()
+    public function getInstantiableClasses() : array
     {
         return [
             [stdClass::class],
@@ -162,7 +158,7 @@ class InstantiatorTest extends PHPUnit_Framework_TestCase
      *
      * @return string[][]
      */
-    public function getInvalidClassNames()
+    public function getInvalidClassNames() : array
     {
         return [
             [__CLASS__ . str_replace('.', '', uniqid('', true))],

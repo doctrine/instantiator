@@ -37,8 +37,10 @@ class InstantiatorPerformanceEvent extends AthleticEvent
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp() : void
     {
+        parent::setUp();
+
         $this->instantiator = new Instantiator();
 
         $this->instantiator->instantiate(__CLASS__);
@@ -53,7 +55,7 @@ class InstantiatorPerformanceEvent extends AthleticEvent
      * @baseline
      * @group instantiation
      */
-    public function testInstantiateSelf()
+    public function testInstantiateSelf() : void
     {
         $this->instantiator->instantiate(__CLASS__);
     }
@@ -62,7 +64,7 @@ class InstantiatorPerformanceEvent extends AthleticEvent
      * @iterations 20000
      * @group instantiation
      */
-    public function testInstantiateInternalClass()
+    public function testInstantiateInternalClass() : void
     {
         $this->instantiator->instantiate('ArrayObject');
     }
@@ -71,7 +73,7 @@ class InstantiatorPerformanceEvent extends AthleticEvent
      * @iterations 20000
      * @group instantiation
      */
-    public function testInstantiateSimpleSerializableAssetClass()
+    public function testInstantiateSimpleSerializableAssetClass() : void
     {
         $this->instantiator->instantiate('DoctrineTest\\InstantiatorTestAsset\\SimpleSerializableAsset');
     }
@@ -80,7 +82,7 @@ class InstantiatorPerformanceEvent extends AthleticEvent
      * @iterations 20000
      * @group instantiation
      */
-    public function testInstantiateSerializableArrayObjectAsset()
+    public function testInstantiateSerializableArrayObjectAsset() : void
     {
         $this->instantiator->instantiate('DoctrineTest\\InstantiatorTestAsset\\SerializableArrayObjectAsset');
     }
@@ -89,7 +91,7 @@ class InstantiatorPerformanceEvent extends AthleticEvent
      * @iterations 20000
      * @group instantiation
      */
-    public function testInstantiateUnCloneableAsset()
+    public function testInstantiateUnCloneableAsset() : void
     {
         $this->instantiator->instantiate('DoctrineTest\\InstantiatorTestAsset\\UnCloneableAsset');
     }

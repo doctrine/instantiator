@@ -34,7 +34,7 @@ use ReflectionClass;
  */
 class UnexpectedValueExceptionTest extends PHPUnit_Framework_TestCase
 {
-    public function testFromSerializationTriggeredException()
+    public function testFromSerializationTriggeredException() : void
     {
         $reflectionClass = new ReflectionClass($this);
         $previous        = new Exception();
@@ -49,7 +49,7 @@ class UnexpectedValueExceptionTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testFromUncleanUnSerialization()
+    public function testFromUncleanUnSerialization() : void
     {
         $reflection = new ReflectionClass(AbstractClassAsset::class);
         $exception  = UnexpectedValueException::fromUncleanUnSerialization($reflection, 'foo', 123, 'bar', 456);
