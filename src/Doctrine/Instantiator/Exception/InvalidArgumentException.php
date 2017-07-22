@@ -29,12 +29,7 @@ use ReflectionClass;
  */
 class InvalidArgumentException extends BaseInvalidArgumentException implements ExceptionInterface
 {
-    /**
-     * @param string $className
-     *
-     * @return self
-     */
-    public static function fromNonExistingClass($className)
+    public static function fromNonExistingClass(string $className) : self
     {
         if (interface_exists($className)) {
             return new self(sprintf('The provided type "%s" is an interface, and can not be instantiated', $className));
@@ -47,12 +42,7 @@ class InvalidArgumentException extends BaseInvalidArgumentException implements E
         return new self(sprintf('The provided class "%s" does not exist', $className));
     }
 
-    /**
-     * @param ReflectionClass $reflectionClass
-     *
-     * @return self
-     */
-    public static function fromAbstractClass(ReflectionClass $reflectionClass)
+    public static function fromAbstractClass(ReflectionClass $reflectionClass) : self
     {
         return new self(sprintf(
             'The provided class "%s" is abstract, and can not be instantiated',
