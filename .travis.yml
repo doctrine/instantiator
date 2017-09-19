@@ -1,19 +1,44 @@
+dist: trusty
+sudo: false
 language: php
 
 php:
   - 7.1
   - nightly
 
-before_script:
+before_install:
+  - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
   - composer self-update
-  - composer update
-  - composer require "phpbench/phpbench:^0.13.0" --dev
+
+install: travis_retry composer update --prefer-dist
 
 script:
-  - ./vendor/bin/phpunit --coverage-clover coverage.clover
-  - ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/
-  - php -n ./vendor/bin/phpbench run --iterations=3 --warmup=1 --report=aggregate
+  - ./vendor/bin/phpunit -v
 
-after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+jobs:
+  include:
+
+    - stage: Coverage
+      php: 7.1
+      before_script:
+        - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{.disabled,}
+        - if [[ ! $(php -m | grep -si xdebug) ]]; then echo "xdebug required for coverage"; exit 1; fi
+      script:
+        - ./vendor/bin/phpunit -v --coverage-clover ./build/logs/clover.xml
+      after_script:
+        - wget https://scrutinizer-ci.com/ocular.phar
+        - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+
+    - stage: CS
+      php: 7.1
+      install: composer require "squizlabs/php_codesniffer:^3.0.2" --dev
+      script: ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/
+
+    - stage: Benchmark
+      php: 7.1
+      install: composer require "phpbench/phpbench:^0.13.0" --dev
+      script: php -n ./vendor/bin/phpbench run --iterations=3 --warmup=1 --report=aggregate
+
+cache:
+  directories:
+    - $HOME/.composer/cache
