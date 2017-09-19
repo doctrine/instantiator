@@ -21,9 +21,7 @@
     "require-dev": {
         "ext-phar":                  "*",
         "ext-pdo":                   "*",
-        "phpunit/phpunit":           "^6.2.3",
-        "squizlabs/php_codesniffer": "^3.0.2",
-        "athletic/athletic":         "~0.1.8"
+        "phpunit/phpunit":           "^6.2.3"
     },
     "autoload": {
         "psr-4": {
