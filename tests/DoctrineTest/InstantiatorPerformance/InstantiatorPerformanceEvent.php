@@ -19,28 +19,26 @@
 
 namespace DoctrineTest\InstantiatorPerformance;
 
-use Athletic\AthleticEvent;
 use Doctrine\Instantiator\Instantiator;
+use PhpBench\Benchmark\Metadata\Annotations\BeforeMethods;
+use PhpBench\Benchmark\Metadata\Annotations\Revs;
 
 /**
  * Performance tests for {@see \Doctrine\Instantiator\Instantiator}
  *
  * @author Marco Pivetta <ocramius@gmail.com>
+ *
+ * @BeforeMethods({"init"})
  */
-class InstantiatorPerformanceEvent extends AthleticEvent
+class InstantiatorPerformanceEvent
 {
     /**
      * @var \Doctrine\Instantiator\Instantiator
      */
     private $instantiator;
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function setUp() : void
+    public function init() : void
     {
-        parent::setUp();
-
         $this->instantiator = new Instantiator();
 
         $this->instantiator->instantiate(__CLASS__);
@@ -51,47 +49,41 @@ class InstantiatorPerformanceEvent extends AthleticEvent
     }
 
     /**
-     * @iterations 20000
-     * @baseline
-     * @group instantiation
+     * @Revs(20000)
      */
-    public function testInstantiateSelf() : void
+    public function benchInstantiateSelf() : void
     {
         $this->instantiator->instantiate(__CLASS__);
     }
 
     /**
-     * @iterations 20000
-     * @group instantiation
+     * @Revs(20000)
      */
-    public function testInstantiateInternalClass() : void
+    public function benchInstantiateInternalClass() : void
     {
         $this->instantiator->instantiate('ArrayObject');
     }
 
     /**
-     * @iterations 20000
-     * @group instantiation
+     * @Revs(20000)
      */
-    public function testInstantiateSimpleSerializableAssetClass() : void
+    public function benchInstantiateSimpleSerializableAssetClass() : void
     {
         $this->instantiator->instantiate('DoctrineTest\\InstantiatorTestAsset\\SimpleSerializableAsset');
     }
 
     /**
-     * @iterations 20000
-     * @group instantiation
+     * @Revs(20000)
      */
-    public function testInstantiateSerializableArrayObjectAsset() : void
+    public function benchInstantiateSerializableArrayObjectAsset() : void
     {
         $this->instantiator->instantiate('DoctrineTest\\InstantiatorTestAsset\\SerializableArrayObjectAsset');
     }
 
     /**
-     * @iterations 20000
-     * @group instantiation
+     * @Revs(20000)
      */
-    public function testInstantiateUnCloneableAsset() : void
+    public function benchInstantiateUnCloneableAsset() : void
     {
         $this->instantiator->instantiate('DoctrineTest\\InstantiatorTestAsset\\UnCloneableAsset');
     }

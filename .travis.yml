@@ -7,11 +7,12 @@ php:
 before_script:
   - composer self-update
   - composer update
+  - composer require "phpbench/phpbench:^0.13.0" --dev
 
 script:
   - ./vendor/bin/phpunit --coverage-clover coverage.clover
   - ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/
-  - php -n ./vendor/bin/athletic -p ./tests/DoctrineTest/InstantiatorPerformance/ -f GroupedFormatter
+  - php -n ./vendor/bin/phpbench run --iterations=3 --warmup=1 --report=aggregate
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
