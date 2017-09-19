@@ -1,0 +1,3 @@
+parameters:
+    ignoreErrors:
+        - '#::__construct\(\) does not call parent constructor from#'
