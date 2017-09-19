@@ -40,7 +40,7 @@ final class Instantiator implements InstantiatorInterface
     const SERIALIZATION_FORMAT_AVOID_UNSERIALIZER = 'O';
 
     /**
-     * @var \callable[] used to instantiate specific classes, indexed by class name
+     * @var callable[] used to instantiate specific classes, indexed by class name
      */
     private static $cachedInstantiators = [];
 

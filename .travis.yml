@@ -34,6 +34,13 @@ jobs:
       install: composer require "squizlabs/php_codesniffer:^3.0.2" --dev
       script: ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/
 
+    - stage: Static Analysis
+      php: 7.1
+      install: composer require "phpstan/phpstan:^0.8" --dev
+      script:
+        - ./vendor/bin/phpstan analyse -c phpstan.neon -l max src
+        - ./vendor/bin/phpstan analyse -c phpstan.tests.neon -l max tests
+
     - stage: Benchmark
       php: 7.1
       install: composer require "phpbench/phpbench:^0.13.0" --dev
