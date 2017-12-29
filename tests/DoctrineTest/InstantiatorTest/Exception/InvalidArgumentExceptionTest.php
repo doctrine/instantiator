@@ -1,4 +1,5 @@
 <?php
+
 namespace DoctrineTest\InstantiatorTest\Exception;
 
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
@@ -7,11 +8,12 @@ use DoctrineTest\InstantiatorTestAsset\AbstractClassAsset;
 use DoctrineTest\InstantiatorTestAsset\SimpleTraitAsset;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use function sprintf;
+use function str_replace;
+use function uniqid;
 
 /**
  * Tests for {@see \Doctrine\Instantiator\Exception\InvalidArgumentException}
- *
- * @author Marco Pivetta <ocramius@gmail.com>
  *
  * @covers \Doctrine\Instantiator\Exception\InvalidArgumentException
  */

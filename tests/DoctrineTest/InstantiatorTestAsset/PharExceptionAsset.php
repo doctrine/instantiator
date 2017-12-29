@@ -1,4 +1,5 @@
 <?php
+
 namespace DoctrineTest\InstantiatorTestAsset;
 
 use BadMethodCallException;
@@ -9,8 +10,6 @@ use PharException;
  * This class should be serializable without problems
  * and without getting the "Erroneous data format for unserializing"
  * error
- *
- * @author Marco Pivetta <ocramius@gmail.com>
  */
 class PharExceptionAsset extends PharException
 {

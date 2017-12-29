@@ -21,6 +21,7 @@
     "require-dev": {
         "ext-phar":                  "*",
         "ext-pdo":                   "*",
+        "doctrine/coding-standard":  "~2.1.0",
         "phpunit/phpunit":           "^6.2.3"
     },
     "autoload": {

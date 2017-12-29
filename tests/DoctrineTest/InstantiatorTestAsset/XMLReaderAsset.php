@@ -1,4 +1,5 @@
 <?php
+
 namespace DoctrineTest\InstantiatorTestAsset;
 
 use BadMethodCallException;
@@ -6,8 +7,6 @@ use XMLReader;
 
 /**
  * Test asset that extends an internal PHP class
- *
- * @author Dave Marshall <dave@atst.io>
  */
 class XMLReaderAsset extends XMLReader
 {

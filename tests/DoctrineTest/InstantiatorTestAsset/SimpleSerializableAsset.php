@@ -1,4 +1,5 @@
 <?php
+
 namespace DoctrineTest\InstantiatorTestAsset;
 
 use BadMethodCallException;
@@ -6,8 +7,6 @@ use Serializable;
 
 /**
  * Base serializable test asset
- *
- * @author Marco Pivetta <ocramius@gmail.com>
  */
 class SimpleSerializableAsset implements Serializable
 {

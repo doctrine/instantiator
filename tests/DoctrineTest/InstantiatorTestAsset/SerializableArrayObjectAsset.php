@@ -1,4 +1,5 @@
 <?php
+
 namespace DoctrineTest\InstantiatorTestAsset;
 
 use ArrayObject;
@@ -7,8 +8,6 @@ use Serializable;
 
 /**
  * Serializable test asset that also extends an internal class
- *
- * @author Marco Pivetta <ocramius@gmail.com>
  */
 class SerializableArrayObjectAsset extends ArrayObject implements Serializable
 {

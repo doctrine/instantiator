@@ -1,4 +1,5 @@
 <?php
+
 namespace DoctrineTest\InstantiatorTestAsset;
 
 use BadMethodCallException;
@@ -6,8 +7,6 @@ use Exception;
 
 /**
  * Test asset that extends an internal PHP base exception
- *
- * @author Marco Pivetta <ocramius@gmail.com>
  */
 final class FinalExceptionAsset extends Exception
 {

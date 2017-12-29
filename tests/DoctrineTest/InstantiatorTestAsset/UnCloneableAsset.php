@@ -1,12 +1,11 @@
 <?php
+
 namespace DoctrineTest\InstantiatorTestAsset;
 
 use BadMethodCallException;
 
 /**
  * Base un-cloneable asset
- *
- * @author Marco Pivetta <ocramius@gmail.com>
  */
 class UnCloneableAsset
 {

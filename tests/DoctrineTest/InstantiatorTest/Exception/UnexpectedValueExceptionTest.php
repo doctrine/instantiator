@@ -1,4 +1,5 @@
 <?php
+
 namespace DoctrineTest\InstantiatorTest\Exception;
 
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
@@ -6,11 +7,10 @@ use DoctrineTest\InstantiatorTestAsset\AbstractClassAsset;
 use Exception;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use function sprintf;
 
 /**
  * Tests for {@see \Doctrine\Instantiator\Exception\UnexpectedValueException}
- *
- * @author Marco Pivetta <ocramius@gmail.com>
  *
  * @covers \Doctrine\Instantiator\Exception\UnexpectedValueException
  */
@@ -26,7 +26,7 @@ class UnexpectedValueExceptionTest extends TestCase
         $this->assertSame($previous, $exception->getPrevious());
         $this->assertSame(
             'An exception was raised while trying to instantiate an instance of "'
-            . __CLASS__  . '" via un-serialization',
+            . __CLASS__ . '" via un-serialization',
             $exception->getMessage()
         );
     }

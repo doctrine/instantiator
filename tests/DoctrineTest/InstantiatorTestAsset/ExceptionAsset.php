@@ -6,8 +6,6 @@ use Exception;
 
 /**
  * Test asset that extends an internal PHP base exception
- *
- * @author Marco Pivetta <ocramius@gmail.com>
  */
 class ExceptionAsset extends Exception
 {
