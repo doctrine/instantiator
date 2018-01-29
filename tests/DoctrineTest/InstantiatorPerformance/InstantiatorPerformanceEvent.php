@@ -1,4 +1,5 @@
 <?php
+
 namespace DoctrineTest\InstantiatorPerformance;
 
 use Doctrine\Instantiator\Instantiator;
@@ -7,8 +8,6 @@ use PhpBench\Benchmark\Metadata\Annotations\Revs;
 
 /**
  * Performance tests for {@see \Doctrine\Instantiator\Instantiator}
- *
- * @author Marco Pivetta <ocramius@gmail.com>
  *
  * @BeforeMethods({"init"})
  */

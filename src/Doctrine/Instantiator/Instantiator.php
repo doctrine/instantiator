@@ -1,15 +1,20 @@
 <?php
+
 namespace Doctrine\Instantiator;
 
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
 use Exception;
 use ReflectionClass;
+use function class_exists;
+use function restore_error_handler;
+use function set_error_handler;
+use function sprintf;
+use function strlen;
+use function unserialize;
 
 /**
  * {@inheritDoc}
- *
- * @author Marco Pivetta <ocramius@gmail.com>
  */
 final class Instantiator implements InstantiatorInterface
 {
@@ -18,8 +23,8 @@ final class Instantiator implements InstantiatorInterface
      * the method {@see \Serializable::unserialize()} when dealing with classes implementing
      * the {@see \Serializable} interface.
      */
-    const SERIALIZATION_FORMAT_USE_UNSERIALIZER   = 'C';
-    const SERIALIZATION_FORMAT_AVOID_UNSERIALIZER = 'O';
+    public const SERIALIZATION_FORMAT_USE_UNSERIALIZER   = 'C';
+    public const SERIALIZATION_FORMAT_AVOID_UNSERIALIZER = 'O';
 
     /**
      * @var callable[] used to instantiate specific classes, indexed by class name
@@ -99,8 +104,6 @@ final class Instantiator implements InstantiatorInterface
     /**
      * @param string $className
      *
-     * @return ReflectionClass
-     *
      * @throws InvalidArgumentException
      * @throws \ReflectionException
      */
@@ -120,12 +123,9 @@ final class Instantiator implements InstantiatorInterface
     }
 
     /**
-     * @param ReflectionClass $reflectionClass
-     * @param string          $serializedString
+     * @param string $serializedString
      *
      * @throws UnexpectedValueException
-     *
-     * @return void
      */
     private function checkIfUnSerializationIsSupported(ReflectionClass $reflectionClass, $serializedString) : void
     {
@@ -149,12 +149,9 @@ final class Instantiator implements InstantiatorInterface
     }
 
     /**
-     * @param ReflectionClass $reflectionClass
-     * @param string          $serializedString
+     * @param string $serializedString
      *
      * @throws UnexpectedValueException
-     *
-     * @return void
      */
     private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, $serializedString) : void
     {
@@ -181,7 +178,9 @@ final class Instantiator implements InstantiatorInterface
             if ($reflectionClass->isInternal()) {
                 return true;
             }
-        } while ($reflectionClass = $reflectionClass->getParentClass());
+
+            $reflectionClass = $reflectionClass->getParentClass();
+        } while ($reflectionClass);
 
         return false;
     }

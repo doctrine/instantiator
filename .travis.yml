@@ -4,6 +4,7 @@ language: php
 
 php:
   - 7.1
+  - 7.2
   - nightly
 
 before_install:
@@ -17,7 +18,6 @@ script:
 
 jobs:
   include:
-
     - stage: Coverage
       php: 7.1
       before_script:
@@ -29,10 +29,9 @@ jobs:
         - wget https://scrutinizer-ci.com/ocular.phar
         - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
 
-    - stage: CS
+    - stage: Coding Standard
       php: 7.1
-      install: composer require "squizlabs/php_codesniffer:^3.0.2" --dev
-      script: ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/
+      script: ./vendor/bin/phpcs
 
     - stage: Static Analysis
       php: 7.1

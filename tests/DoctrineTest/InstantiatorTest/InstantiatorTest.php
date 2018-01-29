@@ -1,4 +1,5 @@
 <?php
+
 namespace DoctrineTest\InstantiatorTest;
 
 use ArrayObject;
@@ -23,11 +24,12 @@ use PDORow;
 use PharException;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use function defined;
+use function str_replace;
+use function uniqid;
 
 /**
  * Tests for {@see \Doctrine\Instantiator\Instantiator}
- *
- * @author Marco Pivetta <ocramius@gmail.com>
  *
  * @covers \Doctrine\Instantiator\Instantiator
  */
@@ -146,7 +148,7 @@ class InstantiatorTest extends TestCase
             [__CLASS__ . str_replace('.', '', uniqid('', true))],
             [InstantiatorInterface::class],
             [AbstractClassAsset::class],
-            [SimpleTraitAsset::class]
+            [SimpleTraitAsset::class],
         ];
     }
 }

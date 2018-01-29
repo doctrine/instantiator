@@ -1,12 +1,12 @@
 <?php
+
 namespace DoctrineTest\InstantiatorTestAsset;
 
 use ArrayObject;
+use function trigger_error;
 
 /**
  * A simple asset for an abstract class
- *
- * @author Marco Pivetta <ocramius@gmail.com>
  */
 class WakeUpNoticesAsset extends ArrayObject
 {

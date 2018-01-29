@@ -1,14 +1,14 @@
 <?php
+
 namespace Doctrine\Instantiator\Exception;
 
 use Exception;
 use ReflectionClass;
 use UnexpectedValueException as BaseUnexpectedValueException;
+use function sprintf;
 
 /**
  * Exception for given parameters causing invalid/unexpected state on instantiation
- *
- * @author Marco Pivetta <ocramius@gmail.com>
  */
 class UnexpectedValueException extends BaseUnexpectedValueException implements ExceptionInterface
 {
