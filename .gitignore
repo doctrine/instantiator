@@ -3,5 +3,5 @@ composer.lock
 build
 vendor
 coverage.clover
-phpcs.xml
-.phpcs-cache
+/phpcs.xml
+/.phpcs-cache
