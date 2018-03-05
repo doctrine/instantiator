@@ -53,7 +53,7 @@ class InstantiatorTest extends TestCase
      */
     public function testCanInstantiate(string $className) : void
     {
-        $this->assertInstanceOf($className, $this->instantiator->instantiate($className));
+        self::assertInstanceOf($className, $this->instantiator->instantiate($className));
     }
 
     /**
@@ -64,8 +64,8 @@ class InstantiatorTest extends TestCase
         $instance1 = $this->instantiator->instantiate($className);
         $instance2 = $this->instantiator->instantiate($className);
 
-        $this->assertEquals($instance1, $instance2);
-        $this->assertNotSame($instance1, $instance2);
+        self::assertEquals($instance1, $instance2);
+        self::assertNotSame($instance1, $instance2);
     }
 
     public function testExceptionOnUnSerializationException() : void
@@ -104,7 +104,7 @@ class InstantiatorTest extends TestCase
 
         $instance2 = $this->instantiator->instantiate(__NAMESPACE__ . '\\' . $className);
 
-        $this->assertObjectNotHasAttribute('foo', $instance2);
+        self::assertObjectNotHasAttribute('foo', $instance2);
     }
 
     /**
