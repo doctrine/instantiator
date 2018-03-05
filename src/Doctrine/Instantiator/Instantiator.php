@@ -27,12 +27,16 @@ final class Instantiator implements InstantiatorInterface
     public const SERIALIZATION_FORMAT_AVOID_UNSERIALIZER = 'O';
 
     /**
-     * @var callable[] used to instantiate specific classes, indexed by class name
+     * Used to instantiate specific classes, indexed by class name.
+     *
+     * @var callable[]
      */
     private static $cachedInstantiators = [];
 
     /**
-     * @var object[] of objects that can directly be cloned, indexed by class name
+     * Array of objects that can directly be cloned, indexed by class name.
+     *
+     * @var object[]
      */
     private static $cachedCloneables = [];
 

@@ -35,9 +35,7 @@ use function uniqid;
  */
 class InstantiatorTest extends TestCase
 {
-    /**
-     * @var Instantiator
-     */
+    /** @var Instantiator */
     private $instantiator;
 
     /**

@@ -13,9 +13,7 @@ use PhpBench\Benchmark\Metadata\Annotations\Revs;
  */
 class InstantiatorPerformanceEvent
 {
-    /**
-     * @var \Doctrine\Instantiator\Instantiator
-     */
+    /** @var Instantiator */
     private $instantiator;
 
     public function init() : void
