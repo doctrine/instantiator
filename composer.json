@@ -22,7 +22,7 @@
         "ext-phar":                  "*",
         "ext-pdo":                   "*",
         "doctrine/coding-standard":  "^4.0",
-        "phpunit/phpunit":           "^6.5.5"
+        "phpunit/phpunit":           "^7.0"
     },
     "autoload": {
         "psr-4": {
