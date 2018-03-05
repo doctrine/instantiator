@@ -1,3 +1,6 @@
 parameters:
     ignoreErrors:
         - '#::__construct\(\) does not call parent constructor from#'
+
+        # dynamic properties confuse static analysis
+        - '#Access to an undefined property object::\$foo\.#'

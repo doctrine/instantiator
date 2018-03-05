@@ -21,18 +21,18 @@ class InvalidArgumentExceptionTest extends TestCase
 {
     public function testFromNonExistingTypeWithNonExistingClass() : void
     {
-        $className = __CLASS__ . str_replace('.', '', uniqid('', true));
+        $className = self::class . str_replace('.', '', uniqid('', true));
         $exception = InvalidArgumentException::fromNonExistingClass($className);
 
-        $this->assertInstanceOf(InvalidArgumentException::class, $exception);
-        $this->assertSame('The provided class "' . $className . '" does not exist', $exception->getMessage());
+        self::assertInstanceOf(InvalidArgumentException::class, $exception);
+        self::assertSame('The provided class "' . $className . '" does not exist', $exception->getMessage());
     }
 
     public function testFromNonExistingTypeWithTrait() : void
     {
         $exception = InvalidArgumentException::fromNonExistingClass(SimpleTraitAsset::class);
 
-        $this->assertSame(
+        self::assertSame(
             sprintf('The provided type "%s" is a trait, and can not be instantiated', SimpleTraitAsset::class),
             $exception->getMessage()
         );
@@ -42,7 +42,7 @@ class InvalidArgumentExceptionTest extends TestCase
     {
         $exception = InvalidArgumentException::fromNonExistingClass(InstantiatorInterface::class);
 
-        $this->assertSame(
+        self::assertSame(
             sprintf(
                 'The provided type "%s" is an interface, and can not be instantiated',
                 InstantiatorInterface::class
@@ -56,7 +56,7 @@ class InvalidArgumentExceptionTest extends TestCase
         $reflection = new ReflectionClass(AbstractClassAsset::class);
         $exception  = InvalidArgumentException::fromAbstractClass($reflection);
 
-        $this->assertSame(
+        self::assertSame(
             sprintf(
                 'The provided class "%s" is abstract, and can not be instantiated',
                 AbstractClassAsset::class

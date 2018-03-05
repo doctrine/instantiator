@@ -6,3 +6,4 @@
 .travis.yml export-ignore
 phpmd.xml.dist export-ignore
 phpunit.xml.dist export-ignore
+composer.lock export-ignore
