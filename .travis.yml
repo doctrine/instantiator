@@ -35,7 +35,7 @@ jobs:
 
     - stage: Static Analysis
       php: 7.1
-      install: composer require "phpstan/phpstan:^0.8" --dev
+      install: composer require "phpstan/phpstan:^0.9.2" --dev
       script:
         - ./vendor/bin/phpstan analyse -c phpstan.neon -l max src
         - ./vendor/bin/phpstan analyse -c phpstan.tests.neon -l max tests
