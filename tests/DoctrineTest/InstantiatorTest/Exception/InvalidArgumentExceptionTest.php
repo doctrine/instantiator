@@ -21,7 +21,7 @@ class InvalidArgumentExceptionTest extends TestCase
 {
     public function testFromNonExistingTypeWithNonExistingClass() : void
     {
-        $className = __CLASS__ . str_replace('.', '', uniqid('', true));
+        $className = self::class . str_replace('.', '', uniqid('', true));
         $exception = InvalidArgumentException::fromNonExistingClass($className);
 
         $this->assertInstanceOf(InvalidArgumentException::class, $exception);

@@ -116,7 +116,7 @@ class InstantiatorTest extends TestCase
     {
         return [
             [stdClass::class],
-            [__CLASS__],
+            [self::class],
             [Instantiator::class],
             [Exception::class],
             [PharException::class],
@@ -143,7 +143,7 @@ class InstantiatorTest extends TestCase
     public function getInvalidClassNames() : array
     {
         return [
-            [__CLASS__ . str_replace('.', '', uniqid('', true))],
+            [self::class . str_replace('.', '', uniqid('', true))],
             [InstantiatorInterface::class],
             [AbstractClassAsset::class],
             [SimpleTraitAsset::class],

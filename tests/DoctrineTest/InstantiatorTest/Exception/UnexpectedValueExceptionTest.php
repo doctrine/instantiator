@@ -26,7 +26,7 @@ class UnexpectedValueExceptionTest extends TestCase
         $this->assertSame($previous, $exception->getPrevious());
         $this->assertSame(
             'An exception was raised while trying to instantiate an instance of "'
-            . __CLASS__ . '" via un-serialization',
+            . self::class . '" via un-serialization',
             $exception->getMessage()
         );
     }
@@ -48,7 +48,7 @@ class UnexpectedValueExceptionTest extends TestCase
 
         $previous = $exception->getPrevious();
 
-        $this->assertInstanceOf('Exception', $previous);
+        $this->assertInstanceOf(\Exception::class, $previous);
         $this->assertSame('foo', $previous->getMessage());
         $this->assertSame(123, $previous->getCode());
     }
