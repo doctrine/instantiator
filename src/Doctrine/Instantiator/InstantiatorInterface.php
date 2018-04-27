@@ -10,8 +10,6 @@ use Doctrine\Instantiator\Exception\ExceptionInterface;
 interface InstantiatorInterface
 {
     /**
-     * @param string $className
-     *
      * @return object
      *
      * @throws ExceptionInterface
