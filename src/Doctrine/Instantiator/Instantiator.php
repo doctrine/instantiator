@@ -43,7 +43,7 @@ final class Instantiator implements InstantiatorInterface
     /**
      * {@inheritDoc}
      */
-    public function instantiate($className)
+    public function instantiate(string $className)
     {
         if (isset(self::$cachedCloneables[$className])) {
             return clone self::$cachedCloneables[$className];

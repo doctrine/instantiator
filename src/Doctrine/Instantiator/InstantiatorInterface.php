@@ -16,5 +16,5 @@ interface InstantiatorInterface
      *
      * @throws ExceptionInterface
      */
-    public function instantiate($className);
+    public function instantiate(string $className);
 }
