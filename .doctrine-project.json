@@ -3,6 +3,7 @@
     "name": "Instantiator",
     "slug": "instantiator",
     "docsSlug": "doctrine-instantiator",
+    "codePath": "/src",
     "versions": [
         {
             "name": "1.1",
