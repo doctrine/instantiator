@@ -6,6 +6,7 @@ use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
 use Exception;
 use ReflectionClass;
+use ReflectionException;
 use function class_exists;
 use function restore_error_handler;
 use function set_error_handler;
@@ -81,7 +82,7 @@ final class Instantiator implements InstantiatorInterface
      *
      * @throws InvalidArgumentException
      * @throws UnexpectedValueException
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private function buildFactory(string $className) : callable
     {
@@ -100,7 +101,7 @@ final class Instantiator implements InstantiatorInterface
 
         $this->checkIfUnSerializationIsSupported($reflectionClass, $serializedString);
 
-        return function () use ($serializedString) {
+        return static function () use ($serializedString) {
             return unserialize($serializedString);
         };
     }
@@ -109,7 +110,7 @@ final class Instantiator implements InstantiatorInterface
      * @param string $className
      *
      * @throws InvalidArgumentException
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private function getReflectionClass($className) : ReflectionClass
     {
@@ -133,7 +134,7 @@ final class Instantiator implements InstantiatorInterface
      */
     private function checkIfUnSerializationIsSupported(ReflectionClass $reflectionClass, $serializedString) : void
     {
-        set_error_handler(function ($code, $message, $file, $line) use ($reflectionClass, & $error) : void {
+        set_error_handler(static function ($code, $message, $file, $line) use ($reflectionClass, & $error) : void {
             $error = UnexpectedValueException::fromUncleanUnSerialization(
                 $reflectionClass,
                 $message,

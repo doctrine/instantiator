@@ -48,7 +48,7 @@ class UnexpectedValueExceptionTest extends TestCase
 
         $previous = $exception->getPrevious();
 
-        self::assertInstanceOf(\Exception::class, $previous);
+        self::assertInstanceOf(Exception::class, $previous);
         self::assertSame('foo', $previous->getMessage());
         self::assertSame(123, $previous->getCode());
     }

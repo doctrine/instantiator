@@ -2,6 +2,7 @@
 
 namespace DoctrineTest\InstantiatorPerformance;
 
+use ArrayObject;
 use Doctrine\Instantiator\Instantiator;
 use DoctrineTest\InstantiatorTestAsset\SerializableArrayObjectAsset;
 use DoctrineTest\InstantiatorTestAsset\SimpleSerializableAsset;
@@ -24,7 +25,7 @@ class InstantiatorPerformanceEvent
         $this->instantiator = new Instantiator();
 
         $this->instantiator->instantiate(self::class);
-        $this->instantiator->instantiate(\ArrayObject::class);
+        $this->instantiator->instantiate(ArrayObject::class);
         $this->instantiator->instantiate(SimpleSerializableAsset::class);
         $this->instantiator->instantiate(SerializableArrayObjectAsset::class);
         $this->instantiator->instantiate(UnCloneableAsset::class);
@@ -43,7 +44,7 @@ class InstantiatorPerformanceEvent
      */
     public function benchInstantiateInternalClass() : void
     {
-        $this->instantiator->instantiate(\ArrayObject::class);
+        $this->instantiator->instantiate(ArrayObject::class);
     }
 
     /**
