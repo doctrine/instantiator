@@ -109,8 +109,6 @@ final class Instantiator implements InstantiatorInterface
     /**
      * @param string $className
      *
-     * @return ReflectionClass
-     *
      * @throws InvalidArgumentException
      * @throws ReflectionException
      */
@@ -130,9 +128,6 @@ final class Instantiator implements InstantiatorInterface
     }
 
     /**
-     * @param ReflectionClass $reflectionClass
-     * @param string $serializedString
-     *
      * @throws UnexpectedValueException
      */
     private function checkIfUnSerializationIsSupported(ReflectionClass $reflectionClass, string $serializedString) : void
@@ -159,9 +154,6 @@ final class Instantiator implements InstantiatorInterface
     }
 
     /**
-     * @param ReflectionClass $reflectionClass
-     * @param string $serializedString
-     *
      * @throws UnexpectedValueException
      */
     private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, string $serializedString) : void
