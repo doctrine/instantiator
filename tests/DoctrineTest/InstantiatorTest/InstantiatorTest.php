@@ -24,7 +24,6 @@ use PDORow;
 use PharException;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use function defined;
 use function str_replace;
 use function uniqid;
 
@@ -70,13 +69,6 @@ class InstantiatorTest extends TestCase
 
     public function testExceptionOnUnSerializationException() : void
     {
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped(
-                'As of facebook/hhvm#3432, HHVM has no PDORow, and therefore '
-                . ' no internal final classes that cannot be instantiated'
-            );
-        }
-
         $this->expectException(UnexpectedValueException::class);
 
         $this->instantiator->instantiate(PDORow::class);
