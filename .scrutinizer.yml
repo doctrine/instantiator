@@ -39,8 +39,4 @@ tools:
         enabled: true
         filter:
             paths: ["src/*", "tests/*"]
-    php_hhvm:
-        enabled: true
-        filter:
-            paths: ["src/*", "tests/*"]
     sensiolabs_security_checker: true
