@@ -44,8 +44,7 @@ jobs:
       php: 7.1
       install: travis_retry composer install --prefer-dist
       script:
-        - ./vendor/bin/phpstan analyse -c phpstan.neon -l max src
-        - ./vendor/bin/phpstan analyse -c phpstan.tests.neon -l max tests
+        - ./vendor/bin/phpstan analyse
 
     - stage: Code Quality
       env: BENCHMARK

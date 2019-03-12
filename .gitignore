@@ -4,3 +4,4 @@ vendor
 coverage.clover
 /phpcs.xml
 /.phpcs-cache
+/phpstan.neon
