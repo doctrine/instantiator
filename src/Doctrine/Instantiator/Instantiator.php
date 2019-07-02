@@ -132,7 +132,7 @@ final class Instantiator implements InstantiatorInterface
      */
     private function checkIfUnSerializationIsSupported(ReflectionClass $reflectionClass, string $serializedString) : void
     {
-        set_error_handler(static function ($code, $message, $file, $line) use ($reflectionClass, & $error) : void {
+        set_error_handler(static function (int $code, string $message, string $file, int $line) use ($reflectionClass, & $error) : bool {
             $error = UnexpectedValueException::fromUncleanUnSerialization(
                 $reflectionClass,
                 $message,
@@ -140,6 +140,8 @@ final class Instantiator implements InstantiatorInterface
                 $file,
                 $line
             );
+
+            return true;
         });
 
         try {
