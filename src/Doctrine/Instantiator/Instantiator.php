@@ -107,12 +107,10 @@ final class Instantiator implements InstantiatorInterface
     }
 
     /**
-     * @param string $className
-     *
      * @throws InvalidArgumentException
      * @throws ReflectionException
      */
-    private function getReflectionClass($className) : ReflectionClass
+    private function getReflectionClass(string $className) : ReflectionClass
     {
         if (! class_exists($className)) {
             throw InvalidArgumentException::fromNonExistingClass($className);
