@@ -2,6 +2,7 @@
 
 namespace Doctrine\Instantiator;
 
+use ArrayIterator;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
 use Exception;
@@ -195,6 +196,8 @@ final class Instantiator implements InstantiatorInterface
      */
     private function isSafeToClone(ReflectionClass $reflection) : bool
     {
-        return $reflection->isCloneable() && ! $reflection->hasMethod('__clone');
+        return $reflection->isCloneable()
+            && ! $reflection->hasMethod('__clone')
+            && ! $reflection->isSubclassOf(ArrayIterator::class);
     }
 }
