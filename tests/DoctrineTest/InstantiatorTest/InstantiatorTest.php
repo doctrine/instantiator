@@ -13,6 +13,7 @@ use DoctrineTest\InstantiatorTestAsset\ExceptionAsset;
 use DoctrineTest\InstantiatorTestAsset\FinalExceptionAsset;
 use DoctrineTest\InstantiatorTestAsset\PharExceptionAsset;
 use DoctrineTest\InstantiatorTestAsset\SerializableArrayObjectAsset;
+use DoctrineTest\InstantiatorTestAsset\SerializableFinalInternalChildAsset;
 use DoctrineTest\InstantiatorTestAsset\SimpleSerializableAsset;
 use DoctrineTest\InstantiatorTestAsset\SimpleTraitAsset;
 use DoctrineTest\InstantiatorTestAsset\UnCloneableAsset;
@@ -124,6 +125,7 @@ class InstantiatorTest extends TestCase
             [SerializableArrayObjectAsset::class],
             [WakeUpNoticesAsset::class],
             [UnserializeExceptionArrayObjectAsset::class],
+            [SerializableFinalInternalChildAsset::class],
         ];
     }
 
