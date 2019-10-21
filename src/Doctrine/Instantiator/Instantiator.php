@@ -94,7 +94,7 @@ final class Instantiator implements InstantiatorInterface
 
         $serializedString = sprintf(
             '%s:%d:"%s":0:{}',
-            self::SERIALIZATION_FORMAT_AVOID_UNSERIALIZER,
+            is_subclass_of($className, \Serializable::class) ? self::SERIALIZATION_FORMAT_USE_UNSERIALIZER : self::SERIALIZATION_FORMAT_AVOID_UNSERIALIZER,
             strlen($className),
             $className
         );

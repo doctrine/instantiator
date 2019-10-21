@@ -26,6 +26,7 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use function str_replace;
 use function uniqid;
+use DoctrineTest\InstantiatorTestAsset\SerializableFinalInternalChildAssset;
 
 /**
  * Tests for {@see \Doctrine\Instantiator\Instantiator}
@@ -124,6 +125,7 @@ class InstantiatorTest extends TestCase
             [SerializableArrayObjectAsset::class],
             [WakeUpNoticesAsset::class],
             [UnserializeExceptionArrayObjectAsset::class],
+            [SerializableFinalInternalChildAssset::class],
         ];
     }
 
