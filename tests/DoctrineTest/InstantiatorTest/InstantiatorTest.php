@@ -13,6 +13,7 @@ use DoctrineTest\InstantiatorTestAsset\ExceptionAsset;
 use DoctrineTest\InstantiatorTestAsset\FinalExceptionAsset;
 use DoctrineTest\InstantiatorTestAsset\PharExceptionAsset;
 use DoctrineTest\InstantiatorTestAsset\SerializableArrayObjectAsset;
+use DoctrineTest\InstantiatorTestAsset\SerializableFinalInternalChildAsset;
 use DoctrineTest\InstantiatorTestAsset\SimpleSerializableAsset;
 use DoctrineTest\InstantiatorTestAsset\SimpleTraitAsset;
 use DoctrineTest\InstantiatorTestAsset\UnCloneableAsset;
@@ -26,7 +27,6 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use function str_replace;
 use function uniqid;
-use DoctrineTest\InstantiatorTestAsset\SerializableFinalInternalChildAssset;
 
 /**
  * Tests for {@see \Doctrine\Instantiator\Instantiator}
@@ -125,7 +125,7 @@ class InstantiatorTest extends TestCase
             [SerializableArrayObjectAsset::class],
             [WakeUpNoticesAsset::class],
             [UnserializeExceptionArrayObjectAsset::class],
-            [SerializableFinalInternalChildAssset::class],
+            [SerializableFinalInternalChildAsset::class],
         ];
     }
 
