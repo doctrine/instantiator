@@ -1,12 +1,12 @@
-dist: trusty
-sudo: false
+dist: xenial
+
 language: php
 
 php:
   - 7.1
   - 7.2
   - 7.3
-  - 7.4snapshot
+  - 7.4
 
 before_install:
   - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
