@@ -38,9 +38,6 @@ class InstantiatorTest extends TestCase
     /** @var Instantiator */
     private $instantiator;
 
-    /**
-     * {@inheritDoc}
-     */
     protected function setUp() : void
     {
         parent::setUp();

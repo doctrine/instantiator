@@ -17,9 +17,6 @@ use function sprintf;
 use function strlen;
 use function unserialize;
 
-/**
- * {@inheritDoc}
- */
 final class Instantiator implements InstantiatorInterface
 {
     /**

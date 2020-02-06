@@ -4,10 +4,10 @@ namespace Doctrine\Instantiator\Exception;
 
 use InvalidArgumentException as BaseInvalidArgumentException;
 use ReflectionClass;
-use const PHP_VERSION_ID;
 use function interface_exists;
 use function sprintf;
 use function trait_exists;
+use const PHP_VERSION_ID;
 
 /**
  * Exception for invalid arguments provided to the instantiator

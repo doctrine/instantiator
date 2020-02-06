@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "10dbda024f3c85c7ca18d980c3cea4a7",
+    "content-hash": "c03ae06f6f306183b8677ce91dec3832",
     "packages": [],
     "packages-dev": [
         {
@@ -64,29 +64,27 @@
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
-            "version": "v0.4.4",
+            "version": "v0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dealerdirect/phpcodesniffer-composer-installer.git",
-                "reference": "2e41850d5f7797cbb1af7b030d245b3b24e63a08"
+                "reference": "e749410375ff6fb7a040a68878c656c2e610b132"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/2e41850d5f7797cbb1af7b030d245b3b24e63a08",
-                "reference": "2e41850d5f7797cbb1af7b030d245b3b24e63a08",
+                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/e749410375ff6fb7a040a68878c656c2e610b132",
+                "reference": "e749410375ff6fb7a040a68878c656c2e610b132",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.0",
                 "php": "^5.3|^7",
-                "squizlabs/php_codesniffer": "*"
+                "squizlabs/php_codesniffer": "^2|^3"
             },
             "require-dev": {
                 "composer/composer": "*",
-                "wimg/php-compatibility": "^8.0"
-            },
-            "suggest": {
-                "dealerdirect/qa-tools": "All the PHP QA tools you'll need"
+                "phpcompatibility/php-compatibility": "^9.0",
+                "sensiolabs/security-checker": "^4.1.0"
             },
             "type": "composer-plugin",
             "extra": {
@@ -104,13 +102,13 @@
             "authors": [
                 {
                     "name": "Franck Nijhof",
-                    "email": "f.nijhof@dealerdirect.nl",
-                    "homepage": "http://workingatdealerdirect.eu",
-                    "role": "Developer"
+                    "email": "franck.nijhof@dealerdirect.com",
+                    "homepage": "http://www.frenck.nl",
+                    "role": "Developer / IT Manager"
                 }
             ],
             "description": "PHP_CodeSniffer Standards Composer Installer Plugin",
-            "homepage": "http://workingatdealerdirect.eu",
+            "homepage": "http://www.dealerdirect.com",
             "keywords": [
                 "PHPCodeSniffer",
                 "PHP_CodeSniffer",
@@ -128,7 +126,7 @@
                 "stylecheck",
                 "tests"
             ],
-            "time": "2017-12-06T16:27:17+00:00"
+            "time": "2018-10-26T13:21:45+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -200,28 +198,28 @@
         },
         {
             "name": "doctrine/coding-standard",
-            "version": "5.0.0",
+            "version": "7.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/coding-standard.git",
-                "reference": "bb8de042a25c4fb59a2c55c350dc55cc00227a8c"
+                "reference": "d8a60ec4da68025c42795b714f66e277dd3e11de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/coding-standard/zipball/bb8de042a25c4fb59a2c55c350dc55cc00227a8c",
-                "reference": "bb8de042a25c4fb59a2c55c350dc55cc00227a8c",
+                "url": "https://api.github.com/repos/doctrine/coding-standard/zipball/d8a60ec4da68025c42795b714f66e277dd3e11de",
+                "reference": "d8a60ec4da68025c42795b714f66e277dd3e11de",
                 "shasum": ""
             },
             "require": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
-                "php": "^7.1",
-                "slevomat/coding-standard": "^4.8.0",
-                "squizlabs/php_codesniffer": "^3.3.2"
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+                "php": "^7.2",
+                "slevomat/coding-standard": "^6.0",
+                "squizlabs/php_codesniffer": "^3.5.3"
             },
             "type": "phpcodesniffer-standard",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.0.x-dev"
+                    "dev-master": "7.0.x-dev"
                 }
             },
             "autoload": {
@@ -257,7 +255,7 @@
                 "standard",
                 "style"
             ],
-            "time": "2018-09-24T19:08:56+00:00"
+            "time": "2019-12-11T07:59:21+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -1064,6 +1062,7 @@
                 "MIT"
             ],
             "description": "PHPStan Phar distribution",
+            "abandoned": "phpstan/phpstan",
             "time": "2019-03-10T17:14:54+00:00"
         },
         {
@@ -2162,29 +2161,31 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "4.8.2",
+            "version": "6.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "5e878708a16a75ed11a7d9aa02f50c257065d4fe"
+                "reference": "d767b5e302ff096327466c97fec3cb57f6d16086"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/5e878708a16a75ed11a7d9aa02f50c257065d4fe",
-                "reference": "5e878708a16a75ed11a7d9aa02f50c257065d4fe",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/d767b5e302ff096327466c97fec3cb57f6d16086",
+                "reference": "d767b5e302ff096327466c97fec3cb57f6d16086",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1",
-                "squizlabs/php_codesniffer": "^3.3.0"
+                "phpstan/phpdoc-parser": "0.3.5 - 0.4.3",
+                "squizlabs/php_codesniffer": "^3.5.4"
             },
             "require-dev": {
-                "jakub-onderka/php-parallel-lint": "1.0.0",
-                "phing/phing": "2.16.1",
-                "phpstan/phpstan": "0.9.2",
-                "phpstan/phpstan-phpunit": "0.9.4",
-                "phpstan/phpstan-strict-rules": "0.9",
-                "phpunit/phpunit": "7.3.5"
+                "dealerdirect/phpcodesniffer-composer-installer": "0.6.2",
+                "grogy/php-parallel-lint": "1.1.0",
+                "phing/phing": "2.16.3",
+                "phpstan/phpstan": "0.11.19|0.12.9",
+                "phpstan/phpstan-phpunit": "0.11.2|0.12.6",
+                "phpstan/phpstan-strict-rules": "0.11.1|0.12.2",
+                "phpunit/phpunit": "7.5.18|8.5.2"
             },
             "type": "phpcodesniffer-standard",
             "autoload": {
@@ -2197,20 +2198,20 @@
                 "MIT"
             ],
             "description": "Slevomat Coding Standard for PHP_CodeSniffer complements Consistence Coding Standard by providing sniffs with additional checks.",
-            "time": "2018-09-25T06:49:15+00:00"
+            "time": "2020-02-05T21:17:34+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.3.2",
+            "version": "3.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "6ad28354c04b364c3c71a34e4a18b629cc3b231e"
+                "reference": "dceec07328401de6211037abbb18bda423677e26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/6ad28354c04b364c3c71a34e4a18b629cc3b231e",
-                "reference": "6ad28354c04b364c3c71a34e4a18b629cc3b231e",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/dceec07328401de6211037abbb18bda423677e26",
+                "reference": "dceec07328401de6211037abbb18bda423677e26",
                 "shasum": ""
             },
             "require": {
@@ -2243,12 +2244,12 @@
                 }
             ],
             "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
-            "homepage": "http://www.squizlabs.com/php-codesniffer",
+            "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
             "keywords": [
                 "phpcs",
                 "standards"
             ],
-            "time": "2018-09-23T23:08:17+00:00"
+            "time": "2020-01-30T22:20:29+00:00"
         },
         {
             "name": "symfony/console",
