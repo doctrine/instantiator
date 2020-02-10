@@ -13,6 +13,7 @@ before_install:
   - travis_retry composer self-update
 
 install:
+  - composer validate --strict
   - rm composer.lock
   - travis_retry composer update --prefer-dist
 
