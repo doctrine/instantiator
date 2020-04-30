@@ -7,7 +7,9 @@ php:
   - 7.2
   - 7.3
   - 7.4
-
+  - php: nightly
+    dist: bionic
+    
 before_install:
   - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
   - travis_retry composer self-update
