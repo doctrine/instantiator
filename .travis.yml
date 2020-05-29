@@ -8,6 +8,10 @@ php:
   - 7.3
   - 7.4
 
+env:
+  global:
+    - COMPOSER_ROOT_VERSION=1.3
+
 before_install:
   - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
 
