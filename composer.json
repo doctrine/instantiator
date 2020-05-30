@@ -15,8 +15,13 @@
             "homepage": "http://ocramius.github.com/"
         }
     ],
+    "config": {
+        "platform": {
+            "php": "7.1.27"
+        }
+    },
     "require": {
-        "php": "^7.1"
+        "php": "^7.1 || ^8.0"
     },
     "require-dev": {
         "ext-phar":                  "*",
