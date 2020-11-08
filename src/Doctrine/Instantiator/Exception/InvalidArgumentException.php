@@ -4,7 +4,6 @@ namespace Doctrine\Instantiator\Exception;
 
 use InvalidArgumentException as BaseInvalidArgumentException;
 use ReflectionClass;
-use const PHP_VERSION_ID;
 use function interface_exists;
 use function sprintf;
 use function trait_exists;
@@ -20,7 +19,7 @@ class InvalidArgumentException extends BaseInvalidArgumentException implements E
             return new self(sprintf('The provided type "%s" is an interface, and can not be instantiated', $className));
         }
 
-        if (PHP_VERSION_ID >= 50400 && trait_exists($className)) {
+        if (trait_exists($className)) {
             return new self(sprintf('The provided type "%s" is a trait, and can not be instantiated', $className));
         }
 
