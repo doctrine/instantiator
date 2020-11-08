@@ -7,6 +7,9 @@ use function trigger_error;
 
 /**
  * A simple asset for an abstract class
+ *
+ * @template TValue
+ * @template-extends ArrayObject<int, TValue>
  */
 class WakeUpNoticesAsset extends ArrayObject
 {

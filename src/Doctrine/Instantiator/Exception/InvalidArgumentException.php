@@ -26,6 +26,10 @@ class InvalidArgumentException extends BaseInvalidArgumentException implements E
         return new self(sprintf('The provided class "%s" does not exist', $className));
     }
 
+    /**
+     * @template T of object
+     * @phpstan-param ReflectionClass<T> $reflectionClass
+     */
     public static function fromAbstractClass(ReflectionClass $reflectionClass) : self
     {
         return new self(sprintf(

@@ -8,6 +8,9 @@ use Serializable;
 
 /**
  * Serializable test asset that also extends an internal class
+ *
+ * @template TValue
+ * @template-extends ArrayObject<int, TValue>
  */
 class SerializableArrayObjectAsset extends ArrayObject implements Serializable
 {

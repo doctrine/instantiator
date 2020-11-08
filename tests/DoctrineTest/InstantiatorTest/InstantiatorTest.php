@@ -50,6 +50,7 @@ class InstantiatorTest extends TestCase
 
     /**
      * @dataProvider getInstantiableClasses
+     * @phpstan-param class-string $className
      */
     public function testCanInstantiate(string $className) : void
     {
@@ -58,6 +59,7 @@ class InstantiatorTest extends TestCase
 
     /**
      * @dataProvider getInstantiableClasses
+     * @phpstan-param class-string $className
      */
     public function testInstantiatesSeparateInstances(string $className) : void
     {
@@ -77,6 +79,7 @@ class InstantiatorTest extends TestCase
 
     /**
      * @dataProvider getInvalidClassNames
+     * @phpstan-param class-string $invalidClassName
      */
     public function testInstantiationFromNonExistingClass(string $invalidClassName) : void
     {
@@ -91,11 +94,16 @@ class InstantiatorTest extends TestCase
 
         eval('namespace ' . __NAMESPACE__ . '; class ' . $className . '{}');
 
-        $instance = $this->instantiator->instantiate(__NAMESPACE__ . '\\' . $className);
+        /**
+         * @phpstan-var class-string
+         */
+        $classNameWithNamespace = __NAMESPACE__ . '\\' . $className;
+
+        $instance = $this->instantiator->instantiate($classNameWithNamespace);
 
         $instance->foo = 'bar';
 
-        $instance2 = $this->instantiator->instantiate(__NAMESPACE__ . '\\' . $className);
+        $instance2 = $this->instantiator->instantiate($classNameWithNamespace);
 
         self::assertObjectNotHasAttribute('foo', $instance2);
     }
@@ -104,6 +112,8 @@ class InstantiatorTest extends TestCase
      * Provides a list of instantiable classes (existing)
      *
      * @return string[][]
+     *
+     * @phpstan-return list<array{class-string}>
      */
     public function getInstantiableClasses() : array
     {
