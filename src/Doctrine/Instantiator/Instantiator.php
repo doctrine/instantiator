@@ -194,10 +194,10 @@ final class Instantiator implements InstantiatorInterface
      *
      * Classes implementing `__clone` cannot be safely cloned, as that may cause side-effects.
      */
-    private function isSafeToClone(ReflectionClass $reflection) : bool
+    private function isSafeToClone(ReflectionClass $reflectionClass) : bool
     {
-        return $reflection->isCloneable()
-            && ! $reflection->hasMethod('__clone')
-            && ! $reflection->isSubclassOf(ArrayIterator::class);
+        return $reflectionClass->isCloneable()
+            && ! $reflectionClass->hasMethod('__clone')
+            && ! $reflectionClass->isSubclassOf(ArrayIterator::class);
     }
 }
