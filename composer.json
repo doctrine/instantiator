@@ -43,10 +43,5 @@
             "DoctrineTest\\InstantiatorTest\\": "tests",
             "DoctrineTest\\InstantiatorTestAsset\\": "tests"
         }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.4.x-dev"
-        }
     }
 }
