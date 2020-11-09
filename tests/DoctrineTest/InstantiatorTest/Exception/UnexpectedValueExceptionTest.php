@@ -7,6 +7,7 @@ use DoctrineTest\InstantiatorTestAsset\AbstractClassAsset;
 use Exception;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+
 use function sprintf;
 
 /**
@@ -16,7 +17,7 @@ use function sprintf;
  */
 class UnexpectedValueExceptionTest extends TestCase
 {
-    public function testFromSerializationTriggeredException() : void
+    public function testFromSerializationTriggeredException(): void
     {
         $reflectionClass = new ReflectionClass($this);
         $previous        = new Exception();
@@ -31,7 +32,7 @@ class UnexpectedValueExceptionTest extends TestCase
         );
     }
 
-    public function testFromUncleanUnSerialization() : void
+    public function testFromUncleanUnSerialization(): void
     {
         $reflection = new ReflectionClass(AbstractClassAsset::class);
         $exception  = UnexpectedValueException::fromUncleanUnSerialization($reflection, 'foo', 123, 'bar', 456);

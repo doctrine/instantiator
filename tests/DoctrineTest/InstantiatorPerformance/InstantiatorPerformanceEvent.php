@@ -20,7 +20,7 @@ class InstantiatorPerformanceEvent
     /** @var Instantiator */
     private $instantiator;
 
-    public function init() : void
+    public function init(): void
     {
         $this->instantiator = new Instantiator();
 
@@ -34,7 +34,7 @@ class InstantiatorPerformanceEvent
     /**
      * @Revs(20000)
      */
-    public function benchInstantiateSelf() : void
+    public function benchInstantiateSelf(): void
     {
         $this->instantiator->instantiate(self::class);
     }
@@ -42,7 +42,7 @@ class InstantiatorPerformanceEvent
     /**
      * @Revs(20000)
      */
-    public function benchInstantiateInternalClass() : void
+    public function benchInstantiateInternalClass(): void
     {
         $this->instantiator->instantiate(ArrayObject::class);
     }
@@ -50,7 +50,7 @@ class InstantiatorPerformanceEvent
     /**
      * @Revs(20000)
      */
-    public function benchInstantiateSimpleSerializableAssetClass() : void
+    public function benchInstantiateSimpleSerializableAssetClass(): void
     {
         $this->instantiator->instantiate(SimpleSerializableAsset::class);
     }
@@ -58,7 +58,7 @@ class InstantiatorPerformanceEvent
     /**
      * @Revs(20000)
      */
-    public function benchInstantiateSerializableArrayObjectAsset() : void
+    public function benchInstantiateSerializableArrayObjectAsset(): void
     {
         $this->instantiator->instantiate(SerializableArrayObjectAsset::class);
     }
@@ -66,7 +66,7 @@ class InstantiatorPerformanceEvent
     /**
      * @Revs(20000)
      */
-    public function benchInstantiateUnCloneableAsset() : void
+    public function benchInstantiateUnCloneableAsset(): void
     {
         $this->instantiator->instantiate(UnCloneableAsset::class);
     }

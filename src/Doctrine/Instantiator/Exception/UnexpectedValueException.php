@@ -5,6 +5,7 @@ namespace Doctrine\Instantiator\Exception;
 use Exception;
 use ReflectionClass;
 use UnexpectedValueException as BaseUnexpectedValueException;
+
 use function sprintf;
 
 /**
@@ -19,7 +20,7 @@ class UnexpectedValueException extends BaseUnexpectedValueException implements E
     public static function fromSerializationTriggeredException(
         ReflectionClass $reflectionClass,
         Exception $exception
-    ) : self {
+    ): self {
         return new self(
             sprintf(
                 'An exception was raised while trying to instantiate an instance of "%s" via un-serialization',
@@ -40,7 +41,7 @@ class UnexpectedValueException extends BaseUnexpectedValueException implements E
         int $errorCode,
         string $errorFile,
         int $errorLine
-    ) : self {
+    ): self {
         return new self(
             sprintf(
                 'Could not produce an instance of "%s" via un-serialization, since an error was triggered '

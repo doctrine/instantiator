@@ -19,6 +19,21 @@
         <exclude name="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly.ReferencedGeneralException"/>
     </rule>
 
+    <!-- Disable the rules that will require PHP 7.4 -->
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
+        <properties>
+            <property name="enableNativeTypeHint" value="false"/>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint">
+        <exclude-pattern>*/src/*</exclude-pattern>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint">
+        <exclude-pattern>*/src/*</exclude-pattern>
+    </rule>
+
     <rule ref="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming">
         <exclude-pattern>tests/DoctrineTest/InstantiatorTestAsset/AbstractClassAsset.php</exclude-pattern>
     </rule>
