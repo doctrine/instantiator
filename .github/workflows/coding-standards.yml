@@ -41,7 +41,7 @@ jobs:
           restore-keys: "php-${{ matrix.php-version }}-composer-locked-"
 
       - name: "Install dependencies with Composer"
-        run: "composer install --no-interaction --no-progress --no-suggest"
+        run: "composer install --no-interaction --no-progress"
 
       # https://github.com/doctrine/.github/issues/3
       - name: "Run PHP_CodeSniffer"
