@@ -1,6 +1,7 @@
 phpunit.xml
 build
 vendor
+/composer.lock
 coverage.clover
 /phpcs.xml
 /.phpcs-cache

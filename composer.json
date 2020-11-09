@@ -15,11 +15,6 @@
             "homepage": "https://ocramius.github.io/"
         }
     ],
-    "config": {
-        "platform": {
-            "php": "7.1.27"
-        }
-    },
     "require": {
         "php": "^7.1 || ^8.0"
     },
