@@ -7,6 +7,9 @@ use BadMethodCallException;
 
 /**
  * Test asset that extends an internal PHP class
+ *
+ * @template TValue
+ * @template-extends ArrayObject<int, TValue>
  */
 class ArrayObjectAsset extends ArrayObject
 {

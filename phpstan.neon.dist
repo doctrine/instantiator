@@ -9,10 +9,6 @@ parameters:
         - tests
 
     ignoreErrors:
-        -
-            message: '#::__construct\(\) does not call parent constructor from#'
-            path: '*/tests/DoctrineTest/InstantiatorTestAsset/*.php'
-
         # dynamic properties confuse static analysis
         -
             message: '#Access to an undefined property object::\$foo\.#'

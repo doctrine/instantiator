@@ -66,6 +66,11 @@ final class Instantiator implements InstantiatorInterface
      * Builds the requested object and caches it in static properties for performance
      *
      * @return object
+     *
+     * @template T of object
+     * @phpstan-param class-string<T> $className
+     *
+     * @phpstan-return T
      */
     private function buildAndCacheFromFactory(string $className)
     {
@@ -86,6 +91,11 @@ final class Instantiator implements InstantiatorInterface
      * @throws InvalidArgumentException
      * @throws UnexpectedValueException
      * @throws ReflectionException
+     *
+     * @template T of object
+     * @phpstan-param class-string<T> $className
+     *
+     * @phpstan-return callable(): T
      */
     private function buildFactory(string $className) : callable
     {
@@ -112,6 +122,11 @@ final class Instantiator implements InstantiatorInterface
     /**
      * @throws InvalidArgumentException
      * @throws ReflectionException
+     *
+     * @template T of object
+     * @phpstan-param class-string<T> $className
+     *
+     * @phpstan-return ReflectionClass<T>
      */
     private function getReflectionClass(string $className) : ReflectionClass
     {
@@ -130,6 +145,9 @@ final class Instantiator implements InstantiatorInterface
 
     /**
      * @throws UnexpectedValueException
+     *
+     * @template T of object
+     * @phpstan-param ReflectionClass<T> $reflectionClass
      */
     private function checkIfUnSerializationIsSupported(ReflectionClass $reflectionClass, string $serializedString) : void
     {
@@ -158,6 +176,9 @@ final class Instantiator implements InstantiatorInterface
 
     /**
      * @throws UnexpectedValueException
+     *
+     * @template T of object
+     * @phpstan-param ReflectionClass<T> $reflectionClass
      */
     private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, string $serializedString) : void
     {
@@ -168,6 +189,10 @@ final class Instantiator implements InstantiatorInterface
         }
     }
 
+    /**
+     * @template T of object
+     * @phpstan-param ReflectionClass<T> $reflectionClass
+     */
     private function isInstantiableViaReflection(ReflectionClass $reflectionClass) : bool
     {
         return ! ($this->hasInternalAncestors($reflectionClass) && $reflectionClass->isFinal());
@@ -175,6 +200,9 @@ final class Instantiator implements InstantiatorInterface
 
     /**
      * Verifies whether the given class is to be considered internal
+     *
+     * @template T of object
+     * @phpstan-param ReflectionClass<T> $reflectionClass
      */
     private function hasInternalAncestors(ReflectionClass $reflectionClass) : bool
     {
@@ -193,11 +221,14 @@ final class Instantiator implements InstantiatorInterface
      * Checks if a class is cloneable
      *
      * Classes implementing `__clone` cannot be safely cloned, as that may cause side-effects.
+     *
+     * @template T of object
+     * @phpstan-param ReflectionClass<T> $reflectionClass
      */
-    private function isSafeToClone(ReflectionClass $reflection) : bool
+    private function isSafeToClone(ReflectionClass $reflectionClass) : bool
     {
-        return $reflection->isCloneable()
-            && ! $reflection->hasMethod('__clone')
-            && ! $reflection->isSubclassOf(ArrayIterator::class);
+        return $reflectionClass->isCloneable()
+            && ! $reflectionClass->hasMethod('__clone')
+            && ! $reflectionClass->isSubclassOf(ArrayIterator::class);
     }
 }

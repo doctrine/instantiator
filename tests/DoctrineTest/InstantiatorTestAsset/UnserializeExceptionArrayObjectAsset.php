@@ -7,6 +7,9 @@ use BadMethodCallException;
 
 /**
  * A simple asset for an abstract class
+ *
+ * @template TValue
+ * @template-extends ArrayObject<int, TValue>
  */
 class UnserializeExceptionArrayObjectAsset extends ArrayObject
 {
