@@ -7,7 +7,7 @@
     "versions": [
         {
             "name": "1.4",
-            "branchName": "master",
+            "branchName": "1.4.x",
             "slug": "latest",
             "upcoming": true
         },
