@@ -18,6 +18,8 @@ interface InstantiatorInterface
      *
      * @template T of object
      * @phpstan-param class-string<T> $className
+     *
+     * @phpstan-return T
      */
     public function instantiate($className);
 }

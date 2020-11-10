@@ -3,6 +3,7 @@
 namespace Doctrine\Instantiator;
 
 use ArrayIterator;
+use Doctrine\Instantiator\Exception\ExceptionInterface;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
 use Exception;
@@ -43,12 +44,26 @@ final class Instantiator implements InstantiatorInterface
     private static $cachedCloneables = [];
 
     /**
-     * {@inheritDoc}
+     * @param string $className
+     *
+     * @return object
+     *
+     * @throws ExceptionInterface
+     *
+     * @template T of object
+     * @phpstan-param class-string<T> $className
+     *
+     * @phpstan-return T
      */
     public function instantiate($className)
     {
         if (isset(self::$cachedCloneables[$className])) {
-            return clone self::$cachedCloneables[$className];
+            /**
+             * @phpstan-var T
+             */
+            $cachedCloneable = self::$cachedCloneables[$className];
+
+            return clone $cachedCloneable;
         }
 
         if (isset(self::$cachedInstantiators[$className])) {
