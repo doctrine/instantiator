@@ -9,6 +9,7 @@ use Exception;
 use ReflectionClass;
 use ReflectionException;
 use Serializable;
+
 use function class_exists;
 use function is_subclass_of;
 use function restore_error_handler;
@@ -17,9 +18,6 @@ use function sprintf;
 use function strlen;
 use function unserialize;
 
-/**
- * {@inheritDoc}
- */
 final class Instantiator implements InstantiatorInterface
 {
     /**
@@ -97,7 +95,7 @@ final class Instantiator implements InstantiatorInterface
      *
      * @phpstan-return callable(): T
      */
-    private function buildFactory(string $className) : callable
+    private function buildFactory(string $className): callable
     {
         $reflectionClass = $this->getReflectionClass($className);
 
@@ -128,7 +126,7 @@ final class Instantiator implements InstantiatorInterface
      *
      * @phpstan-return ReflectionClass<T>
      */
-    private function getReflectionClass(string $className) : ReflectionClass
+    private function getReflectionClass(string $className): ReflectionClass
     {
         if (! class_exists($className)) {
             throw InvalidArgumentException::fromNonExistingClass($className);
@@ -149,9 +147,9 @@ final class Instantiator implements InstantiatorInterface
      * @template T of object
      * @phpstan-param ReflectionClass<T> $reflectionClass
      */
-    private function checkIfUnSerializationIsSupported(ReflectionClass $reflectionClass, string $serializedString) : void
+    private function checkIfUnSerializationIsSupported(ReflectionClass $reflectionClass, string $serializedString): void
     {
-        set_error_handler(static function (int $code, string $message, string $file, int $line) use ($reflectionClass, &$error) : bool {
+        set_error_handler(static function (int $code, string $message, string $file, int $line) use ($reflectionClass, &$error): bool {
             $error = UnexpectedValueException::fromUncleanUnSerialization(
                 $reflectionClass,
                 $message,
@@ -180,7 +178,7 @@ final class Instantiator implements InstantiatorInterface
      * @template T of object
      * @phpstan-param ReflectionClass<T> $reflectionClass
      */
-    private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, string $serializedString) : void
+    private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, string $serializedString): void
     {
         try {
             unserialize($serializedString);
@@ -193,7 +191,7 @@ final class Instantiator implements InstantiatorInterface
      * @template T of object
      * @phpstan-param ReflectionClass<T> $reflectionClass
      */
-    private function isInstantiableViaReflection(ReflectionClass $reflectionClass) : bool
+    private function isInstantiableViaReflection(ReflectionClass $reflectionClass): bool
     {
         return ! ($this->hasInternalAncestors($reflectionClass) && $reflectionClass->isFinal());
     }
@@ -204,7 +202,7 @@ final class Instantiator implements InstantiatorInterface
      * @template T of object
      * @phpstan-param ReflectionClass<T> $reflectionClass
      */
-    private function hasInternalAncestors(ReflectionClass $reflectionClass) : bool
+    private function hasInternalAncestors(ReflectionClass $reflectionClass): bool
     {
         do {
             if ($reflectionClass->isInternal()) {
@@ -225,7 +223,7 @@ final class Instantiator implements InstantiatorInterface
      * @template T of object
      * @phpstan-param ReflectionClass<T> $reflectionClass
      */
-    private function isSafeToClone(ReflectionClass $reflectionClass) : bool
+    private function isSafeToClone(ReflectionClass $reflectionClass): bool
     {
         return $reflectionClass->isCloneable()
             && ! $reflectionClass->hasMethod('__clone')

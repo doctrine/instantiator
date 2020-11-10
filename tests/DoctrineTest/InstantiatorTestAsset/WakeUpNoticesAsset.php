@@ -3,6 +3,7 @@
 namespace DoctrineTest\InstantiatorTestAsset;
 
 use ArrayObject;
+
 use function trigger_error;
 
 /**
@@ -16,7 +17,7 @@ class WakeUpNoticesAsset extends ArrayObject
     /**
      * Wakeup method called after un-serialization
      */
-    public function __wakeup()
+    public function __wakeup(): void
     {
         trigger_error('Something went bananas while un-serializing this instance');
     }

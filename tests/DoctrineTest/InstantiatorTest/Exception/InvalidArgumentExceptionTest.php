@@ -8,6 +8,7 @@ use DoctrineTest\InstantiatorTestAsset\AbstractClassAsset;
 use DoctrineTest\InstantiatorTestAsset\SimpleTraitAsset;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+
 use function sprintf;
 use function str_replace;
 use function uniqid;
@@ -19,7 +20,7 @@ use function uniqid;
  */
 class InvalidArgumentExceptionTest extends TestCase
 {
-    public function testFromNonExistingTypeWithNonExistingClass() : void
+    public function testFromNonExistingTypeWithNonExistingClass(): void
     {
         $className = self::class . str_replace('.', '', uniqid('', true));
         $exception = InvalidArgumentException::fromNonExistingClass($className);
@@ -28,7 +29,7 @@ class InvalidArgumentExceptionTest extends TestCase
         self::assertSame('The provided class "' . $className . '" does not exist', $exception->getMessage());
     }
 
-    public function testFromNonExistingTypeWithTrait() : void
+    public function testFromNonExistingTypeWithTrait(): void
     {
         $exception = InvalidArgumentException::fromNonExistingClass(SimpleTraitAsset::class);
 
@@ -38,7 +39,7 @@ class InvalidArgumentExceptionTest extends TestCase
         );
     }
 
-    public function testFromNonExistingTypeWithInterface() : void
+    public function testFromNonExistingTypeWithInterface(): void
     {
         $exception = InvalidArgumentException::fromNonExistingClass(InstantiatorInterface::class);
 
@@ -51,7 +52,7 @@ class InvalidArgumentExceptionTest extends TestCase
         );
     }
 
-    public function testFromAbstractClass() : void
+    public function testFromAbstractClass(): void
     {
         $reflection = new ReflectionClass(AbstractClassAsset::class);
         $exception  = InvalidArgumentException::fromAbstractClass($reflection);
