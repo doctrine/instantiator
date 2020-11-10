@@ -6,21 +6,27 @@
     "codePath": "/src",
     "versions": [
         {
-            "name": "1.4",
-            "branchName": "1.4.x",
+            "name": "1.5",
+            "branchName": "1.5.x",
             "slug": "latest",
             "upcoming": true
         },
         {
-            "name": "1.3",
-            "branchName": "1.3.x",
-            "slug": "1.3",
+            "name": "1.4",
+            "branchName": "1.4.x",
+            "slug": "1.4",
             "aliases": [
                 "current",
                 "stable"
             ],
             "maintained": true,
             "current": true
+        },
+        {
+            "name": "1.3",
+            "branchName": "1.3.x",
+            "slug": "1.3",
+            "maintained": false
         },
         {
             "name": "1.2",
