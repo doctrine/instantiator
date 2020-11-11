@@ -23,7 +23,6 @@ class UnexpectedValueExceptionTest extends TestCase
         $previous        = new Exception();
         $exception       = UnexpectedValueException::fromSerializationTriggeredException($reflectionClass, $previous);
 
-        self::assertInstanceOf(UnexpectedValueException::class, $exception);
         self::assertSame($previous, $exception->getPrevious());
         self::assertSame(
             'An exception was raised while trying to instantiate an instance of "'
@@ -37,7 +36,6 @@ class UnexpectedValueExceptionTest extends TestCase
         $reflection = new ReflectionClass(AbstractClassAsset::class);
         $exception  = UnexpectedValueException::fromUncleanUnSerialization($reflection, 'foo', 123, 'bar', 456);
 
-        self::assertInstanceOf(UnexpectedValueException::class, $exception);
         self::assertSame(
             sprintf(
                 'Could not produce an instance of "%s" '

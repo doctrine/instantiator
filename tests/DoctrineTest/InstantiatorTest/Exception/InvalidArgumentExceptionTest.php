@@ -25,7 +25,6 @@ class InvalidArgumentExceptionTest extends TestCase
         $className = self::class . str_replace('.', '', uniqid('', true));
         $exception = InvalidArgumentException::fromNonExistingClass($className);
 
-        self::assertInstanceOf(InvalidArgumentException::class, $exception);
         self::assertSame('The provided class "' . $className . '" does not exist', $exception->getMessage());
     }
 
