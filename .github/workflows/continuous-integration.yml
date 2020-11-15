@@ -15,7 +15,7 @@ env:
 
 jobs:
   phpunit:
-    name: "PHPUnit with SQLite"
+    name: "PHPUnit"
     runs-on: "ubuntu-20.04"
 
     strategy:
