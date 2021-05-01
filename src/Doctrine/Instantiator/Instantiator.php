@@ -55,7 +55,7 @@ final class Instantiator implements InstantiatorInterface
      *
      * @phpstan-return T
      */
-    public function instantiate($className)
+    public function instantiate(string $className)
     {
         if (isset(self::$cachedCloneables[$className])) {
             /**
