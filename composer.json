@@ -25,7 +25,8 @@
         "phpbench/phpbench":         "^0.13 || 1.0.0-alpha2",
         "phpstan/phpstan":           "^0.12",
         "phpstan/phpstan-phpunit":   "^0.12",
-        "phpunit/phpunit":           "^7.0 || ^8.0 || ^9.0"
+        "phpunit/phpunit":           "^7.0 || ^8.0 || ^9.0",
+        "vimeo/psalm": "^4.11"
     },
     "autoload": {
         "psr-4": {
