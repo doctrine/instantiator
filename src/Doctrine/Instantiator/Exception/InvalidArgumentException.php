@@ -28,8 +28,9 @@ class InvalidArgumentException extends BaseInvalidArgumentException implements E
     }
 
     /**
-     * @template T of object
      * @phpstan-param ReflectionClass<T> $reflectionClass
+     *
+     * @template T of object
      */
     public static function fromAbstractClass(ReflectionClass $reflectionClass): self
     {

@@ -9,6 +9,8 @@
     <!-- Ignore warnings, show progress of the run and show sniff names -->
     <arg value="nps"/>
 
+    <config name="php_version" value="70100"/>
+
     <file>src</file>
     <file>tests</file>
 
@@ -27,7 +29,9 @@
     </rule>
 
     <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint">
-        <exclude-pattern>*/src/*</exclude-pattern>
+        <exclude-pattern>src/*</exclude-pattern>
+        <exclude-pattern>tests/DoctrineTest/InstantiatorTestAsset/SerializableArrayObjectAsset.php</exclude-pattern>
+        <exclude-pattern>tests/DoctrineTest/InstantiatorTestAsset/SimpleSerializableAsset.php</exclude-pattern>
     </rule>
 
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint">

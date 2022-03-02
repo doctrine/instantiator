@@ -21,12 +21,12 @@
     "require-dev": {
         "ext-phar":                  "*",
         "ext-pdo":                   "*",
-        "doctrine/coding-standard":  "^8.0",
-        "phpbench/phpbench":         "^0.13 || 1.0.0-alpha2",
-        "phpstan/phpstan":           "^0.12",
-        "phpstan/phpstan-phpunit":   "^0.12",
-        "phpunit/phpunit":           "^7.0 || ^8.0 || ^9.0",
-        "vimeo/psalm": "^4.11"
+        "doctrine/coding-standard":  "^9",
+        "phpbench/phpbench":         "^0.16 || ^1",
+        "phpstan/phpstan":           "^1.4",
+        "phpstan/phpstan-phpunit":   "^1",
+        "phpunit/phpunit":           "^7.5 || ^8.5 || ^9.5",
+        "vimeo/psalm": "^4.22"
     },
     "autoload": {
         "psr-4": {
@@ -38,6 +38,11 @@
             "DoctrineTest\\InstantiatorPerformance\\": "tests",
             "DoctrineTest\\InstantiatorTest\\": "tests",
             "DoctrineTest\\InstantiatorTestAsset\\": "tests"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     }
 }
