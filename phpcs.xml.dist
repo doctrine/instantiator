@@ -51,4 +51,13 @@
         <exclude-pattern>src/Doctrine/Instantiator/Exception/ExceptionInterface.php</exclude-pattern>
         <exclude-pattern>src/Doctrine/Instantiator/InstantiatorInterface.php</exclude-pattern>
     </rule>
+
+    <rule ref="Generic.WhiteSpace.ScopeIndent.Incorrect">
+        <!-- see https://github.com/squizlabs/PHP_CodeSniffer/issues/3474 -->
+        <exclude-pattern>tests/DoctrineTest/InstantiatorTestAsset/SimpleEnumAsset.php</exclude-pattern>
+    </rule>
+    <rule ref="Generic.WhiteSpace.ScopeIndent.IncorrectExact">
+        <!-- see https://github.com/squizlabs/PHP_CodeSniffer/issues/3474 -->
+        <exclude-pattern>tests/DoctrineTest/InstantiatorTestAsset/SimpleEnumAsset.php</exclude-pattern>
+    </rule>
 </ruleset>

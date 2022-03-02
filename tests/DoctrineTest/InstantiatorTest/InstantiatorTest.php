@@ -14,6 +14,7 @@ use DoctrineTest\InstantiatorTestAsset\FinalExceptionAsset;
 use DoctrineTest\InstantiatorTestAsset\PharExceptionAsset;
 use DoctrineTest\InstantiatorTestAsset\SerializableArrayObjectAsset;
 use DoctrineTest\InstantiatorTestAsset\SerializableFinalInternalChildAsset;
+use DoctrineTest\InstantiatorTestAsset\SimpleEnumAsset;
 use DoctrineTest\InstantiatorTestAsset\SimpleSerializableAsset;
 use DoctrineTest\InstantiatorTestAsset\SimpleTraitAsset;
 use DoctrineTest\InstantiatorTestAsset\UnCloneableAsset;
@@ -21,6 +22,7 @@ use DoctrineTest\InstantiatorTestAsset\UnserializeExceptionArrayObjectAsset;
 use DoctrineTest\InstantiatorTestAsset\WakeUpNoticesAsset;
 use DoctrineTest\InstantiatorTestAsset\XMLReaderAsset;
 use Exception;
+use Generator;
 use PDORow;
 use PharException;
 use PHPUnit\Framework\TestCase;
@@ -28,6 +30,8 @@ use stdClass;
 
 use function str_replace;
 use function uniqid;
+
+use const PHP_VERSION_ID;
 
 /**
  * Tests for {@see \Doctrine\Instantiator\Instantiator}
@@ -142,15 +146,19 @@ class InstantiatorTest extends TestCase
     /**
      * Provides a list of instantiable classes (existing)
      *
-     * @return string[][]
+     * @psalm-return Generator<string, array{string}>
      */
-    public function getInvalidClassNames(): array
+    public function getInvalidClassNames(): Generator
     {
-        return [
-            [self::class . str_replace('.', '', uniqid('', true))],
-            [InstantiatorInterface::class],
-            [AbstractClassAsset::class],
-            [SimpleTraitAsset::class],
-        ];
+        yield 'invalid string' => [self::class . str_replace('.', '', uniqid('', true))];
+        yield 'interface' => [InstantiatorInterface::class];
+        yield 'abstract class' => [AbstractClassAsset::class];
+        yield 'trait' => [SimpleTraitAsset::class];
+
+        if (PHP_VERSION_ID < 80100) {
+            return;
+        }
+
+        yield 'enum' => [SimpleEnumAsset::class];
     }
 }
