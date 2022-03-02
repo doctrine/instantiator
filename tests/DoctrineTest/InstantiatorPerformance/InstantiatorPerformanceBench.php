@@ -15,7 +15,7 @@ use PhpBench\Benchmark\Metadata\Annotations\Revs;
  *
  * @BeforeMethods({"init"})
  */
-class InstantiatorPerformanceEvent
+class InstantiatorPerformanceBench
 {
     /** @var Instantiator */
     private $instantiator;

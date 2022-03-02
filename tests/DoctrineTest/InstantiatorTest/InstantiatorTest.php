@@ -47,8 +47,9 @@ class InstantiatorTest extends TestCase
     }
 
     /**
-     * @dataProvider getInstantiableClasses
      * @phpstan-param class-string $className
+     *
+     * @dataProvider getInstantiableClasses
      */
     public function testCanInstantiate(string $className): void
     {
@@ -56,8 +57,9 @@ class InstantiatorTest extends TestCase
     }
 
     /**
-     * @dataProvider getInstantiableClasses
      * @phpstan-param class-string $className
+     *
+     * @dataProvider getInstantiableClasses
      */
     public function testInstantiatesSeparateInstances(string $className): void
     {
@@ -76,8 +78,9 @@ class InstantiatorTest extends TestCase
     }
 
     /**
-     * @dataProvider getInvalidClassNames
      * @phpstan-param class-string $invalidClassName
+     *
+     * @dataProvider getInvalidClassNames
      */
     public function testInstantiationFromNonExistingClass(string $invalidClassName): void
     {
@@ -110,7 +113,6 @@ class InstantiatorTest extends TestCase
      * Provides a list of instantiable classes (existing)
      *
      * @return string[][]
-     *
      * @phpstan-return list<array{class-string}>
      */
     public function getInstantiableClasses(): array

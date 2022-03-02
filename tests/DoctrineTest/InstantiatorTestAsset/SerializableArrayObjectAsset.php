@@ -26,20 +26,20 @@ class SerializableArrayObjectAsset extends ArrayObject implements Serializable
 
     /**
      * {@inheritDoc}
-     */
-    public function serialize()
-    {
-        return '';
-    }
-
-    /**
-     * {@inheritDoc}
      *
      * Should not be called
      *
      * @throws BadMethodCallException
      */
-    public function unserialize($serialized)
+    public function unserialize($serialized): void
+    {
+        throw new BadMethodCallException('Not supposed to be called!');
+    }
+
+    /**
+     * @param mixed[] $data
+     */
+    public function __unserialize($data): void
     {
         throw new BadMethodCallException('Not supposed to be called!');
     }

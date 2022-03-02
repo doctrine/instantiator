@@ -4,12 +4,18 @@ includes:
 
 parameters:
     level: max
+    phpVersion: 80103
     paths:
         - src
         - tests
 
     ignoreErrors:
+        # PHPStan is unable to infer the return type of unserialize() in this case.
+        -
+            message: '#Method Doctrine\\Instantiator\\Instantiator\:\:buildFactory\(\) should return callable\(\): T of object but returns Closure\(\): mixed\.#'
+            path: 'src/Doctrine/Instantiator/Instantiator.php'
+
         # dynamic properties confuse static analysis
         -
             message: '#Access to an undefined property object::\$foo\.#'
-            path: '*/tests/DoctrineTest/InstantiatorTest/InstantiatorTest.php'
+            path: 'tests/DoctrineTest/InstantiatorTest/InstantiatorTest.php'
