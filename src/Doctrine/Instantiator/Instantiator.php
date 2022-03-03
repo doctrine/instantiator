@@ -12,12 +12,15 @@ use ReflectionException;
 use Serializable;
 
 use function class_exists;
+use function enum_exists;
 use function is_subclass_of;
 use function restore_error_handler;
 use function set_error_handler;
 use function sprintf;
 use function strlen;
 use function unserialize;
+
+use const PHP_VERSION_ID;
 
 final class Instantiator implements InstantiatorInterface
 {
@@ -146,6 +149,10 @@ final class Instantiator implements InstantiatorInterface
     {
         if (! class_exists($className)) {
             throw InvalidArgumentException::fromNonExistingClass($className);
+        }
+
+        if (PHP_VERSION_ID >= 80100 && enum_exists($className, false)) {
+            throw InvalidArgumentException::fromEnum($className);
         }
 
         $reflection = new ReflectionClass($className);

@@ -33,7 +33,7 @@ class InvalidArgumentExceptionTest extends TestCase
         $exception = InvalidArgumentException::fromNonExistingClass(SimpleTraitAsset::class);
 
         self::assertSame(
-            sprintf('The provided type "%s" is a trait, and can not be instantiated', SimpleTraitAsset::class),
+            sprintf('The provided type "%s" is a trait, and cannot be instantiated', SimpleTraitAsset::class),
             $exception->getMessage()
         );
     }
@@ -44,7 +44,7 @@ class InvalidArgumentExceptionTest extends TestCase
 
         self::assertSame(
             sprintf(
-                'The provided type "%s" is an interface, and can not be instantiated',
+                'The provided type "%s" is an interface, and cannot be instantiated',
                 InstantiatorInterface::class
             ),
             $exception->getMessage()
@@ -58,7 +58,7 @@ class InvalidArgumentExceptionTest extends TestCase
 
         self::assertSame(
             sprintf(
-                'The provided class "%s" is abstract, and can not be instantiated',
+                'The provided class "%s" is abstract, and cannot be instantiated',
                 AbstractClassAsset::class
             ),
             $exception->getMessage()
