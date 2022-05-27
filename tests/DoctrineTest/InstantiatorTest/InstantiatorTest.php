@@ -95,14 +95,20 @@ class InstantiatorTest extends TestCase
 
     public function testInstancesAreNotCloned(): void
     {
+        $namespace = __NAMESPACE__;
         $className = 'TemporaryClass' . str_replace('.', '', uniqid('', true));
 
-        eval('namespace ' . __NAMESPACE__ . '; class ' . $className . '{}');
+        eval(<<< PHP
+namespace $namespace;
+#[\AllowDynamicProperties]
+class $className {}
+PHP
+        );
 
         /**
          * @phpstan-var class-string
          */
-        $classNameWithNamespace = __NAMESPACE__ . '\\' . $className;
+        $classNameWithNamespace = $namespace . '\\' . $className;
 
         $instance = $this->instantiator->instantiate($classNameWithNamespace);
 
