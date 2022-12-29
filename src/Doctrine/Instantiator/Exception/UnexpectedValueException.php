@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Doctrine\Instantiator\Exception;
 
 use Exception;
@@ -20,15 +22,15 @@ class UnexpectedValueException extends BaseUnexpectedValueException implements E
      */
     public static function fromSerializationTriggeredException(
         ReflectionClass $reflectionClass,
-        Exception $exception
+        Exception $exception,
     ): self {
         return new self(
             sprintf(
                 'An exception was raised while trying to instantiate an instance of "%s" via un-serialization',
-                $reflectionClass->getName()
+                $reflectionClass->getName(),
             ),
             0,
-            $exception
+            $exception,
         );
     }
 
@@ -42,7 +44,7 @@ class UnexpectedValueException extends BaseUnexpectedValueException implements E
         string $errorString,
         int $errorCode,
         string $errorFile,
-        int $errorLine
+        int $errorLine,
     ): self {
         return new self(
             sprintf(
@@ -50,10 +52,10 @@ class UnexpectedValueException extends BaseUnexpectedValueException implements E
                 . 'in file "%s" at line "%d"',
                 $reflectionClass->getName(),
                 $errorFile,
-                $errorLine
+                $errorLine,
             ),
             0,
-            new Exception($errorString, $errorCode)
+            new Exception($errorString, $errorCode),
         );
     }
 }

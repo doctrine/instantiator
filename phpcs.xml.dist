@@ -9,33 +9,13 @@
     <!-- Ignore warnings, show progress of the run and show sniff names -->
     <arg value="nps"/>
 
-    <config name="php_version" value="70100"/>
+    <config name="php_version" value="80100"/>
 
     <file>src</file>
     <file>tests</file>
 
     <rule ref="Doctrine">
-        <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingReturnTypeHint"/>
         <exclude name="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly.ReferencedGeneralException"/>
-    </rule>
-
-    <!-- Disable the rules that will require PHP 7.4 -->
-    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
-        <properties>
-            <property name="enableNativeTypeHint" value="false"/>
-        </properties>
-    </rule>
-
-    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint">
-        <exclude-pattern>src/*</exclude-pattern>
-        <exclude-pattern>tests/DoctrineTest/InstantiatorTestAsset/SerializableArrayObjectAsset.php</exclude-pattern>
-        <exclude-pattern>tests/DoctrineTest/InstantiatorTestAsset/SimpleSerializableAsset.php</exclude-pattern>
-    </rule>
-
-    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint">
-        <exclude-pattern>*/src/*</exclude-pattern>
     </rule>
 
     <rule ref="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming">
@@ -50,14 +30,5 @@
     <rule ref="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming">
         <exclude-pattern>src/Doctrine/Instantiator/Exception/ExceptionInterface.php</exclude-pattern>
         <exclude-pattern>src/Doctrine/Instantiator/InstantiatorInterface.php</exclude-pattern>
-    </rule>
-
-    <rule ref="Generic.WhiteSpace.ScopeIndent.Incorrect">
-        <!-- see https://github.com/squizlabs/PHP_CodeSniffer/issues/3474 -->
-        <exclude-pattern>tests/DoctrineTest/InstantiatorTestAsset/SimpleEnumAsset.php</exclude-pattern>
-    </rule>
-    <rule ref="Generic.WhiteSpace.ScopeIndent.IncorrectExact">
-        <!-- see https://github.com/squizlabs/PHP_CodeSniffer/issues/3474 -->
-        <exclude-pattern>tests/DoctrineTest/InstantiatorTestAsset/SimpleEnumAsset.php</exclude-pattern>
     </rule>
 </ruleset>

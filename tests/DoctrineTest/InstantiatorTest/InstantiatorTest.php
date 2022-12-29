@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DoctrineTest\InstantiatorTest;
 
 use ArrayObject;
@@ -31,8 +33,6 @@ use stdClass;
 use function str_replace;
 use function uniqid;
 
-use const PHP_VERSION_ID;
-
 /**
  * Tests for {@see \Doctrine\Instantiator\Instantiator}
  *
@@ -40,8 +40,7 @@ use const PHP_VERSION_ID;
  */
 class InstantiatorTest extends TestCase
 {
-    /** @var Instantiator */
-    private $instantiator;
+    private Instantiator $instantiator;
 
     protected function setUp(): void
     {
@@ -158,11 +157,6 @@ PHP
         yield 'interface' => [InstantiatorInterface::class];
         yield 'abstract class' => [AbstractClassAsset::class];
         yield 'trait' => [SimpleTraitAsset::class];
-
-        if (PHP_VERSION_ID < 80100) {
-            return;
-        }
-
         yield 'enum' => [SimpleEnumAsset::class];
     }
 }
