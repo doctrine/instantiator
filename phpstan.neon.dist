@@ -4,7 +4,7 @@ includes:
 
 parameters:
     level: max
-    phpVersion: 80103
+    phpVersion: 80200
     paths:
         - src
         - tests

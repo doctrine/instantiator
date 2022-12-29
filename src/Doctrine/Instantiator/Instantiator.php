@@ -60,9 +60,7 @@ final class Instantiator implements InstantiatorInterface
     public function instantiate($className)
     {
         if (isset(self::$cachedCloneables[$className])) {
-            /**
-             * @phpstan-var T
-             */
+            /** @phpstan-var T */
             $cachedCloneable = self::$cachedCloneables[$className];
 
             return clone $cachedCloneable;
