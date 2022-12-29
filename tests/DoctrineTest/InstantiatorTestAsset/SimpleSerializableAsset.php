@@ -37,17 +37,13 @@ class SimpleSerializableAsset implements Serializable
         throw new BadMethodCallException('Not supposed to be called!');
     }
 
-    /**
-     * @return mixed[]
-     */
+    /** @return mixed[] */
     public function __serialize(): array
     {
         return [];
     }
 
-    /**
-     * @param mixed[] $data
-     */
+    /** @param mixed[] $data */
     public function __unserialize($data): void
     {
         throw new BadMethodCallException('Not supposed to be called!');

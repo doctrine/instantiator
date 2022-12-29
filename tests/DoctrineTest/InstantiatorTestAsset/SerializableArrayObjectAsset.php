@@ -36,9 +36,7 @@ class SerializableArrayObjectAsset extends ArrayObject implements Serializable
         throw new BadMethodCallException('Not supposed to be called!');
     }
 
-    /**
-     * @param mixed[] $data
-     */
+    /** @param mixed[] $data */
     public function __unserialize($data): void
     {
         throw new BadMethodCallException('Not supposed to be called!');

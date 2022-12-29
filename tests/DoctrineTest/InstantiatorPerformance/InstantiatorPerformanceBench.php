@@ -31,41 +31,31 @@ class InstantiatorPerformanceBench
         $this->instantiator->instantiate(UnCloneableAsset::class);
     }
 
-    /**
-     * @Revs(20000)
-     */
+    /** @Revs(20000) */
     public function benchInstantiateSelf(): void
     {
         $this->instantiator->instantiate(self::class);
     }
 
-    /**
-     * @Revs(20000)
-     */
+    /** @Revs(20000) */
     public function benchInstantiateInternalClass(): void
     {
         $this->instantiator->instantiate(ArrayObject::class);
     }
 
-    /**
-     * @Revs(20000)
-     */
+    /** @Revs(20000) */
     public function benchInstantiateSimpleSerializableAssetClass(): void
     {
         $this->instantiator->instantiate(SimpleSerializableAsset::class);
     }
 
-    /**
-     * @Revs(20000)
-     */
+    /** @Revs(20000) */
     public function benchInstantiateSerializableArrayObjectAsset(): void
     {
         $this->instantiator->instantiate(SerializableArrayObjectAsset::class);
     }
 
-    /**
-     * @Revs(20000)
-     */
+    /** @Revs(20000) */
     public function benchInstantiateUnCloneableAsset(): void
     {
         $this->instantiator->instantiate(UnCloneableAsset::class);

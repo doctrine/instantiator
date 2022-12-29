@@ -105,9 +105,7 @@ class $className {}
 PHP
         );
 
-        /**
-         * @phpstan-var class-string
-         */
+        /** @phpstan-var class-string */
         $classNameWithNamespace = $namespace . '\\' . $className;
 
         $instance = $this->instantiator->instantiate($classNameWithNamespace);
