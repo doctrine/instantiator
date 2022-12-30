@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DoctrineTest\InstantiatorTestAsset;
 
 use ArrayObject;
@@ -37,7 +39,7 @@ class SerializableArrayObjectAsset extends ArrayObject implements Serializable
     }
 
     /** @param mixed[] $data */
-    public function __unserialize($data): void
+    public function __unserialize(array $data): void
     {
         throw new BadMethodCallException('Not supposed to be called!');
     }
