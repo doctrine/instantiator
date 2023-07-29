@@ -12,7 +12,7 @@ parameters:
     ignoreErrors:
         # PHPStan is unable to infer the return type of unserialize() in this case.
         -
-            message: '#Method Doctrine\\Instantiator\\Instantiator\:\:buildFactory\(\) should return callable\(\): T of object but returns Closure\(\): mixed\.#'
+            message: '#Method Doctrine\\Instantiator\\Instantiator\:\:buildFactory\(\) should return callable\(\): T but returns Closure\(\): mixed\.#'
             path: 'src/Doctrine/Instantiator/Instantiator.php'
 
         # dynamic properties confuse static analysis
