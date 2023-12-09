@@ -21,11 +21,11 @@
     "require-dev": {
         "ext-phar":                  "*",
         "ext-pdo":                   "*",
-        "doctrine/coding-standard":  "^11",
+        "doctrine/coding-standard":  "^12",
         "phpbench/phpbench":         "^1.2",
         "phpstan/phpstan":           "^1.9.4",
         "phpstan/phpstan-phpunit":   "^1.3",
-        "phpunit/phpunit":           "^10.1.0",
+        "phpunit/phpunit":           "^10.5",
         "vimeo/psalm":               "^5.4"
     },
     "autoload": {
