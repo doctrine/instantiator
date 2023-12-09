@@ -123,7 +123,7 @@ PHP
      * @return string[][]
      * @phpstan-return list<array{class-string}>
      */
-    public function getInstantiableClasses(): array
+    public static function getInstantiableClasses(): array
     {
         return [
             [stdClass::class],
@@ -152,7 +152,7 @@ PHP
      *
      * @psalm-return Generator<string, array{string}>
      */
-    public function getInvalidClassNames(): Generator
+    public static function getInvalidClassNames(): Generator
     {
         yield 'invalid string' => [self::class . str_replace('.', '', uniqid('', true))];
         yield 'interface' => [InstantiatorInterface::class];

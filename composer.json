@@ -25,7 +25,7 @@
         "phpbench/phpbench":         "^0.16 || ^1",
         "phpstan/phpstan":           "^1.4",
         "phpstan/phpstan-phpunit":   "^1",
-        "phpunit/phpunit":           "^7.5 || ^8.5 || ^9.5",
+        "phpunit/phpunit":           "^7.5 || ^8.5 || ^9.6",
         "vimeo/psalm": "^4.30 || ^5.4"
     },
     "autoload": {
