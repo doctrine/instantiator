@@ -149,7 +149,7 @@ PHP
     /**
      * Provides a list of instantiable classes (existing)
      *
-     * @psalm-return Generator<string, array{string}>
+     * @return Generator<string, array{string}>
      */
     public static function getInvalidClassNames(): Generator
     {
