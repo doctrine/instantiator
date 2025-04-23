@@ -1,5 +1,6 @@
 /.github               export-ignore
 /tests                 export-ignore
+/docs                  export-ignore
 .doctrine-project.json export-ignore
 .gitattributes         export-ignore
 .gitignore             export-ignore
@@ -9,3 +10,4 @@ phpmd.xml.dist         export-ignore
 phpstan.neon.dist      export-ignore
 phpunit.xml.dist       export-ignore
 composer.lock          export-ignore
+/CONTRIBUTING.md       export-ignore
