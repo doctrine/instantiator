@@ -23,8 +23,8 @@
         "ext-pdo":                   "*",
         "doctrine/coding-standard":  "^12",
         "phpbench/phpbench":         "^1.2",
-        "phpstan/phpstan":           "^1.9.4",
-        "phpstan/phpstan-phpunit":   "^1.3",
+        "phpstan/phpstan":           "^2.1",
+        "phpstan/phpstan-phpunit":   "^2.0",
         "phpunit/phpunit":           "^10.5"
     },
     "autoload": {
