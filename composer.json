@@ -21,7 +21,7 @@
     "require-dev": {
         "ext-phar":                  "*",
         "ext-pdo":                   "*",
-        "doctrine/coding-standard":  "^12",
+        "doctrine/coding-standard":  "^14",
         "phpbench/phpbench":         "^1.2",
         "phpstan/phpstan":           "^1.9.4",
         "phpstan/phpstan-phpunit":   "^1.3",
