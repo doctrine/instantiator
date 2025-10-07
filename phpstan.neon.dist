@@ -19,3 +19,13 @@ parameters:
         -
             message: '#Access to an undefined property object::\$foo\.#'
             path: 'tests/DoctrineTest/InstantiatorTest/InstantiatorTest.php'
+
+	# The property is static, we cannot use templating here
+        -
+            message: '#instantiate\(\) should return#'
+            path: 'src/Doctrine/Instantiator/Instantiator.php'
+
+	# this trait is not meant to be use'd
+        -
+            message: '#is used zero times#'
+            path: 'tests/DoctrineTest/InstantiatorTestAsset/SimpleTraitAsset.php'

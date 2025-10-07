@@ -35,7 +35,7 @@ final class Instantiator implements InstantiatorInterface
     /**
      * Used to instantiate specific classes, indexed by class name.
      *
-     * @var callable[]
+     * @var array<class-string, callable(): object>
      */
     private static array $cachedInstantiators = [];
 
