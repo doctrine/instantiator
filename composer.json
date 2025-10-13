@@ -25,7 +25,7 @@
         "phpbench/phpbench":         "^1.2",
         "phpstan/phpstan":           "^2.1",
         "phpstan/phpstan-phpunit":   "^2.0",
-        "phpunit/phpunit":           "^10.5"
+        "phpunit/phpunit":           "^10.5.58"
     },
     "autoload": {
         "psr-4": {
