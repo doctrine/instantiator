@@ -13,5 +13,3 @@ jobs:
   static-analysis:
     name: "Static Analysis"
     uses: "doctrine/.github/.github/workflows/phpstan.yml@13.1.0"
-    with:
-      composer-root-version: "1.4"
