@@ -12,7 +12,7 @@
     <!-- Ignore warnings, show progress of the run and show sniff names -->
     <arg value="nps"/>
 
-    <config name="php_version" value="80100"/>
+    <config name="php_version" value="80400"/>
 
     <file>src</file>
     <file>tests</file>
