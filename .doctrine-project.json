@@ -5,12 +5,22 @@
     "docsSlug": "doctrine-instantiator",
     "versions": [
         {
+            "name": "2.2",
+            "branchName": "2.2.x",
+            "slug": "2.2",
+            "upcoming": true
+        },
+        {
+            "name": "2.1",
+            "branchName": "2.1.x",
+            "slug": "2.1",
+            "current": true
+        },
+        {
             "name": "2.0",
             "branchName": "2.0.x",
             "slug": "2.0",
-            "aliases": ["latest"],
-            "maintained": true,
-            "current": true
+            "maintained": false
         },
         {
             "name": "1.5",
