@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DoctrineTest\InstantiatorTestAsset;
 
 use BadMethodCallException;
+use Override;
 use Serializable;
 
 /**
@@ -22,6 +23,7 @@ class SimpleSerializableAsset implements Serializable
         throw new BadMethodCallException('Not supposed to be called!');
     }
 
+    #[Override]
     public function serialize(): string
     {
         return '';
@@ -34,6 +36,7 @@ class SimpleSerializableAsset implements Serializable
      *
      * @throws BadMethodCallException
      */
+    #[Override]
     public function unserialize(string $serialized): void
     {
         throw new BadMethodCallException('Not supposed to be called!');

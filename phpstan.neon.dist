@@ -4,6 +4,7 @@ includes:
 
 parameters:
     level: max
+    checkMissingOverrideMethodAttribute: true
     phpVersion: 80400
     paths:
         - src

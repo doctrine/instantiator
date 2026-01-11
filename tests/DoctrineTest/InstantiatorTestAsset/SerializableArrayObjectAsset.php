@@ -6,6 +6,7 @@ namespace DoctrineTest\InstantiatorTestAsset;
 
 use ArrayObject;
 use BadMethodCallException;
+use Override;
 use Serializable;
 
 /**
@@ -27,18 +28,18 @@ class SerializableArrayObjectAsset extends ArrayObject implements Serializable
     }
 
     /**
-     * {@inheritDoc}
-     *
      * Should not be called
      *
      * @throws BadMethodCallException
      */
-    public function unserialize($serialized): void
+    #[Override]
+    public function unserialize(string $serialized): void
     {
         throw new BadMethodCallException('Not supposed to be called!');
     }
 
     /** @param mixed[] $data */
+    #[Override]
     public function __unserialize(array $data): void
     {
         throw new BadMethodCallException('Not supposed to be called!');
