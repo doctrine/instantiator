@@ -25,6 +25,7 @@ use DoctrineTest\InstantiatorTestAsset\WakeUpNoticesAsset;
 use DoctrineTest\InstantiatorTestAsset\XMLReaderAsset;
 use Exception;
 use Generator;
+use Override;
 use PDORow;
 use PharException;
 use PHPUnit\Framework\TestCase;
@@ -42,6 +43,7 @@ class InstantiatorTest extends TestCase
 {
     private Instantiator $instantiator;
 
+    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
