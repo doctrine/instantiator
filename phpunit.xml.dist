@@ -13,7 +13,7 @@
     </php>
 
     <testsuite name="Doctrine\Instantiator tests">
-        <directory>./tests/DoctrineTest/InstantiatorTest</directory>
+        <directory>./tests/InstantiatorTest</directory>
     </testsuite>
     <source>
         <include>

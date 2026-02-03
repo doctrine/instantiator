@@ -1,4 +1,4 @@
 {
     "runner.bootstrap": "vendor/autoload.php",
-    "runner.path": "tests/DoctrineTest/InstantiatorPerformance"
+    "runner.path": "tests/InstantiatorPerformance"
 }
