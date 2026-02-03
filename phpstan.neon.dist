@@ -13,19 +13,19 @@ parameters:
         # PHPStan is unable to infer the return type of unserialize() in this case.
         -
             message: '#Method Doctrine\\Instantiator\\Instantiator\:\:buildFactory\(\) should return callable\(\): T but returns Closure\(\): mixed\.#'
-            path: 'src/Doctrine/Instantiator/Instantiator.php'
+            path: 'src/Instantiator.php'
 
         # dynamic properties confuse static analysis
         -
             message: '#Access to an undefined property object::\$foo\.#'
-            path: 'tests/DoctrineTest/InstantiatorTest/InstantiatorTest.php'
+            path: 'tests/InstantiatorTest/InstantiatorTest.php'
 
 	# The property is static, we cannot use templating here
         -
             message: '#instantiate\(\) should return#'
-            path: 'src/Doctrine/Instantiator/Instantiator.php'
+            path: 'src/Instantiator.php'
 
 	# this trait is not meant to be use'd
         -
             message: '#is used zero times#'
-            path: 'tests/DoctrineTest/InstantiatorTestAsset/SimpleTraitAsset.php'
+            path: 'tests/InstantiatorTestAsset/SimpleTraitAsset.php'
