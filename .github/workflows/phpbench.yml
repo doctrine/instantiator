@@ -1,43 +1,41 @@
-
-name: "Performance benchmark"
+name: Performance benchmark
 
 on:
   pull_request:
     branches:
-      - "*.x"
+      - *.x
   push:
     branches:
-      - "*.x"
+      - *.x
 
 env:
   fail-fast: true
 
 jobs:
   phpbench:
-    name: "PHPBench"
-    runs-on: "ubuntu-22.04"
+    name: PHPBench
+
+    runs-on: ubuntu-22.04
 
     strategy:
       matrix:
-        php-version:
-          - "8.4"
-          - "8.5"
+        php-version: ['8.3', '8.4', '8.4', '8.5', '8.5']
 
     steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v6"
+      - name: Checkout
+        uses: actions/checkout@v6
         with:
           fetch-depth: 2
 
-      - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: "${{ matrix.php-version }}"
-          coverage: "pcov"
-          ini-values: "zend.assertions=1"
+          php-version: ${{ matrix.php-version }}
+          coverage: pcov
+          ini-values: zend.assertions=1
 
-      - name: "Install dependencies with Composer"
-        uses: "ramsey/composer-install@v3"
+      - name: Install dependencies with Composer
+        uses: ramsey/composer-install@v3
 
-      - name: "Run PHPBench"
-        run: "php ./vendor/bin/phpbench run --iterations=3 --warmup=1 --report=aggregate"
+      - name: Run PHPBench
+        run: php ./vendor/bin/phpbench run --iterations=3 --warmup=1 --report=aggregate
