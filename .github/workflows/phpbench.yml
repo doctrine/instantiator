@@ -37,7 +37,7 @@ jobs:
           ini-values: "zend.assertions=1"
 
       - name: "Install dependencies with Composer"
-        uses: "ramsey/composer-install@v3"
+        uses: "ramsey/composer-install@v4"
 
       - name: "Run PHPBench"
         run: "php ./vendor/bin/phpbench run --iterations=3 --warmup=1 --report=aggregate"
