@@ -17,7 +17,7 @@ $ git clone git://github.com/doctrine/instantiator.git
 You will then need to run a composer installation:
 
 ```sh
-$ cd Instantiator
+$ cd instantiator
 $ curl -s https://getcomposer.org/installer | php
 $ php composer.phar update
 ```
