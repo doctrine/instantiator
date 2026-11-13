@@ -28,17 +28,15 @@ use Generator;
 use Override;
 use PDORow;
 use PharException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 use function str_replace;
 use function uniqid;
 
-/**
- * Tests for {@see \Doctrine\Instantiator\Instantiator}
- *
- * @covers \Doctrine\Instantiator\Instantiator
- */
+#[CoversClass(Instantiator::class)]
 class InstantiatorTest extends TestCase
 {
     private Instantiator $instantiator;
@@ -51,21 +49,15 @@ class InstantiatorTest extends TestCase
         $this->instantiator = new Instantiator();
     }
 
-    /**
-     * @phpstan-param class-string $className
-     *
-     * @dataProvider getInstantiableClasses
-     */
+    /** @phpstan-param class-string $className */
+    #[DataProvider('getInstantiableClasses')]
     public function testCanInstantiate(string $className): void
     {
         self::assertInstanceOf($className, $this->instantiator->instantiate($className));
     }
 
-    /**
-     * @phpstan-param class-string $className
-     *
-     * @dataProvider getInstantiableClasses
-     */
+    /** @phpstan-param class-string $className */
+    #[DataProvider('getInstantiableClasses')]
     public function testInstantiatesSeparateInstances(string $className): void
     {
         $instance1 = $this->instantiator->instantiate($className);
@@ -82,11 +74,8 @@ class InstantiatorTest extends TestCase
         $this->instantiator->instantiate(PDORow::class);
     }
 
-    /**
-     * @phpstan-param class-string $invalidClassName
-     *
-     * @dataProvider getInvalidClassNames
-     */
+    /** @phpstan-param class-string $invalidClassName */
+    #[DataProvider('getInvalidClassNames')]
     public function testInstantiationFromNonExistingClass(string $invalidClassName): void
     {
         $this->expectException(InvalidArgumentException::class);

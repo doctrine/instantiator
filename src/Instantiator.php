@@ -197,11 +197,13 @@ final class Instantiator implements InstantiatorInterface
      * @throws UnexpectedValueException
      *
      * @template T of object
+     * @phpstan-ignore throws.unusedType (false positive reported in https://github.com/phpstan/phpstan/issues/15329)
      */
     private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, string $serializedString): void
     {
         try {
             unserialize($serializedString);
+        /** @phpstan-ignore catch.neverThrown (false positive reported in https://github.com/phpstan/phpstan/issues/15329) */
         } catch (Exception $exception) {
             throw UnexpectedValueException::fromSerializationTriggeredException($reflectionClass, $exception);
         }
