@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace DoctrineTest\InstantiatorTestAsset;
 
-use ArrayIterator;
+use ArrayObject;
 
 /**
  * @template TValue
- * @template-extends ArrayIterator<int, TValue>
+ * @template-extends ArrayObject<int, TValue>
  */
-final class SerializableFinalInternalChildAsset extends ArrayIterator
+final class SerializableFinalInternalChildAsset extends ArrayObject
 {
 }
