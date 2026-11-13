@@ -22,10 +22,10 @@
         "ext-phar":                  "*",
         "ext-pdo":                   "*",
         "doctrine/coding-standard":  "^14",
-        "phpbench/phpbench":         "^1.2",
-        "phpstan/phpstan":           "^2.1",
-        "phpstan/phpstan-phpunit":   "^2.0",
-        "phpunit/phpunit":           "^10.5.58"
+        "phpbench/phpbench":         "^1.7",
+        "phpstan/phpstan":           "^2.3",
+        "phpstan/phpstan-phpunit":   "^2.1",
+        "phpunit/phpunit":           "^13.4.6"
     },
     "autoload": {
         "psr-4": {

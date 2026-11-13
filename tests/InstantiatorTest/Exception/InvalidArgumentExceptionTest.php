@@ -8,6 +8,7 @@ use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Doctrine\Instantiator\InstantiatorInterface;
 use DoctrineTest\InstantiatorTestAsset\AbstractClassAsset;
 use DoctrineTest\InstantiatorTestAsset\SimpleTraitAsset;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
@@ -15,11 +16,7 @@ use function sprintf;
 use function str_replace;
 use function uniqid;
 
-/**
- * Tests for {@see \Doctrine\Instantiator\Exception\InvalidArgumentException}
- *
- * @covers \Doctrine\Instantiator\Exception\InvalidArgumentException
- */
+#[CoversClass(InvalidArgumentException::class)]
 class InvalidArgumentExceptionTest extends TestCase
 {
     public function testFromNonExistingTypeWithNonExistingClass(): void
