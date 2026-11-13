@@ -7,16 +7,13 @@ namespace DoctrineTest\InstantiatorTest\Exception;
 use Doctrine\Instantiator\Exception\UnexpectedValueException;
 use DoctrineTest\InstantiatorTestAsset\AbstractClassAsset;
 use Exception;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
 use function sprintf;
 
-/**
- * Tests for {@see \Doctrine\Instantiator\Exception\UnexpectedValueException}
- *
- * @covers \Doctrine\Instantiator\Exception\UnexpectedValueException
- */
+#[CoversClass(UnexpectedValueException::class)]
 class UnexpectedValueExceptionTest extends TestCase
 {
     public function testFromSerializationTriggeredException(): void

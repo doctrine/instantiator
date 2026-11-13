@@ -15,7 +15,7 @@
     <testsuite name="Doctrine\Instantiator tests">
         <directory>./tests/InstantiatorTest</directory>
     </testsuite>
-    <source>
+    <source ignoreSuppressionOfDeprecations="true">
         <include>
             <directory suffix=".php">./src</directory>
         </include>
